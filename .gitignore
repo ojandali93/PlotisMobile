@@ -102,3 +102,9 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Additional files
+zillow.js
+firebase.js
+.DS_Store
+venv/
