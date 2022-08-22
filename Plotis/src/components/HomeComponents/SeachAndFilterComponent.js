@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, TextInput, SafeAreaView } from 'react-native'
 import { FontAwesome, Feather } from 'react-native-vector-icons'
 
-import ResultViewComponent from '../ResultViewComponent'
+import ResultViewComponent from './ResultViewComponent'
 
 const SeachAndFilterComponent = (props) => {
   const {
@@ -13,7 +13,8 @@ const SeachAndFilterComponent = (props) => {
     setCurrentSearch,
     updateResultView,
     setIsFilter,
-    setIsSort
+    setIsSort,
+    updateIsSort
   } = props
 
   return (
@@ -64,18 +65,22 @@ const SeachAndFilterComponent = (props) => {
       <View style={styles.separtor}></View>
       <View style={styles.bar}> 
         <View style={styles.filterAndSortContainer}> 
-          <View style={[styles.actionContainer, styles.mgnr8]}> 
-            <Feather size={18} name='filter'/>
-            <Text style={[styles.label, styles.ml8]}>
-              Filter
-            </Text>
-          </View>
-          <View style={styles.actionContainer}> 
-            <FontAwesome size={18} name='sort'/>
-            <Text style={[styles.label, styles.ml8]}>
-              Sort
-            </Text>
-          </View>
+          <TouchableOpacity>
+            <View style={[styles.actionContainer, styles.mgnr8]}> 
+              <Feather size={18} name='filter'/>
+              <Text style={[styles.label, styles.ml8]}>
+                Filter
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => {updateIsSort()}}>
+            <View style={styles.actionContainer}> 
+              <FontAwesome size={18} name='sort'/>
+              <Text style={[styles.label, styles.ml8]}>
+                Sort
+              </Text>
+            </View>
+          </TouchableOpacity>
         </View>
         <View style={[styles.actionContainer, styles.saveStyle]}> 
           <Text style={[styles.label, styles.fcw]}>Save Serach</Text>
@@ -127,7 +132,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   input: {
-    fontSize: '17pt',
+    fontSize: 17,
     width: 280,
     paddingHorizontal: 8
   },
@@ -138,7 +143,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'grey'
   },
   label: {
-    fontSize: '17pt'
+    fontSize: 17
   },
   mgnr8: {
     marginRight: 8

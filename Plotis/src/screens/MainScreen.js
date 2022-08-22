@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 
 import SeachAndFilterComponent from '../components/HomeComponents/SeachAndFilterComponent'
+import SortComponent from '../components/HomeComponents/SortComponent'
 
 const MainScreen = () => {
 
@@ -9,8 +10,9 @@ const MainScreen = () => {
   const [activeSearch, setActiveSearch] = useState()
   const [searchHistory, setSearchHistory] = useState()
   const [resultView, setResultView] = useState('list')
-  const [isFilter, setIsFilter] = useState()
-  const [isSort, setIsSort] = useState()
+  const [isFilter, setIsFilter] = useState(false)
+  const [isSort, setIsSort] = useState(false)
+  const [sort, setSort] = useState('')
 
   const updateResultView = (view) => {
     if(view == 'list'){
@@ -19,6 +21,17 @@ const MainScreen = () => {
     if(view == 'map'){
       setResultView('map')
     }
+  }
+
+  const updateIsSort = () => {
+    if(isSort == false){
+      setIsSort(true)
+    }
+  }
+
+  const updateSort = (sort) => {
+    setSort(sort)
+    setIsSort(false)
   }
 
   return (
@@ -33,8 +46,13 @@ const MainScreen = () => {
           updateResultView={updateResultView}
           setIsFilter={setIsFilter}
           setIsSort={setIsSort}
+          updateIsSort={updateIsSort}
         />
       </View>
+      {
+        isSort == false ? null : <SortComponent updateSort={updateSort} sort={sort}/>
+      }
+      <View><Text>Sort: {sort}</Text></View>
     </View>
   )
 }
