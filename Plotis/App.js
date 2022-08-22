@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import { LogBox } from 'react-native';
 
 import { Feather } from 'react-native-vector-icons'
 
@@ -22,7 +23,8 @@ import SellHomeScreen from './src/screens/SellHomeScreen';
 import SignupScreen from './src/screens/SignupScreen';
 import StartOfferScreen from './src/screens/StartOfferScreen';
 
-console.disableYellowBox = true;
+// console.disableYellowBox = true;
+LogBox.ignoreAllLogs(true)
 
 const TabNav = createBottomTabNavigator();
 const StackNav = createStackNavigator();
