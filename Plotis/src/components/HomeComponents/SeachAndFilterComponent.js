@@ -14,7 +14,9 @@ const SeachAndFilterComponent = (props) => {
     updateResultView,
     setIsFilter,
     setIsSort,
-    updateIsSort
+    updateIsSort,
+    updateFilter,
+    setAppliedFilters
   } = props
 
   return (
@@ -65,7 +67,7 @@ const SeachAndFilterComponent = (props) => {
       <View style={styles.separtor}></View>
       <View style={styles.bar}> 
         <View style={styles.filterAndSortContainer}> 
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => {updateFilter()}}>
             <View style={[styles.actionContainer, styles.mgnr8]}> 
               <Feather size={18} name='filter'/>
               <Text style={[styles.label, styles.ml8]}>

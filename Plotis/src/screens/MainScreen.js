@@ -3,8 +3,9 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 
 import SeachAndFilterComponent from '../components/HomeComponents/SeachAndFilterComponent'
 import SortComponent from '../components/HomeComponents/SortComponent'
+import FilterScreen from './FilterScreen'
 
-const MainScreen = () => {
+const MainScreen = ({navigation, route}) => {
 
   const [currentSearch, setCurrentSearch] = useState()
   const [activeSearch, setActiveSearch] = useState()
@@ -13,6 +14,13 @@ const MainScreen = () => {
   const [isFilter, setIsFilter] = useState(false)
   const [isSort, setIsSort] = useState(false)
   const [sort, setSort] = useState('')
+  const [appliedFilters, setAppliedFilters] = useState({})
+
+  useEffect(() => {
+    if (route.params?.newFilter) {
+      setAppliedFilters(route.params.newFilter);
+    }
+  }, [route.params])
 
   const updateResultView = (view) => {
     if(view == 'list'){
@@ -34,6 +42,14 @@ const MainScreen = () => {
     setIsSort(false)
   }
 
+  const updateFilter = () => {
+    if(Object.keys(appliedFilters).length === 0){
+      navigation.navigate('FilterStack')
+    } else {
+      navigation.navigate('FilterStack', {appliedFilters:appliedFilters})
+    }
+  }
+
   return (
     <View>
       <View style={styles.sortAndFilterContainer}> 
@@ -47,6 +63,7 @@ const MainScreen = () => {
           setIsFilter={setIsFilter}
           setIsSort={setIsSort}
           updateIsSort={updateIsSort}
+          updateFilter={updateFilter}
         />
       </View>
       {

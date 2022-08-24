@@ -22,6 +22,7 @@ import RegisterProfileScreen from './src/screens/RegisterProfileScreen';
 import SellHomeScreen from './src/screens/SellHomeScreen';
 import SignupScreen from './src/screens/SignupScreen';
 import StartOfferScreen from './src/screens/StartOfferScreen';
+import FilterScreen from './src/screens/FilterScreen'
 
 // console.disableYellowBox = true;
 LogBox.ignoreAllLogs(true)
@@ -38,6 +39,7 @@ const HomeStack = () => {
       <StackNav.Screen name="GallerStack" component={GalleryScreen} />
       <StackNav.Screen name="StartOfferStack" component={StartOfferScreen} />
       <StackNav.Screen name="PreApprovedStack" component={PreApprovalScreen} />
+      <StackNav.Screen name="FilterStack" component={FilterScreen} />
      </StackNav.Navigator>
   )
 }
