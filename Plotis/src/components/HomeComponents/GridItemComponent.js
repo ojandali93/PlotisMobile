@@ -35,14 +35,14 @@ const GridItemComponent = (props) => {
 
 const styles = StyleSheet.create({
   itemContainer: {
-    width: '33%',
+    width: '33.33%',
     display: 'flex',
     paddingVertical: 22,
     borderColor: 'grey',
     borderWidth: 1,
   },
   itemContainerBlue: {
-    width: '33%',
+    width: '33.33%',
     display: 'flex',
     paddingVertical: 22,
     borderColor: 'grey',

@@ -74,7 +74,7 @@ const FilterScreen = ({navigation, route}) => {
 
   const resetFilter = () => {
     setBedCount(0)
-    setBathCount(filter.bathsMin)
+    setBathCount(0)
     setMin(0)
     setMax(11000000)
     setSliderValues([min, max])
