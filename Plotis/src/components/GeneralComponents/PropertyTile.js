@@ -22,7 +22,6 @@ const PropertyTile = (props) => {
 
   const [isFavorite, setIsFavorite] = useState(false)
 
-  // console.log(item.item.daysOnZillow)
   const updateFavorites = () => {
     console.log('favorites')
     if(isFavorite){

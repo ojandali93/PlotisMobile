@@ -26,7 +26,6 @@ const MainScreen = ({navigation, route}) => {
     setLoading(true)
     axios.request(extendedPropertOptions)
       .then((response) => {
-        console.log(response.data)
         setResults(response.data.props)
         setResultCount(response.data.totalResultCount)
         setLoading(false)
@@ -103,7 +102,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     padding: 8,
     borderBottomColor: 'grey',
-    borderBottomWidth: 2
+    borderBottomWidth: 2,
+    marginTop: 44
   }
 })
 

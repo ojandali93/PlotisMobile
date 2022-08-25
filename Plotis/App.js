@@ -32,7 +32,7 @@ const StackNav = createStackNavigator();
 
 const HomeStack = () => {
   return (
-    <StackNav.Navigator initialRouteName='Home' screenOptions={{}}>
+    <StackNav.Navigator initialRouteName='Home' screenOptions={{headerShown: false}}>
       <StackNav.Screen name="HomeScreen" component={MainScreen}/>
       <StackNav.Screen name="PropertyScreen" component={PropertyScreen} />
       <StackNav.Screen name="ContactAgentStack" component={ContactAgentScreen} />
@@ -78,6 +78,10 @@ const ProfStackile = () => {
 const MainTabkNavigation = () => {
   return (
     <NavigationContainer>
+      <StatusBar
+        animated={true}
+        backgroundColor="#61dafb"
+        barStyle={{color: 'black'}}/>
       <TabNav.Navigator screenOptions={{headerShown: false}}>
         <TabNav.Screen 
           key='Home' 
