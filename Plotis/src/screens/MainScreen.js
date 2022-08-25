@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import axios from 'axios'
 
 import SeachAndFilterComponent from '../components/HomeComponents/SeachAndFilterComponent'
 import SortComponent from '../components/HomeComponents/SortComponent'
-import FilterScreen from './FilterScreen'
+import LoadingComponent from '../components/HomeComponents/LoadingComponent'
+import ResultViewComponent from '../components/HomeComponents/ResultViewComponent'
+
+import { extendedPropertOptions } from '../../zillow'
 
 const MainScreen = ({navigation, route}) => {
-
   const [currentSearch, setCurrentSearch] = useState()
   const [activeSearch, setActiveSearch] = useState()
   const [searchHistory, setSearchHistory] = useState()
@@ -15,6 +18,23 @@ const MainScreen = ({navigation, route}) => {
   const [isSort, setIsSort] = useState(false)
   const [sort, setSort] = useState('')
   const [appliedFilters, setAppliedFilters] = useState({})
+  const [loading, setLoading] = useState(false)
+  const [results, setResults] = useState([])
+  const [resultCount, setResultCount] = useState(0)
+
+  useEffect(() => {
+    setLoading(true)
+    axios.request(extendedPropertOptions)
+      .then((response) => {
+        console.log(response.data)
+        setResults(response.data.props)
+        setResultCount(response.data.totalResultCount)
+        setLoading(false)
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+  }, [])
 
   useEffect(() => {
     if (route.params?.newFilter) {
@@ -69,7 +89,9 @@ const MainScreen = ({navigation, route}) => {
       {
         isSort == false ? null : <SortComponent updateSort={updateSort} sort={sort}/>
       }
-      <View><Text>Sort: {sort}</Text></View>
+      {
+        loading == true ? <LoadingComponent/> : <ResultViewComponent results={results} resultCount={resultCount}/>
+      }
     </View>
   )
 }
