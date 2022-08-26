@@ -1,11 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList, ScrollView } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 
 import { singlePropertyOptions, singlePropertyImages } from '../../zillow'
 
 import CarouselComponent from '../components/PropertyScreenComponents.js/CarouselComponent';
 import SummaryComponent from '../components/PropertyScreenComponents.js/SummaryComponent'
+import QuickActions from '../components/PropertyScreenComponents.js/QuickActions';
+import KeyDetailCompoent from '../components/PropertyScreenComponents.js/KeyDetailCompoent';
+import DescriptionComponent from '../components/PropertyScreenComponents.js/DescriptionComponent';
+import ExpensesComponents from '../components/PropertyScreenComponents.js/ExpensesComponents';
 
 import { Dimensions } from 'react-native'
 import axios from 'axios'
@@ -27,7 +31,7 @@ const PropertyScreen = ({route}) => {
   const [currentHomeAddress, setCurrentHomeAddress] = useState()
   const [homeImages, setHomeImages] = useState()
   const [selectedImage, setSelectedImage] = useState()
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     setIsLoading(true)
@@ -78,15 +82,24 @@ const PropertyScreen = ({route}) => {
   const loadedData = () => {
     return(
       <View style={styles.fullView}>
-        <CarouselComponent 
-          homeImages={homeImages} 
-          selectedImage={selectedImage} 
-          updateFeaturedImage={updateFeaturedImage}
-          goToGallery={goToGallery}/>
-        <SummaryComponent 
-          currentHome={currentHome} 
-          currentHomeAddress={currentHomeAddress}/>
-        <View style={styles.separaterContainer}><View style={styles.separater}></View></View>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <CarouselComponent 
+            homeImages={homeImages} 
+            selectedImage={selectedImage} 
+            updateFeaturedImage={updateFeaturedImage}
+            goToGallery={goToGallery}/>
+          <SummaryComponent 
+            currentHome={currentHome} 
+            currentHomeAddress={currentHomeAddress}/>
+          <View style={styles.separaterContainer}><View style={styles.separater}></View></View>
+          <QuickActions/>
+          <View style={styles.separaterContainer}><View style={styles.separater}></View></View>
+          <KeyDetailCompoent currentHome={currentHome}/>
+          <View style={styles.separaterContainer}><View style={styles.separater}></View></View>
+          <DescriptionComponent description={currentHome.description}/>
+          <View style={styles.separaterContainer}><View style={styles.separater}></View></View>
+          <ExpensesComponents currentHome={currentHome}/>
+        </ScrollView>
       </View>
     )
   }
