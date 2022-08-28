@@ -41,11 +41,11 @@ const SeachAndFilterComponent = (props) => {
               resultView == 'list' 
                 ? 
                   <View style={styles.viewOptionSelected}> 
-                    <Feather style={styles.icon} size={16} name='list'/>
+                    <Feather style={styles.selectedIcon} size={16} name='list'/>
                   </View>
                 : 
                   <View style={styles.viewOptionUnelected}> 
-                    <Feather style={styles.icon} size={16} name='list'/>
+                    <Feather style={styles.unselectedIcon} size={16} name='list'/>
                   </View>
             }
           </TouchableOpacity> 
@@ -54,11 +54,11 @@ const SeachAndFilterComponent = (props) => {
               resultView == 'map' 
                 ? 
                   <View style={styles.viewOptionSelected}> 
-                    <Feather style={styles.icon} size={16} name='map'/>
+                    <Feather style={styles.selectedIcon} size={16} name='map'/>
                   </View>
                 : 
                   <View style={styles.viewOptionUnelected}> 
-                    <Feather style={styles.icon} size={16} name='map'/>
+                    <Feather style={styles.unselectedIcon} size={16} name='map'/>
                   </View>
             }
           </TouchableOpacity>
@@ -102,23 +102,25 @@ const styles = StyleSheet.create({
   searchContainer: {
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
+    
   },
   viewContainer: {
     display: 'flex',
     flexDirection: 'row',
     backgroundColor: 'grey',
     borderRadius: 5,
-    alignItems: 'center'
+    alignContent: 'center'
   },
   viewOptionSelected: {
     backgroundColor: 'lightgrey',
-    margin: 1,
-    borderRadius: 5
+    margin: 2,
+    borderRadius: 5,
   },
   viewOptionUnselected: {
-    margin: 2,
-    borderRadius: 5
+    margin: 3,
+    borderRadius: 5,
+    color: 'white'
   },
   filterAndSortContainer: {
     display: 'flex',
@@ -150,12 +152,16 @@ const styles = StyleSheet.create({
   mgnr8: {
     marginRight: 8
   },
-  icon: {
+  unselectedIcon: {
+    marginHorizontal: 6,
+    marginVertical: 6
+  },
+  selectedIcon: {
     marginHorizontal: 6,
     marginVertical: 6,
   },
   saveStyle: {
-    backgroundColor: '#1c39bb',
+    backgroundColor: '#1560bd',
   },
   fcw: {
     color: 'white',

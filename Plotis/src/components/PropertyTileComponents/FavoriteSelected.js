@@ -16,10 +16,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     paddingHorizontal: 8,
     paddingVertical: 8,
-    borderRadius: 50
+    borderRadius: 50,
   },
   icon: {
-    color: '#1c39bb'
+    color: '#1560bd'
   }
 })
 

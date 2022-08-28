@@ -10,6 +10,10 @@ import QuickActions from '../components/PropertyScreenComponents.js/QuickActions
 import KeyDetailCompoent from '../components/PropertyScreenComponents.js/KeyDetailCompoent';
 import DescriptionComponent from '../components/PropertyScreenComponents.js/DescriptionComponent';
 import ExpensesComponents from '../components/PropertyScreenComponents.js/ExpensesComponents';
+import RevenueComponent from '../components/PropertyScreenComponents.js/RevenueComponent';
+import PreapprovedComponent from '../components/PropertyScreenComponents.js/PreapprovedComponent';
+import InvestmentMetricsComponent from '../components/PropertyScreenComponents.js/InvestmentMetricsComponent';
+import TaxAndPriceComponent from '../components/PropertyScreenComponents.js/TaxAndPriceComponent';
 
 import { Dimensions } from 'react-native'
 import axios from 'axios'
@@ -99,6 +103,15 @@ const PropertyScreen = ({route}) => {
           <DescriptionComponent description={currentHome.description}/>
           <View style={styles.separaterContainer}><View style={styles.separater}></View></View>
           <ExpensesComponents currentHome={currentHome}/>
+          <View style={styles.separaterContainer}><View style={styles.separater}></View></View>
+          <RevenueComponent currentHome={currentHome}/>
+          <View style={styles.separaterContainer}><View style={styles.separater}></View></View>
+          <PreapprovedComponent />
+          <View style={styles.separaterContainer}><View style={styles.separater}></View></View>
+          <InvestmentMetricsComponent />
+          <View style={styles.separaterContainer}><View style={styles.separater}></View></View>
+          <TaxAndPriceComponent />
+          <View style={styles.separaterContainer}><View style={styles.separater}></View></View>
         </ScrollView>
       </View>
     )
@@ -128,9 +141,9 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   separater: {
-    width: '94%',
+    width: '100%',
     height: 2,
-    backgroundColor: 'grey'
+    backgroundColor: 'lightgrey'
   }
 })
 

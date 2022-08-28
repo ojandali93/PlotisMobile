@@ -15,6 +15,14 @@ const ExpensesComponents = (props) => {
     currentHome
   } = props
 
+  const [mortgage, setMortgage] = useState()
+  const [mortgageInsurance, setMortgageInsurance] = useState()
+  const [homeInsurance, setMortageInsurance] = useState()
+  const [propertyTax, setPropertyTax] = useState()
+  const [hoa, setHoa] = useState()
+  const [utilities, setUtilities] = useState()
+  const [additionalExpenses, setAdditionalExpenses] = useState()
+
   return (
     <View style={styles.keyDetailsContainer}>
       <View style={styles.headerContainer}>
@@ -22,7 +30,7 @@ const ExpensesComponents = (props) => {
         <Text style={styles.label}>$4,556</Text>
       </View>
       <View style={styles.separateContainer}></View>
-      <EditMortgages currentHome={currentHome}/>
+      <EditMortgages currentHome={currentHome} mortgage={mortgage}/>
       <View style={styles.separateContainer}></View>
       <MortgageInsuranceComponent currentHome={currentHome}/>
       <View style={styles.separateContainer}></View>
@@ -32,12 +40,9 @@ const ExpensesComponents = (props) => {
       <View style={styles.separateContainer}></View>
       <HOAComponent currentHome={currentHome} />
       <View style={styles.separateContainer}></View>
-      <AdditionalExpensesComponent currentHome={currentHome} />
-      <View style={styles.separateContainer}></View>
       <UtilitiesComponent currentHome={currentHome}/>
       <View style={styles.separateContainer}></View>
       <OtherExpensesComponent currentHome={currentHome} />
-      <View style={styles.separateContainer}></View>
     </View>
   )
 }
@@ -64,7 +69,7 @@ const styles = StyleSheet.create({
   },
   separateContainer: {
     width: '94%',
-    marginLeft: '2%',
+    marginLeft: '3%',
     height: 2,
     backgroundColor: 'grey',
     marginVertical: 8

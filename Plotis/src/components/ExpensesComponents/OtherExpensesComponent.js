@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, TextInput } from 'react-native'
 import { Feather } from 'react-native-vector-icons'
 
 const OtherExpensesComponent = (props) => {
@@ -7,54 +7,131 @@ const OtherExpensesComponent = (props) => {
 
   } = props
 
+  const [openEdit, setOpenEdit] = useState('0')
+  const [internet, setInternet] = useState('0')
+  const [maintenance, setMaintenance] = useState('0')
+  const [management, setManagement] = useState('0')
+  const [repairs, setRepairs] = useState('0')
+  const [homeWarranty, setHomeWarranty] = useState('0')
+  const [other, setOther] = useState('0')
+
+  const updateOpenEdit = () => {
+    if(openEdit == false){
+      setOpenEdit(true)
+    } else {
+      setOpenEdit(false)
+    }
+  }
+
   return (
     <View style={styles.additionalExpensesContainer}>
-      <View style={styles.additionalExpensesHeader}>
-        <Text style={styles.label}>Additional Expenses:</Text>
-        <Text style={styles.label}>$1,234</Text>
-      </View>
-      <View style={styles.keyValueRow}>
-        <Text style={styles.title}>Internet:</Text>
-        <View style={styles.values}>
-          <Text style={styles.value}>$1,234</Text>
-          <Feather style={styles.icon} size={20} name='edit-3'/> 
+      <TouchableOpacity onPress={() => {updateOpenEdit()}}>
+        <View style={styles.additionalExpensesHeader}>
+          <Text style={styles.label}>Additional Expenses:</Text>
+          <View style={styles.dropDown}>
+            <Text style={styles.label}>$1,234</Text>
+            <Feather style={styles.chevronDown} size={20} name='chevrons-down'/>
+          </View>
         </View>
-      </View>
-      <View style={styles.keyValueRow}>
-        <Text style={styles.title}>Maintenance:</Text>
-        <View style={styles.values}>
-          <Text style={styles.value}>$1,234</Text>
-          <Feather style={styles.icon} size={20} name='edit-3'/> 
-        </View>
-      </View>
-      <View style={styles.keyValueRow}>
-        <Text style={styles.title}>Management:</Text>
-        <View style={styles.values}>
-          <Text style={styles.value}>$1,234</Text>
-          <Feather style={styles.icon} size={20} name='edit-3'/> 
-        </View>
-      </View>
-      <View style={styles.keyValueRow}>
-        <Text style={styles.title}>Repairs:</Text>
-        <View style={styles.values}>
-          <Text style={styles.value}>$1,234</Text>
-          <Feather style={styles.icon} size={20} name='edit-3'/> 
-        </View>
-      </View>
-      <View style={styles.keyValueRow}>
-        <Text style={styles.title}>Home Warranty:</Text>
-        <View style={styles.values}>
-          <Text style={styles.value}>$1,234</Text>
-          <Feather style={styles.icon} size={20} name='edit-3'/> 
-        </View>
-      </View>
-      <View style={styles.keyValueRow}>
-        <Text style={styles.title}>Other Expenses:</Text>
-        <View style={styles.values}>
-          <Text style={styles.value}>$1,234</Text>
-          <Feather style={styles.icon} size={20} name='edit-3'/> 
-        </View>
-      </View>
+      </TouchableOpacity>
+      {
+        openEdit == false ? null : <><View style={styles.keyValueRow}>
+                                        <Text style={styles.title}>Internet:</Text>
+                                        <View style={styles.values}>
+                                          <Text style={styles.value}>$</Text>
+                                          <TextInput 
+                                            value={internet}
+                                            onChangeText={setInternet}
+                                            keyboardType='numeric'
+                                            style={styles.input}
+                                          />
+                                        </View>
+                                      </View></>
+      }
+      {
+        openEdit == false ? null : <><View style={styles.keyValueRow}>
+                                        <Text style={styles.title}>Maintenance:</Text>
+                                        <View style={styles.values}>
+                                          <Text style={styles.value}>$</Text>
+                                          <TextInput 
+                                            value={maintenance}
+                                            onChangeText={setMaintenance}
+                                            keyboardType='numeric'
+                                            style={styles.input}
+                                          />
+                                        </View>
+                                      </View></>
+      }
+      {
+        openEdit == false ? null : <><View style={styles.keyValueRow}>
+                                        <Text style={styles.title}>Management:</Text>
+                                        <View style={styles.values}>
+                                          <Text style={styles.value}>$</Text>
+                                          <TextInput 
+                                            value={management}
+                                            onChangeText={setManagement}
+                                            keyboardType='numeric'
+                                            style={styles.input}
+                                          />
+                                        </View>
+                                      </View></>
+      }
+      {
+        openEdit == false ? null : <><View style={styles.keyValueRow}>
+                                        <Text style={styles.title}>Repairs:</Text>
+                                        <View style={styles.values}>
+                                          <Text style={styles.value}>$</Text>
+                                          <TextInput 
+                                            value={repairs}
+                                            onChangeText={setRepairs}
+                                            keyboardType='numeric'
+                                            style={styles.input}
+                                          />
+                                        </View>
+                                      </View></>
+      }
+      {
+        openEdit == false ? null : <><View style={styles.keyValueRow}>
+                                        <Text style={styles.title}>Repairs:</Text>
+                                        <View style={styles.values}>
+                                          <Text style={styles.value}>$</Text>
+                                          <TextInput 
+                                            value={repairs}
+                                            onChangeText={setRepairs}
+                                            keyboardType='numeric'
+                                            style={styles.input}
+                                          />
+                                        </View>
+                                      </View></>
+      }
+      {
+        openEdit == false ? null : <><View style={styles.keyValueRow}>
+                                        <Text style={styles.title}>Home Warranty:</Text>
+                                        <View style={styles.values}>
+                                          <Text style={styles.value}>$</Text>
+                                          <TextInput 
+                                            value={homeWarranty}
+                                            onChangeText={setHomeWarranty}
+                                            keyboardType='numeric'
+                                            style={styles.input}
+                                          />
+                                        </View>
+                                      </View></>
+      }
+      {
+        openEdit == false ? null : <><View style={styles.keyValueRow}>
+                                        <Text style={styles.title}>Other:</Text>
+                                        <View style={styles.values}>
+                                          <Text style={styles.value}>$</Text>
+                                          <TextInput 
+                                            value={other}
+                                            onChangeText={setOther}
+                                            keyboardType='numeric'
+                                            style={styles.input}
+                                          />
+                                        </View>
+                                      </View></>
+      }
     </View>
   )
 }
@@ -70,11 +147,18 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 8
   },
   label: {
     fontSize: 17,
     fontWeight: '600'
+  },
+  disclaimer: {
+    width: '90%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginLeft: '5%',
+    marginBottom: 8
   },
   keyValueRow: {
     width: '90%',
@@ -82,7 +166,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginLeft: '5%',
-    marginBottom: 8
+    marginVertical: 8
   },
   title: {
     fontSize: 17,
@@ -91,14 +175,38 @@ const styles = StyleSheet.create({
   values: {
     display: 'flex',
     flexDirection: 'row',
+    marginLeft: 4
   },
   value: {
     fontSize: 17,
-    fontWeight: '500'
+    fontWeight: '500',
+    marginLeft: 4
   },
   icon: {
     marginLeft: 8
-  }
+  },
+  dropDown: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  disclaimer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 8
+  },
+  input: {
+    width: 100,
+    fontSize: 17,
+    borderBottomColor: 'black',
+    borderBottomWidth: 1,
+    backgroundColor: 'lightgrey',
+    paddingLeft: 4
+  },
+  chevronDown: {
+    marginLeft: 8
+  },
 })
 
 export default OtherExpensesComponent
