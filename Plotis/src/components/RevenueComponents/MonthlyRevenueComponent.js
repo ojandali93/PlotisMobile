@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, TextInput } from 'react-native'
 import { Feather } from 'react-native-vector-icons'
 
 const MonthlyRevenueComponent = (props) => {
@@ -7,35 +7,87 @@ const MonthlyRevenueComponent = (props) => {
 
   } = props
 
+  const [openEdit, setOpenEdit] = useState(false)
+  const [monthlyRent, setMonthlyRent] = useState('0')
+  const [yearlyRent, setYearlyRent] = useState('0')
+
+  const updateOpenEdit = () => {
+    if(openEdit == false){
+      setOpenEdit(true)
+    } else {
+      setOpenEdit(false)
+    }
+  }
+
   return (
     <View style={styles.revenueContainer}>
-      <View style={styles.keyValueRow}>
-        <Text style={styles.title}>Monthly Revenue:</Text>
-        <View style={styles.values}>
-          <Text style={styles.value}>$1,234</Text>
-          <Feather style={styles.icon} size={20} name='edit-3'/> 
+      <TouchableOpacity onPress={() => {updateOpenEdit()}}>
+        <View style={styles.revenueHeader}>
+          <Text style={styles.label}>Rent:</Text>
+          <View style={styles.dropDown}>
+            <Text style={styles.label}>$1,234</Text>
+            <Feather style={styles.chevronDown} size={20} name='chevrons-down'/>
+          </View>
         </View>
-      </View>
-      <View style={styles.keyValueRow}>
-        <Text style={styles.title}>Yearly Revenue:</Text>
-        <View style={styles.values}>
-          <Text style={styles.value}>$1,234</Text>
-          <Feather style={styles.icon} size={20} name='edit-3'/> 
-        </View>
-      </View>
+      </TouchableOpacity>
+      {
+        openEdit == false ? null : <><View style={styles.keyValueRow}>
+                                        <Text style={styles.title}>Monthly Rent:</Text>
+                                        <View style={styles.values}>
+                                          <Text style={styles.value}>$</Text>
+                                          <TextInput 
+                                            value={monthlyRent}
+                                            onChangeText={setMonthlyRent}
+                                            keyboardType='numeric'
+                                            style={styles.input}
+                                          />
+                                        </View>
+                                      </View></>
+      }
+      {
+        openEdit == false ? null : <><View style={styles.keyValueRow}>
+                                        <Text style={styles.title}>Yearly Rent:</Text>
+                                        <View style={styles.values}>
+                                          <Text style={styles.value}>$</Text>
+                                          <TextInput 
+                                            value={yearlyRent}
+                                            onChangeText={setYearlyRent}
+                                            keyboardType='numeric'
+                                            style={styles.input}
+                                          />
+                                        </View>
+                                      </View></>
+      }
+      
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   revenueContainer: {
-    marginVertical: 8
+    width: '94%',
+    display: 'flex',
+    flexDirection: 'column',
+    marginLeft: '3%',
+    marginTop: 8
   },
-  additionalExpensesHeader: {
+  revenueHeader: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 8
+  },
+  dropDown: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  label: {
+    fontSize: 17,
+    fontWeight: '600'
+  },
+  chevronDown: {
+    marginLeft: 8,
+    color: '#1560bd'
   },
   keyValueRow: {
     width: '90%',
@@ -43,7 +95,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginLeft: '5%',
-    marginBottom: 8
+    marginVertical: 8
   },
   title: {
     fontSize: 17,
@@ -52,13 +104,35 @@ const styles = StyleSheet.create({
   values: {
     display: 'flex',
     flexDirection: 'row',
+    marginLeft: 4
   },
   value: {
     fontSize: 17,
-    fontWeight: '500'
+    fontWeight: '500',
   },
   icon: {
     marginLeft: 8
+  },
+  input: {
+    width: 100,
+    fontSize: 17,
+    borderBottomColor: 'black',
+    borderBottomWidth: 1,
+    backgroundColor: 'lightgrey',
+    paddingLeft: 4
+  },
+  shortInput: {
+    width: 35,
+    fontSize: 17,
+    borderBottomColor: 'black',
+    borderBottomWidth: 1,
+    backgroundColor: 'lightgrey'
+  },
+  disclaimer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 8
   }
 })
 

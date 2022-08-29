@@ -7,7 +7,7 @@ const HOAComponent = (props) => {
 
   } = props
 
-  const [openEdit, setOpenEdit] = useState(true)
+  const [openEdit, setOpenEdit] = useState(false)
   const [hoaFee, setHoaFee] = useState('0')
 
   const updateOpenEdit = () => {
@@ -119,7 +119,8 @@ const styles = StyleSheet.create({
     paddingLeft: 4
   },
   chevronDown: {
-    marginLeft: 8
+    marginLeft: 8,
+    color: '#1560bd'
   },
 })
 

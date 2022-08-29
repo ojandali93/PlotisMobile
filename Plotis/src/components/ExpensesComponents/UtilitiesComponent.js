@@ -7,7 +7,7 @@ const UtilitiesComponent = (props) => {
 
   } = props
 
-  const [openEdit, setOpenEdit] = useState(true)
+  const [openEdit, setOpenEdit] = useState(false)
   const [utilities, setUtilities] = useState('0')
   const [gas, setGas] = useState('0')
   const [water, setWater] = useState('0')
@@ -177,7 +177,8 @@ const styles = StyleSheet.create({
     paddingLeft: 4
   },
   chevronDown: {
-    marginLeft: 8
+    marginLeft: 8 ,
+    color: '#1560bd'
   },
 })
 

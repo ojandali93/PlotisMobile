@@ -1,10 +1,19 @@
 import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
 
+import TaxHistoryComponents from '../TaxAndSalesComponent/TaxHistoryComponents'
+import SaleHistoryComponent from '../TaxAndSalesComponent/SaleHistoryComponent'
+
 const TaxAndPriceComponent = (props) => {
   const {
 
   } = props 
+
+  const [selected,setSelected] = useState('sales')
+
+  const updateSelected = (selection) => {
+    setSelected(selection)
+  }
 
   return (
     <View style={styles.keyDetailsContainer}>
@@ -12,13 +21,39 @@ const TaxAndPriceComponent = (props) => {
         <Text style={styles.label}>Sale & Tax History</Text>
       </View>
       <View style={styles.rentalTypeContainer}>
-        <View style={[styles.button, styles.unselected]}>
-          <Text style={styles.text}>Sales History</Text>
-        </View>
-        <View style={[styles.button, styles.selected]}>
-          <Text style={styles.text}>Tax History</Text>
-        </View>
+        {
+          selected == 'sales' ? <>
+                                  <TouchableOpacity  
+                                      style={[styles.button, styles.selected]} 
+                                      onPress={() => {updateSelected('sales')}}>
+                                    <Text style={[styles.text, styles.selectedText]}>Sales History</Text>
+                                  </TouchableOpacity>
+                                  <TouchableOpacity 
+                                      style={[styles.button, styles.unselected]} 
+                                        onPress={() => {updateSelected('taxes')}}>
+                                    <Text style={styles.text}>Tax History</Text>
+                                  </TouchableOpacity>
+                                </>
+                              : <>
+                                  <TouchableOpacity 
+                                      style={[styles.button, styles.unselected]} 
+                                      onPress={() => {updateSelected('sales')}}>
+                                    <Text style={styles.text}>Sales History</Text>
+                                  </TouchableOpacity>
+                                  <TouchableOpacity 
+                                      style={[styles.button, styles.selected]} 
+                                      onPress={() => {updateSelected('taxes')}}>
+                                    <Text style={[styles.text, styles.selectedText]}>Tax History</Text>
+                                  </TouchableOpacity>
+                                </>
+        }
       </View>
+      {
+        selected == 'sales' ? <SaleHistoryComponent /> : null
+      }
+      {
+        selected == 'taxes' ? <TaxHistoryComponents /> : null
+      }
     </View>
   )
 }
@@ -64,7 +99,6 @@ const styles = StyleSheet.create({
     width: '50%',
     display: 'flex',
     flexDirection: 'row',
-    backgroundColor: 'grey',
     justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: 8
@@ -78,7 +112,7 @@ const styles = StyleSheet.create({
     borderRadius: 5
   },
   selected: {
-    backgroundColor: 'lightgrey',
+    backgroundColor: '#1560bd',
     margin: 2,
     borderRadius: 5
   },
@@ -88,6 +122,9 @@ const styles = StyleSheet.create({
     height: 2,
     backgroundColor: 'grey',
     marginVertical: 8
+  },
+  selectedText: {
+    color: 'white'
   }
 })
 

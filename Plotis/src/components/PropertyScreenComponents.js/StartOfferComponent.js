@@ -2,14 +2,14 @@ import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
 import { Feather } from 'react-native-vector-icons'
 
-const PreapprovedComponent = (props) => {
+const StartOfferComponent = (props) => {
   const {
 
   } = props
   
   return (
     <View style={[styles.preapprovedContainer, styles.shadowBox]}>
-      <Text style={styles.label}>Get Pre-approved</Text>
+      <Text style={styles.label}>Start An Offer</Text>
     </View>
   )
 }
@@ -39,4 +39,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default PreapprovedComponent
+export default StartOfferComponent

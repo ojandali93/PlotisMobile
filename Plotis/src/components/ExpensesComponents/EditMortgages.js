@@ -7,7 +7,7 @@ const EditMortgages = (props) => {
 
   } = props
 
-  const [openEdit, setOpenEdit] = useState(true)
+  const [openEdit, setOpenEdit] = useState(false)
   const [homePrice, setHomePrice] = useState('111,111')
   const [downPaymentPercent, setDownPaymentPercent] = useState('20')
   const [downPaymentAmount, setDownPaymentAmount] = useState('22,222')
@@ -121,7 +121,8 @@ const styles = StyleSheet.create({
     fontWeight: '600'
   },
   chevronDown: {
-    marginLeft: 8
+    marginLeft: 8,
+    color: '#1560bd'
   },
   keyValueRow: {
     width: '90%',

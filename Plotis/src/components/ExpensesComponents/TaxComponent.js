@@ -7,7 +7,7 @@ const TaxComponent = (props) => {
 
   } = props
 
-  const [openEdit, setOpenEdit] = useState(true)
+  const [openEdit, setOpenEdit] = useState(false)
   const [propertyTax, setPropertyTax] = useState('1.01')
 
   const updateOpenEdit = () => {
@@ -46,16 +46,6 @@ const TaxComponent = (props) => {
                                         <Text>* Local tax rates might differ. *</Text>
                                       </View></>
       }
-      {/* <View style={styles.keyValueRow}>
-        <Text style={styles.title}>Yearly Tax:</Text>
-        <View style={styles.values}>
-          <Text style={styles.value}>$1,234</Text>
-          <Feather style={styles.icon} size={20} name='edit-3'/> 
-        </View>
-      </View>
-      <View style={styles.disclaimer}>
-        <Text>* Local tax rates might differ. *</Text>
-      </View> */}
     </View>
   )
 }
@@ -130,7 +120,8 @@ const styles = StyleSheet.create({
     paddingTop: 2
   },
   chevronDown: {
-    marginLeft: 8
+    marginLeft: 8,
+    color: '#1560bd'
   },
 })
 

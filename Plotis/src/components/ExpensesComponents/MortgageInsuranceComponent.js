@@ -7,7 +7,7 @@ const MortgageInsuranceComponent = (props) => {
 
   } = props
 
-  const [openEdit, setOpenEdit] = useState(true)
+  const [openEdit, setOpenEdit] = useState(false)
   const [mortgageInsurance, setMortgageInsurance] = useState('0')
 
   const updateOpenEdit = () => {
@@ -20,7 +20,7 @@ const MortgageInsuranceComponent = (props) => {
 
   return (
     <View style={styles.homeInsuranceContainer}>
-       <TouchableOpacity onPress={() => {updateOpenEdit()}}>
+      <TouchableOpacity onPress={() => {updateOpenEdit()}}>
         <View style={styles.mortgageHeader}>
           <Text style={styles.label}>Mortgage Insurance:</Text>
           <View style={styles.dropDown}>
@@ -72,7 +72,8 @@ const styles = StyleSheet.create({
     fontWeight: '600'
   },
   chevronDown: {
-    marginLeft: 8
+    marginLeft: 8,
+    color: '#1560bd'
   },
   keyValueRow: {
     width: '90%',

@@ -10,6 +10,9 @@ const RevenueComponent = (props) => {
 
   } = props
 
+  const [monthlyRevenue, setMonthlyRevenue] = useState('0')
+  const [additionalRevenue, setAdditionalRevenue] = useState('0')
+
   return (
     <View style={styles.keyDetailsContainer}>
       <View style={styles.headerContainer}>
@@ -17,14 +20,15 @@ const RevenueComponent = (props) => {
         <Text style={styles.label}>$4,556</Text>
       </View>
       <View style={styles.rentalTypeContainer}>
-        <View style={[styles.button, styles.unselected]}>
-          <Text style={styles.text}>Long Term Lease</Text>
-        </View>
         <View style={[styles.button, styles.selected]}>
+          <Text style={[styles.text, styles.selectedText]}>Long Term Lease</Text>
+        </View>
+        <View style={[styles.button, styles.unselected]}>
           <Text style={styles.text}>Short Term Lease</Text>
         </View>
       </View>
       <MonthlyRevenueComponent/>
+      <View style={styles.separateContainer}></View>
       <AdditionalRevenueComponents />
     </View>
   )
@@ -71,7 +75,6 @@ const styles = StyleSheet.create({
     width: '50%',
     display: 'flex',
     flexDirection: 'row',
-    backgroundColor: 'grey',
     justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: 8
@@ -85,9 +88,10 @@ const styles = StyleSheet.create({
     borderRadius: 5
   },
   selected: {
-    backgroundColor: 'lightgrey',
+    backgroundColor: '#1560bd',
     margin: 2,
-    borderRadius: 5
+    borderRadius: 5,
+    color: 'white'
   },
   separateContainer: {
     width: '94%',
@@ -95,6 +99,9 @@ const styles = StyleSheet.create({
     height: 2,
     backgroundColor: 'grey',
     marginVertical: 8
+  },
+  selectedText: {
+    color: 'white'
   }
 })
 

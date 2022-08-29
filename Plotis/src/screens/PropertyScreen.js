@@ -14,6 +14,8 @@ import RevenueComponent from '../components/PropertyScreenComponents.js/RevenueC
 import PreapprovedComponent from '../components/PropertyScreenComponents.js/PreapprovedComponent';
 import InvestmentMetricsComponent from '../components/PropertyScreenComponents.js/InvestmentMetricsComponent';
 import TaxAndPriceComponent from '../components/PropertyScreenComponents.js/TaxAndPriceComponent';
+import MapComponent from '../components/PropertyScreenComponents.js/MapComponent';
+import StartOfferComponent from '../components/PropertyScreenComponents.js/StartOfferComponent';
 
 import { Dimensions } from 'react-native'
 import axios from 'axios'
@@ -111,6 +113,10 @@ const PropertyScreen = ({route}) => {
           <InvestmentMetricsComponent />
           <View style={styles.separaterContainer}><View style={styles.separater}></View></View>
           <TaxAndPriceComponent />
+          <View style={styles.separaterContainer}><View style={styles.separater}></View></View>
+          <MapComponent />
+          <View style={styles.separaterContainer}><View style={styles.separater}></View></View>
+          <StartOfferComponent />
           <View style={styles.separaterContainer}><View style={styles.separater}></View></View>
         </ScrollView>
       </View>

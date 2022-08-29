@@ -7,7 +7,7 @@ const OtherExpensesComponent = (props) => {
 
   } = props
 
-  const [openEdit, setOpenEdit] = useState('0')
+  const [openEdit, setOpenEdit] = useState(false)
   const [internet, setInternet] = useState('0')
   const [maintenance, setMaintenance] = useState('0')
   const [management, setManagement] = useState('0')
@@ -205,7 +205,8 @@ const styles = StyleSheet.create({
     paddingLeft: 4
   },
   chevronDown: {
-    marginLeft: 8
+    marginLeft: 8,
+    color: '#1560bd'
   },
 })
 
