@@ -4,14 +4,20 @@ import { Feather } from 'react-native-vector-icons'
 
 import MonthlyRevenueComponent from '../RevenueComponents/MonthlyRevenueComponent'
 import AdditionalRevenueComponents from '../RevenueComponents/AdditionalRevenueComponents'
+import StlMonthlyRevenueComponent from '../RevenueComponents/StlMonthlyRevenueComponent'
 
 const RevenueComponent = (props) => {
   const {
 
   } = props
 
+  const [selected, setSelected] = useState('longTerm')
   const [monthlyRevenue, setMonthlyRevenue] = useState('0')
   const [additionalRevenue, setAdditionalRevenue] = useState('0')
+
+  const updateSelected = (value) => {
+    setSelected(value)
+  }
 
   return (
     <View style={styles.keyDetailsContainer}>
@@ -20,16 +26,46 @@ const RevenueComponent = (props) => {
         <Text style={styles.label}>$4,556</Text>
       </View>
       <View style={styles.rentalTypeContainer}>
-        <View style={[styles.button, styles.selected]}>
-          <Text style={[styles.text, styles.selectedText]}>Long Term Lease</Text>
-        </View>
-        <View style={[styles.button, styles.unselected]}>
-          <Text style={styles.text}>Short Term Lease</Text>
-        </View>
+      {
+        selected == 'longTerm'  ? <>
+                                    <TouchableOpacity  
+                                        style={[styles.button, styles.selected]} 
+                                        onPress={() => {updateSelected('longTerm')}}>
+                                      <Text style={[styles.text, styles.selectedText]}>Long Term Lease</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity 
+                                        style={[styles.button, styles.unselected]} 
+                                          onPress={() => {updateSelected('shortTerm')}}>
+                                      <Text style={styles.text}>Short Term Rental</Text>
+                                    </TouchableOpacity>
+                                  </>
+                                : <>
+                                    <TouchableOpacity  
+                                        style={[styles.button, styles.unselected]}
+                                        onPress={() => {updateSelected('longTerm')}}>
+                                      <Text>Long Term Lease</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity 
+                                        style={[styles.button, styles.selected]} 
+                                          onPress={() => {updateSelected('shortTerm')}}>
+                                      <Text style={[styles.text, styles.selectedText]}>Short Term Rental</Text>
+                                    </TouchableOpacity>
+                                  </>
+                                
+      }
       </View>
-      <MonthlyRevenueComponent/>
-      <View style={styles.separateContainer}></View>
-      <AdditionalRevenueComponents />
+      {
+        selected == 'longTerm'  ? <>
+                                    <MonthlyRevenueComponent/>
+                                    <View style={styles.separateContainer}></View>
+                                    <AdditionalRevenueComponents />
+                                  </>
+                                : <>
+                                    <StlMonthlyRevenueComponent/>
+                                    <View style={styles.separateContainer}></View>
+                                    <AdditionalRevenueComponents />
+                                  </>
+      }
     </View>
   )
 }

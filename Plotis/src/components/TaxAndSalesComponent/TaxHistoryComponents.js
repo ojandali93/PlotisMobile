@@ -1,7 +1,12 @@
 import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, FlatList } from 'react-native'
 
-const TaxHistoryComponents = () => {
+const TaxHistoryComponents = (props) => {
+  const {
+    taxHistory
+  } = props
+
+  console.log(taxHistory)
 
   const sampleTax = [
     {
@@ -68,8 +73,8 @@ const TaxHistoryComponents = () => {
         </View>
       </View>
       <FlatList 
-        data={sampleTax}
-        keyExtractor={item => item.key}
+        data={taxHistory}
+        keyExtractor={item => item.item}
         style={styles.listContainer}
         renderItem={({item}) => {
           return(
@@ -78,10 +83,12 @@ const TaxHistoryComponents = () => {
                 <Text style={styles.subText}>2011</Text>
               </View>
               <View style={styles.amountContainer}>
-                <Text style={styles.subText}>$1,789</Text>
+                {
+                  item.taxPaid == null ? <Text style={styles.subText}>---</Text> : <Text style={styles.subText}>${item.taxPaid}</Text>
+                }
               </View>
               <View style={styles.assessedContainer}>
-                <Text style={styles.subText}>$12,665</Text>
+                <Text style={styles.subText}>${item.value}</Text>
               </View>
             </View>
           )
@@ -108,7 +115,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 8
+    marginTop: 16
   },
   yearContainer: {
     width: '15%',

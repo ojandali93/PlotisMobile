@@ -58,7 +58,15 @@ const MonthlyRevenueComponent = (props) => {
                                         </View>
                                       </View></>
       }
-      
+      {
+        openEdit == false ? null :  <>
+                                      <View style={styles.disclaimerContainer}>
+                                        <Text style={styles.disclaimer}>
+                                          * Rent estimate is powered by Zillow's rent estimator. *
+                                        </Text>
+                                      </View>
+                                    </>
+      }
     </View>
   )
 }
@@ -69,7 +77,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     marginLeft: '3%',
-    marginTop: 8
+    marginTop: 16
   },
   revenueHeader: {
     display: 'flex',
@@ -128,11 +136,15 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     backgroundColor: 'lightgrey'
   },
-  disclaimer: {
+  disclaimerContainer: {
+    width: '100%',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: 8
+    marginBottom: 8
+  },
+  disclaimer: {
+    marginTop: 8,
   }
 })
 

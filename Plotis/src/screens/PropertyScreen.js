@@ -40,6 +40,11 @@ const PropertyScreen = ({route}) => {
   const [homeImages, setHomeImages] = useState()
   const [selectedImage, setSelectedImage] = useState()
   const [isLoading, setIsLoading] = useState(true)
+  const [taxHistory, setTaxHistory] = useState([])
+  const [saleHistory, setSaleHistory] = useState([])
+  const [long, setLong] = useState([])
+  const [lat, setLat] = useState([])
+  const [schools, setSchools] = useState([])
 
   useEffect(() => {
     setIsLoading(true)
@@ -48,6 +53,11 @@ const PropertyScreen = ({route}) => {
         setCurrentHome(response.data)
         createHomeAddress(response.data.address)
         setSelectedImage(response.data.imgSrc)
+        setSaleHistory(response.data.priceHistory)
+        setTaxHistory(response.data.taxHistory)
+        setLong(response.data.longitude)
+        setLat(response.data.latitude)
+        setSchools(response.data.schools)
         updateImages(response.data.zpid)
       })
       .catch((error) => {
@@ -114,13 +124,13 @@ const PropertyScreen = ({route}) => {
           <View style={styles.separaterContainer}><View style={styles.separater}></View></View>
           <InvestmentMetricsComponent />
           <View style={styles.separaterContainer}><View style={styles.separater}></View></View>
-          <TaxAndPriceComponent />
+          <TaxAndPriceComponent saleHistory={saleHistory} taxHistory={taxHistory.splice(0, 10)}/>
           <View style={styles.separaterContainer}><View style={styles.separater}></View></View>
-          <MapComponent />
+          <MapComponent long={long} lat={lat} currentHomeAddress={currentHomeAddress}/>
           <View style={styles.separaterContainer}><View style={styles.separater}></View></View>
           <StartOfferComponent />
           <View style={styles.separaterContainer}><View style={styles.separater}></View></View>
-          <SchoolsComponent />
+          <SchoolsComponent schools={schools}/>
           <View style={styles.separaterContainer}><View style={styles.separater}></View></View>
           <ContactAgentComponent />
           <View style={styles.separaterContainer}><View style={styles.separater}></View></View>

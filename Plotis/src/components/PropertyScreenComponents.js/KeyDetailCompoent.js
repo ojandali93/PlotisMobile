@@ -32,7 +32,9 @@ const KeyDetailCompoent = (props) => {
           </View>
           <View style={styles.row}>
             <Text style={styles.text}>Heating</Text>
-            <Text style={styles.text}>{home.hasHeating}</Text>
+            {
+              home.hasHeating == true ? <Text style={styles.text}>{home.heating[0]}</Text> : <Text style={styles.text}>N/A</Text>
+            }
           </View>
           <View style={styles.row}>
             <Text style={styles.text}>Property Type:</Text>
@@ -40,7 +42,9 @@ const KeyDetailCompoent = (props) => {
           </View>
           <View style={styles.row}>
             <Text style={styles.text}>55+ Community:</Text>
-            <Text style={styles.text}>{home.isSeniorCommunity}</Text>
+            {
+              home.isSeniorCommunity == true ? <Text style={styles.text}>Yes</Text> : <Text style={styles.text}>No</Text>
+            }
           </View>
           <View style={styles.row}>
             <Text style={styles.text}>Parcel #:</Text>
@@ -58,7 +62,9 @@ const KeyDetailCompoent = (props) => {
           </View>
           <View style={styles.row}>
             <Text style={styles.text}>HOA Fee: </Text>
-            <Text style={styles.text}>{home.hoaFee}</Text>
+            {
+              home.hoaFee == null ? <Text style={styles.text}>$0</Text> : <Text style={styles.text}>{home.hoaFee}</Text>
+            }
           </View>
           <View style={styles.row}>
             <Text style={styles.text}>Levels: </Text>
@@ -66,15 +72,21 @@ const KeyDetailCompoent = (props) => {
           </View>
           <View style={styles.row}>
             <Text style={styles.text}>Cooling: </Text>
-            <Text style={styles.text}>{home.hasCooling}</Text>
+            {
+              home.hasCooling == true ? <Text style={styles.text}>{home.cooling[0]}</Text> : <Text style={styles.text}>N/A</Text>
+            }
           </View>
           <View style={styles.row}>
             <Text style={styles.text}>Style: </Text>
-            <Text style={styles.text}>{home.architecturalStyle}</Text>
+            {
+              home.architecturalStyle == null ? <Text style={styles.text}>Unknown</Text> : <Text style={styles.text}>{home.architecturalStyle}</Text>
+            }
           </View>
           <View style={styles.row}>
             <Text style={styles.text}>Subdivision: </Text>
-            <Text style={styles.text}>{home.subdivisionName}</Text>
+            {
+              home.subdivisionName == null ? <Text style={styles.text}>N/A</Text> : <Text style={styles.text}>{home.subdivisionName}</Text>
+            }
           </View>
           <View style={styles.row}>
             <Text style={styles.text}>MLS #: </Text>

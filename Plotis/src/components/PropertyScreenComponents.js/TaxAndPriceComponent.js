@@ -6,7 +6,8 @@ import SaleHistoryComponent from '../TaxAndSalesComponent/SaleHistoryComponent'
 
 const TaxAndPriceComponent = (props) => {
   const {
-
+    taxHistory,
+    saleHistory
   } = props 
 
   const [selected,setSelected] = useState('sales')
@@ -49,10 +50,10 @@ const TaxAndPriceComponent = (props) => {
         }
       </View>
       {
-        selected == 'sales' ? <SaleHistoryComponent /> : null
+        selected == 'sales' ? <SaleHistoryComponent saleHistory={saleHistory}/> : null
       }
       {
-        selected == 'taxes' ? <TaxHistoryComponents /> : null
+        selected == 'taxes' ? <TaxHistoryComponents taxHistory={taxHistory}/> : null
       }
     </View>
   )

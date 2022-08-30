@@ -4,16 +4,18 @@ import { StyleSheet, TouchableOpacity, View, Dimensions, Linking } from 'react-n
 
 const MapComponent = (props) => {
   const {
-
+    long,
+    lat,
+    currentHomeAddress
   } = props
 
-  const [longitude, setLongitude] = useState(37.78825)
-  const [latitude, setLatitude] = useState(-122.4324)
+  const [longitude, setLongitude] = useState(long)
+  const [latitude, setLatitude] = useState(lat)
 
   const redirectToApp = () => {
     const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' })
     const latLng = `${latitude},${longitude}`
-    const label = '1125 Soller Mission Viejo, CA 92692'
+    const label = currentHomeAddress
     const url = Platform.select({
       ios: `${scheme}${label}@${latLng}`,
       android: `${scheme}${latLng}(${label})`
@@ -30,16 +32,16 @@ const MapComponent = (props) => {
           zoomTapEnabled={false}
           style={styles.map} 
           initialRegion={{
-            latitude: 37.78825,
-            longitude: -122.4324,
+            latitude: lat,
+            longitude: long,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
           }}
         >
           <Marker
             pinColor='blue'
-            coordinate={{latitude: 37.78825,
-                        longitude: -122.4324,}}/>
+            coordinate={{latitude: lat,
+                        longitude: long,}}/>
         </MapView>
       </View>
     </TouchableOpacity>

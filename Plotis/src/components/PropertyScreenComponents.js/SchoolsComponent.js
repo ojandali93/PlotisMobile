@@ -1,36 +1,49 @@
 import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
+import { FlatList } from 'react-native-gesture-handler'
 
 const SchoolsComponent = (props) => {
   const {
-
+    schools
   } = props
+
+  console.log(schools)
 
   return (
     <View style={styles.keyDetailsContainer}>
       <View style={styles.headerContainer}>
         <Text style={styles.label}>Schools</Text>
       </View>
-      <View style={styles.contentRow}>
-        <View style={styles.ratingContainer}>
-          <Text style={styles.rating}>8/10</Text>
-        </View>
-        <View style={styles.schoolInformationContainer}>
-          <View style={styles.rows}>
-            <View style={styles.row}>
-              <Text style={styles.text}>Name</Text>
-              <Text style={styles.text}>Distance</Text>
-            </View>
-            <View style={styles.gradeRow}>
-              <View style={styles.row}>
-                <Text style={styles.textLevel}>Level</Text>
-                <Text style={styles.text}>Grades</Text>
+
+      <FlatList 
+        data={schools}
+        keyExtractor={item => item.name}
+        style={styles.schoolContainer}
+        renderItem={({item}) => {
+          return(
+            <View style={styles.contentRow}>
+              <View style={styles.ratingContainer}>
+                <Text style={styles.rating}>{item.rating}/10</Text>
               </View>
-              <Text style={styles.text}>Type</Text>
+              <View style={styles.schoolInformationContainer}>
+                <View style={styles.rows}>
+                  <View style={styles.row}>
+                    <Text style={styles.text}>{item.name}</Text>
+                    <Text style={styles.text}>{item.distance}</Text>
+                  </View>
+                  <View style={styles.gradeRow}>
+                    <View style={styles.row}>
+                      <Text style={styles.textLevel}>{item.level} School</Text>
+                      <Text style={styles.text}>{item.grades}</Text>
+                    </View>
+                    <Text style={styles.text}>{item.type}</Text>
+                  </View>
+                </View>
+              </View>
             </View>
-          </View>
-        </View>
-      </View>
+          )
+        }}
+      />
     </View>
   )
 }
