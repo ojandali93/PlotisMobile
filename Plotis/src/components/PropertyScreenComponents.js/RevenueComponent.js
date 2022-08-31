@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
 import { Feather } from 'react-native-vector-icons'
 
@@ -8,22 +8,56 @@ import StlMonthlyRevenueComponent from '../RevenueComponents/StlMonthlyRevenueCo
 
 const RevenueComponent = (props) => {
   const {
-
+    currentHome
   } = props
 
   const [selected, setSelected] = useState('longTerm')
   const [monthlyRevenue, setMonthlyRevenue] = useState('0')
   const [additionalRevenue, setAdditionalRevenue] = useState('0')
+  const [ltlMonthlyRevenue, setLtlMonthlyRevenue] = useState(currentHome.rentZestimate.toString())
+  const [strMonthlyRevenue, setStrMonthlyRevenue] = useState('3800')
 
   const updateSelected = (value) => {
     setSelected(value)
   }
 
+  useEffect(() => {
+    if(selected == 'longTerm'){
+      setMonthlyRevenue(parseInt(ltlMonthlyRevenue) + parseInt(additionalRevenue))
+    } else {
+      setMonthlyRevenue(parseInt(strMonthlyRevenue) + parseInt(additionalRevenue))
+    }
+  }, [selected])
+
+  useEffect(() => {
+    if(selected == 'longTerm'){
+      setMonthlyRevenue(parseInt(ltlMonthlyRevenue) + parseInt(additionalRevenue))
+    } else {
+      setMonthlyRevenue(parseInt(strMonthlyRevenue) + parseInt(additionalRevenue))
+    }
+  }, [additionalRevenue])
+
+  useEffect(() => {
+    if(selected == 'longTerm'){
+      setMonthlyRevenue(parseInt(ltlMonthlyRevenue) + parseInt(additionalRevenue))
+    } else {
+      setMonthlyRevenue(parseInt(strMonthlyRevenue) + parseInt(additionalRevenue))
+    }
+  }, [ltlMonthlyRevenue])
+
+  useEffect(() => {
+    if(selected == 'longTerm'){
+      setMonthlyRevenue(parseInt(ltlMonthlyRevenue) + parseInt(additionalRevenue))
+    } else {
+      setMonthlyRevenue(parseInt(strMonthlyRevenue) + parseInt(additionalRevenue))
+    }
+  }, [strMonthlyRevenue])
+
   return (
     <View style={styles.keyDetailsContainer}>
       <View style={styles.headerContainer}>
         <Text style={styles.label}>Revenue</Text>
-        <Text style={styles.label}>$4,556</Text>
+        <Text style={styles.label}>${monthlyRevenue}</Text>
       </View>
       <View style={styles.rentalTypeContainer}>
       {
@@ -56,14 +90,17 @@ const RevenueComponent = (props) => {
       </View>
       {
         selected == 'longTerm'  ? <>
-                                    <MonthlyRevenueComponent/>
+                                    <MonthlyRevenueComponent 
+                                      currentHome={currentHome} 
+                                      setLtlMonthlyRevenue={setLtlMonthlyRevenue}
+                                      ltlMonthlyRevenue={ltlMonthlyRevenue}/>
                                     <View style={styles.separateContainer}></View>
-                                    <AdditionalRevenueComponents />
+                                    <AdditionalRevenueComponents additionalRevenue={additionalRevenue} setAdditionalRevenue={setAdditionalRevenue}/>
                                   </>
                                 : <>
-                                    <StlMonthlyRevenueComponent/>
+                                    <StlMonthlyRevenueComponent currentHome={currentHome} strMonthlyRevenue={strMonthlyRevenue} setStrMonthlyRevenue={setStrMonthlyRevenue}/>
                                     <View style={styles.separateContainer}></View>
-                                    <AdditionalRevenueComponents />
+                                    <AdditionalRevenueComponents additionalRevenue={additionalRevenue} setAdditionalRevenue={setAdditionalRevenue}/>
                                   </>
       }
     </View>

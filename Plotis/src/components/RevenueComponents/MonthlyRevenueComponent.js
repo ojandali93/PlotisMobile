@@ -4,12 +4,13 @@ import { Feather } from 'react-native-vector-icons'
 
 const MonthlyRevenueComponent = (props) => {
   const {
-
+    currentHome,
+    setLtlMonthlyRevenue,
+    ltlMonthlyRevenue
   } = props
 
   const [openEdit, setOpenEdit] = useState(false)
-  const [monthlyRent, setMonthlyRent] = useState('0')
-  const [yearlyRent, setYearlyRent] = useState('0')
+  const [yearlyRent, setYearlyRent] = useState((currentHome.rentZestimate * 12).toString())
 
   const updateOpenEdit = () => {
     if(openEdit == false){
@@ -19,13 +20,33 @@ const MonthlyRevenueComponent = (props) => {
     }
   }
 
+  const updateYearlyRent = (value) => {
+    if(value == ''){
+      setYearlyRent('0')
+      setLtlMonthlyRevenue('0')
+    } else {
+      setYearlyRent(value)
+      setLtlMonthlyRevenue(Math.round(parseInt(value) / 12).toString())
+    }
+  }
+
+  const updateMonthlyRent = (value) => {
+    if(value == ''){
+      setYearlyRent('0')
+      setLtlMonthlyRevenue('0')
+    } else {
+      setYearlyRent((parseInt(value) * 12).toString())
+      setLtlMonthlyRevenue(value)
+    }
+  }
+
   return (
     <View style={styles.revenueContainer}>
       <TouchableOpacity onPress={() => {updateOpenEdit()}}>
         <View style={styles.revenueHeader}>
           <Text style={styles.label}>Rent:</Text>
           <View style={styles.dropDown}>
-            <Text style={styles.label}>$1,234</Text>
+            <Text style={styles.label}>${parseInt(ltlMonthlyRevenue)}</Text>
             <Feather style={styles.chevronDown} size={20} name='chevrons-down'/>
           </View>
         </View>
@@ -36,8 +57,8 @@ const MonthlyRevenueComponent = (props) => {
                                         <View style={styles.values}>
                                           <Text style={styles.value}>$</Text>
                                           <TextInput 
-                                            value={monthlyRent}
-                                            onChangeText={setMonthlyRent}
+                                            value={ltlMonthlyRevenue}
+                                            onChangeText={(value) => {updateMonthlyRent(value)}}
                                             keyboardType='numeric'
                                             style={styles.input}
                                           />
@@ -51,7 +72,7 @@ const MonthlyRevenueComponent = (props) => {
                                           <Text style={styles.value}>$</Text>
                                           <TextInput 
                                             value={yearlyRent}
-                                            onChangeText={setYearlyRent}
+                                            onChangeText={(value) => {updateYearlyRent(value)}}
                                             keyboardType='numeric'
                                             style={styles.input}
                                           />

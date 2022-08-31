@@ -4,11 +4,11 @@ import { Feather } from 'react-native-vector-icons'
 
 const AdditionalRevenueComponents = (props) => {
   const {
-
+    additionalRevenue,
+    setAdditionalRevenue
   } = props
 
   const [openEdit, setOpenEdit] = useState(false)
-  const [additionalRevenue, setAdditionalRevenue] = useState('0')
 
   const updateOpenEdit = () => {
     if(openEdit == false){
@@ -24,7 +24,7 @@ const AdditionalRevenueComponents = (props) => {
         <View style={styles.additionalReveueHeader}>
           <Text style={styles.label}>Additional Expenses:</Text>
           <View style={styles.dropDown}>
-            <Text style={styles.label}>$1,234</Text>
+            <Text style={styles.label}>${parseInt(additionalRevenue)}</Text>
             <Feather style={styles.chevronDown} size={20} name='chevrons-down'/>
           </View>
         </View>
