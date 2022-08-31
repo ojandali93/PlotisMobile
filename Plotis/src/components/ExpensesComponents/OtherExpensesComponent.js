@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, TextInput } from 'react-native'
 import { Feather } from 'react-native-vector-icons'
 
 const OtherExpensesComponent = (props) => {
   const {
-
+    currentHome,
+    setAdditionalExpenses,
+    additionalExpenses
   } = props
 
   const [openEdit, setOpenEdit] = useState(false)
@@ -23,13 +25,67 @@ const OtherExpensesComponent = (props) => {
     }
   }
 
+  useEffect(() => {
+    setAdditionalExpenses(parseInt(internet) + 
+                          parseInt(maintenance) + 
+                          parseInt(management) + 
+                          parseInt(repairs) + 
+                          parseInt(homeWarranty) + 
+                          parseInt(other))
+  }, [internet])
+
+  useEffect(() => {
+    setAdditionalExpenses(parseInt(internet) + 
+                          parseInt(maintenance) + 
+                          parseInt(management) + 
+                          parseInt(repairs) + 
+                          parseInt(homeWarranty) + 
+                          parseInt(other))
+  }, [maintenance])
+
+  useEffect(() => {
+    setAdditionalExpenses(parseInt(internet) + 
+                          parseInt(maintenance) + 
+                          parseInt(management) + 
+                          parseInt(repairs) + 
+                          parseInt(homeWarranty) + 
+                          parseInt(other))
+  }, [management])
+
+  useEffect(() => {
+    setAdditionalExpenses(parseInt(internet) + 
+                          parseInt(maintenance) + 
+                          parseInt(management) + 
+                          parseInt(repairs) + 
+                          parseInt(homeWarranty) + 
+                          parseInt(other))
+  }, [repairs])
+
+  useEffect(() => {
+    setAdditionalExpenses(parseInt(internet) + 
+                          parseInt(maintenance) + 
+                          parseInt(management) + 
+                          parseInt(repairs) + 
+                          parseInt(homeWarranty) + 
+                          parseInt(other))
+  }, [homeWarranty])
+
+  useEffect(() => {
+    setAdditionalExpenses(parseInt(internet) + 
+                          parseInt(maintenance) + 
+                          parseInt(management) + 
+                          parseInt(repairs) + 
+                          parseInt(homeWarranty) + 
+                          parseInt(other))
+  }, [other])
+
   return (
     <View style={styles.additionalExpensesContainer}>
       <TouchableOpacity onPress={() => {updateOpenEdit()}}>
         <View style={styles.additionalExpensesHeader}>
           <Text style={styles.label}>Additional Expenses:</Text>
           <View style={styles.dropDown}>
-            <Text style={styles.label}>$1,234</Text>
+            <Text style={styles.label}>${additionalExpenses}</Text>
             <Feather style={styles.chevronDown} size={20} name='chevrons-down'/>
           </View>
         </View>
@@ -70,20 +126,6 @@ const OtherExpensesComponent = (props) => {
                                           <TextInput 
                                             value={management}
                                             onChangeText={setManagement}
-                                            keyboardType='numeric'
-                                            style={styles.input}
-                                          />
-                                        </View>
-                                      </View></>
-      }
-      {
-        openEdit == false ? null : <><View style={styles.keyValueRow}>
-                                        <Text style={styles.title}>Repairs:</Text>
-                                        <View style={styles.values}>
-                                          <Text style={styles.value}>$</Text>
-                                          <TextInput 
-                                            value={repairs}
-                                            onChangeText={setRepairs}
                                             keyboardType='numeric'
                                             style={styles.input}
                                           />

@@ -4,11 +4,11 @@ import { Feather } from 'react-native-vector-icons'
 
 const MortgageInsuranceComponent = (props) => {
   const {
-
+    currentHome,
+    mortgageInsurance
   } = props
 
   const [openEdit, setOpenEdit] = useState(false)
-  const [mortgageInsurance, setMortgageInsurance] = useState('0')
 
   const updateOpenEdit = () => {
     if(openEdit == false){
@@ -24,27 +24,22 @@ const MortgageInsuranceComponent = (props) => {
         <View style={styles.mortgageHeader}>
           <Text style={styles.label}>Mortgage Insurance:</Text>
           <View style={styles.dropDown}>
-            <Text style={styles.label}>$1,234</Text>
+            <Text style={styles.label}>${parseInt(mortgageInsurance)/12}</Text>
             <Feather style={styles.chevronDown} size={20} name='chevrons-down'/>
           </View>
         </View>
       </TouchableOpacity>
       {
-        openEdit == false ? null : <><View style={styles.keyValueRow}>
-                                        <Text style={styles.title}>Annual Insurance:</Text>
-                                        <View style={styles.values}>
-                                          <Text style={styles.value}>$</Text>
-                                          <TextInput 
-                                            value={mortgageInsurance}
-                                            onChangeText={setMortgageInsurance}
-                                            keyboardType='numeric'
-                                            style={styles.input}
-                                          />
+        openEdit == false ? null :  <>
+                                      <View style={styles.keyValueRow}>
                                         </View>
-                                      </View>
-                                      <View style={styles.disclaimer}>
-                                        <Text>* Ususally equired for down payments below 20%. *</Text>
-                                      </View></>
+                                        <View style={styles.disclaimer}>
+                                          <Text>* Ususally equired for down payments below 20%.*</Text>
+                                        </View>
+                                        <View style={styles.disclaimer}>
+                                          <Text>* Can range between .5% & 5%.*</Text>
+                                        </View>  
+                                    </>
       }
     </View>
   )

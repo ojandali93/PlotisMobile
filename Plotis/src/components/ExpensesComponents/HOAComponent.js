@@ -4,11 +4,12 @@ import { Feather } from 'react-native-vector-icons'
 
 const HOAComponent = (props) => {
   const {
-
+    currentHome,
+    setHoa,
+    hoa
   } = props
 
   const [openEdit, setOpenEdit] = useState(false)
-  const [hoaFee, setHoaFee] = useState('0')
 
   const updateOpenEdit = () => {
     if(openEdit == false){
@@ -18,13 +19,21 @@ const HOAComponent = (props) => {
     }
   }
 
+  const updateHoaFee = (value) => {
+    if(value == ''){
+      setHoa('0')
+    } else {
+      setHoa(value) 
+    }
+  }
+
   return (
     <View style={styles.hoaContainer}>
       <TouchableOpacity onPress={() => {updateOpenEdit()}}>
         <View style={styles.hoaHeader}>
           <Text style={styles.label}>HOA Fee:</Text>
           <View style={styles.dropDown}>
-            <Text style={styles.label}>$0</Text>
+            <Text style={styles.label}>${parseInt(hoa)}</Text>
             <Feather style={styles.chevronDown} size={20} name='chevrons-down'/>
           </View>
         </View>
@@ -35,8 +44,8 @@ const HOAComponent = (props) => {
                                         <View style={styles.values}>
                                           <Text style={styles.value}>$</Text>
                                           <TextInput 
-                                            value={hoaFee}
-                                            onChangeText={setHoaFee}
+                                            value={hoa}
+                                            onChangeText={(value) => {updateHoaFee(value)}}
                                             keyboardType='numeric'
                                             style={styles.input}
                                           />

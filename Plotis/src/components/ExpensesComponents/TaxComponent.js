@@ -4,11 +4,13 @@ import { Feather } from 'react-native-vector-icons'
 
 const TaxComponent = (props) => {
   const {
-
+    currentHome,
+    setPropertyTax,
+    propertyTax
   } = props
 
   const [openEdit, setOpenEdit] = useState(false)
-  const [propertyTax, setPropertyTax] = useState('1.01')
+  const [propertyTaxRate, setPropertyTaxRate] = useState('1.01')
 
   const updateOpenEdit = () => {
     if(openEdit == false){
@@ -18,13 +20,20 @@ const TaxComponent = (props) => {
     }
   }
 
+  const updatePropertyTaxRate = (value) => {
+    setPropertyTaxRate(value)
+    let taxRate = parseFloat(propertyTaxRate) / 100
+    let annualTax = Math.round((currentHome.price * taxRate)/12)
+    setPropertyTax(Math.round(annualTax))
+  }
+
   return (
     <View style={styles.taxContainer}>
       <TouchableOpacity onPress={() => {updateOpenEdit()}}>
         <View style={styles.taxHeader}>
           <Text style={styles.label}>Property Tax:</Text>
           <View style={styles.dropDown}>
-            <Text style={styles.label}>$1,234</Text>
+            <Text style={styles.label}>${propertyTax}</Text>
             <Feather style={styles.chevronDown} size={20} name='chevrons-down'/>
           </View>
         </View>
@@ -33,10 +42,10 @@ const TaxComponent = (props) => {
         openEdit == false ? null : <><View style={styles.keyValueRow}>
                                         <Text style={styles.title}>Property Tax:</Text>
                                         <View style={styles.values}>
-                                          <Text style={styles.value}>$112,435 X %</Text>
+                                          <Text style={styles.value}>${currentHome.price} X %</Text>
                                           <TextInput 
-                                            value={propertyTax}
-                                            onChangeText={setPropertyTax}
+                                            value={propertyTaxRate}
+                                            onChangeText={(value) => {updatePropertyTaxRate(value)}}
                                             keyboardType='numeric'
                                             style={styles.input}
                                           />

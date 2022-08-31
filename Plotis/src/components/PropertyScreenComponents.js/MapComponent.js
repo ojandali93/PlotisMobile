@@ -8,7 +8,7 @@ const MapComponent = (props) => {
     lat,
     currentHomeAddress
   } = props
-
+3
   const [longitude, setLongitude] = useState(long)
   const [latitude, setLatitude] = useState(lat)
 

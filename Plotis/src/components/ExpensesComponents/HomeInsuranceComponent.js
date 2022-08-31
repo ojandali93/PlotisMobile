@@ -4,11 +4,12 @@ import { Feather } from 'react-native-vector-icons'
 
 const HomeInsuranceComponent = (props) => {
   const {
-
+    currentHome,
+    homeInsurance,
+    setHomeInsurance
   } = props
 
   const [openEdit, setOpenEdit] = useState(false)
-  const [homeInsurance, setHomeInsurance] = useState('0')
 
   const updateOpenEdit = () => {
     if(openEdit == false){
@@ -18,13 +19,21 @@ const HomeInsuranceComponent = (props) => {
     }
   }
 
+  const updateHomeInsurance = (value) => {
+    if(value == ''){
+      setHomeInsurance('0')
+    } else {
+      setHomeInsurance(value)
+    }
+  }
+
   return (
     <View style={styles.homeInsuranceContainer}>
       <TouchableOpacity onPress={() => {updateOpenEdit()}}>
         <View style={styles.homeInsuranceHeader}>
           <Text style={styles.label}>Home Insurance:</Text>
           <View style={styles.dropDown}>
-            <Text style={styles.label}>$1,234</Text>
+            <Text style={styles.label}>${Math.round(parseInt(homeInsurance)/12)}</Text>
             <Feather style={styles.chevronDown} size={20} name='chevrons-down'/>
           </View>
         </View>
@@ -36,7 +45,7 @@ const HomeInsuranceComponent = (props) => {
                                           <Text style={styles.value}>$</Text>
                                           <TextInput 
                                             value={homeInsurance}
-                                            onChangeText={setHomeInsurance}
+                                            onChangeText={(value) => {updateHomeInsurance(value)}}
                                             keyboardType='numeric'
                                             style={styles.input}
                                           />

@@ -1,19 +1,19 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, TextInput } from 'react-native'
 import { Feather } from 'react-native-vector-icons'
 
 const UtilitiesComponent = (props) => {
   const {
-
+    currentHome,
+    setUtilities,
+    utilities
   } = props
 
   const [openEdit, setOpenEdit] = useState(false)
-  const [utilities, setUtilities] = useState('0')
   const [gas, setGas] = useState('0')
   const [water, setWater] = useState('0')
   const [electricity, setElectricity] = useState('0')
-  const [sewer, setSewer] = useState('0')
-  const [trash, setTrash] = useState('0')
+  const [sewerAndTrash, setSewerAndTrash] = useState('0')
 
   const updateOpenEdit = () => {
     if(openEdit == false){
@@ -22,14 +22,30 @@ const UtilitiesComponent = (props) => {
       setOpenEdit(false)
     }
   }
- 
+
+  useEffect(() => {
+    setUtilities(parseInt(gas) + parseInt(water) + parseInt(electricity) + parseInt(sewerAndTrash))
+  },[gas])
+
+  useEffect(() => {
+    setUtilities(parseInt(gas) + parseInt(water) + parseInt(electricity) + parseInt(sewerAndTrash))
+  },[water])
+
+  useEffect(() => {
+    setUtilities(parseInt(gas) + parseInt(water) + parseInt(electricity) + parseInt(sewerAndTrash))
+  },[electricity])
+
+  useEffect(() => {
+    setUtilities(parseInt(gas) + parseInt(water) + parseInt(electricity) + parseInt(sewerAndTrash))
+  },[sewerAndTrash])
+
   return (
     <View style={styles.UtilitiesContainer}>
       <TouchableOpacity onPress={() => {updateOpenEdit()}}>
         <View style={styles.UtilitiesHeader}>
           <Text style={styles.label}>Utilities:</Text>
           <View style={styles.dropDown}>
-            <Text style={styles.label}>$0</Text>
+            <Text style={styles.label}>${parseInt(utilities)}</Text>
             <Feather style={styles.chevronDown} size={20} name='chevrons-down'/>
           </View>
         </View>
@@ -78,26 +94,12 @@ const UtilitiesComponent = (props) => {
       }
       {
         openEdit == false ? null : <><View style={styles.keyValueRow}>
-                                        <Text style={styles.title}>Sewer:</Text>
+                                        <Text style={styles.title}>Sewer & Trash:</Text>
                                         <View style={styles.values}>
                                           <Text style={styles.value}>$</Text>
                                           <TextInput 
-                                            value={sewer}
-                                            onChangeText={setSewer}
-                                            keyboardType='numeric'
-                                            style={styles.input}
-                                          />
-                                        </View>
-                                      </View></>
-      }
-      {
-        openEdit == false ? null : <><View style={styles.keyValueRow}>
-                                        <Text style={styles.title}>Trash:</Text>
-                                        <View style={styles.values}>
-                                          <Text style={styles.value}>$</Text>
-                                          <TextInput 
-                                            value={trash}
-                                            onChangeText={setTrash}
+                                            value={sewerAndTrash}
+                                            onChangeText={setSewerAndTrash}
                                             keyboardType='numeric'
                                             style={styles.input}
                                           />
