@@ -3,91 +3,110 @@ import { View, Text, TouchableOpacity, StyleSheet, TextInput, SafeAreaView } fro
 import { FontAwesome, Feather } from 'react-native-vector-icons'
 
 import ResultViewComponent from './ResultViewComponent'
+import SortComponent from './SortComponent'
+
 
 const SeachAndFilterComponent = (props) => {
   const {
-    currentSearch,
-    resultView,
-    isFilter,
-    isSort,
+    currentsearch,
     setCurrentSearch,
-    updateResultView,
-    setIsFilter,
-    setIsSort,
-    updateIsSort,
+    updateCurrentView,
+    currentView,
+    sort,
+    setSort,
     updateFilter,
-    setAppliedFilters
+    newSearch,
+    saveSearch
   } = props
+
+  const [openSort, setOpenSort] = useState(false)
+
+  const updateOpenSort = () => {
+    openSort == false ? setOpenSort(true) : setOpenSort(false)
+  }
+
+  const updateSort = (sort) => {
+    setSort(sort)
+    setOpenSort(false)
+  }
 
   return (
     <>
-      <View style={styles.bar}> 
-        <View style={styles.searchContainer}> 
-          <View style={styles.iconContainer}>
-            <Feather size={20} name='search'/>
+      <View>
+        <View style={styles.bar}> 
+          <View style={styles.searchContainer}> 
+            <View style={styles.iconContainer}>
+              <Feather size={20} name='search'/>
+            </View>
+            <SafeAreaView> 
+              <TextInput 
+                style={styles.input}
+                value={currentsearch}
+                onChangeText={setCurrentSearch}
+                placeholder='Search city or address...'
+              />
+            </SafeAreaView>
+            <TouchableOpacity style={styles.searcingContainer} onPress={() => {newSearch()}}>
+              <Text style={styles.searchSubmit}>Search</Text>
+            </TouchableOpacity>
           </View>
-          <SafeAreaView> 
-            <TextInput 
-              style={styles.input}
-              value={currentSearch}
-              onChangeText={setCurrentSearch}
-              placeholder='Search city or address...'
-            />
-          </SafeAreaView>
+          <View style={styles.viewContainer}>
+            <TouchableOpacity onPress={() => {updateCurrentView('list')}}>
+              {
+                currentView == 'list' 
+                  ? 
+                    <View style={styles.viewOptionSelected}> 
+                      <Feather style={styles.selectedIcon} size={16} name='list'/>
+                    </View>
+                  : 
+                    <View style={styles.viewOptionUnelected}> 
+                      <Feather style={styles.unselectedIcon} size={16} name='list'/>
+                    </View>
+              }
+            </TouchableOpacity> 
+            <TouchableOpacity onPress={() => {updateCurrentView('map')}}>
+              {
+                currentView == 'map' 
+                  ? 
+                    <View style={styles.viewOptionSelected}> 
+                      <Feather style={styles.selectedIcon} size={16} name='map'/>
+                    </View>
+                  : 
+                    <View style={styles.viewOptionUnelected}> 
+                      <Feather style={styles.unselectedIcon} size={16} name='map'/>
+                    </View>
+              }
+            </TouchableOpacity>
+          </View>
         </View>
-        <View style={styles.viewContainer}>
-          <TouchableOpacity onPress={() => {updateResultView('list')}}>
-            {
-              resultView == 'list' 
-                ? 
-                  <View style={styles.viewOptionSelected}> 
-                    <Feather style={styles.selectedIcon} size={16} name='list'/>
-                  </View>
-                : 
-                  <View style={styles.viewOptionUnelected}> 
-                    <Feather style={styles.unselectedIcon} size={16} name='list'/>
-                  </View>
-            }
-          </TouchableOpacity> 
-          <TouchableOpacity onPress={() => {updateResultView('map')}}>
-            {
-              resultView == 'map' 
-                ? 
-                  <View style={styles.viewOptionSelected}> 
-                    <Feather style={styles.selectedIcon} size={16} name='map'/>
-                  </View>
-                : 
-                  <View style={styles.viewOptionUnelected}> 
-                    <Feather style={styles.unselectedIcon} size={16} name='map'/>
-                  </View>
-            }
+        <View style={styles.separtor}></View>
+        <View style={styles.bar}> 
+          <View style={styles.filterAndSortContainer}> 
+            <TouchableOpacity onPress={() => {updateFilter()}}>
+              <View style={[styles.actionContainer, styles.mgnr8]}> 
+                <Feather size={18} name='filter'/>
+                <Text style={[styles.label, styles.ml8]}>
+                  Filter
+                </Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => {updateOpenSort()}}>
+              <View style={styles.actionContainer}> 
+                <FontAwesome size={18} name='sort'/>
+                <Text style={[styles.label, styles.ml8]}>
+                  Sort
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <TouchableOpacity style={[styles.actionContainer, styles.saveStyle]} onPress={() => {saveSearch()}}>
+            <Text style={[styles.label, styles.fcw]}>Save Serach</Text>
           </TouchableOpacity>
         </View>
       </View>
-      <View style={styles.separtor}></View>
-      <View style={styles.bar}> 
-        <View style={styles.filterAndSortContainer}> 
-          <TouchableOpacity onPress={() => {updateFilter()}}>
-            <View style={[styles.actionContainer, styles.mgnr8]}> 
-              <Feather size={18} name='filter'/>
-              <Text style={[styles.label, styles.ml8]}>
-                Filter
-              </Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => {updateIsSort()}}>
-            <View style={styles.actionContainer}> 
-              <FontAwesome size={18} name='sort'/>
-              <Text style={[styles.label, styles.ml8]}>
-                Sort
-              </Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-        <View style={[styles.actionContainer, styles.saveStyle]}> 
-          <Text style={[styles.label, styles.fcw]}>Save Serach</Text>
-        </View>
-      </View>
+      {
+        openSort == false ? null : <SortComponent updateSort={updateSort} sort={sort}/>
+      }
     </>
   )
 }
@@ -97,14 +116,17 @@ const styles = StyleSheet.create({
     width: '100%',
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    alignItems: 'center'
   },
   searchContainer: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'flex-end',
-    
   },
+  searcingContainer: {
+    marginLeft: 8
+  },  
   viewContainer: {
     display: 'flex',
     flexDirection: 'row',
@@ -137,8 +159,11 @@ const styles = StyleSheet.create({
   },
   input: {
     fontSize: 17,
-    width: 280,
-    paddingHorizontal: 8
+    width: 240,
+    paddingHorizontal: 8,
+    borderBottomColor: 'black',
+    borderBottomWidth: 2,
+    marginLeft: 4
   },
   separtor: {
     width: '100%',
@@ -168,6 +193,10 @@ const styles = StyleSheet.create({
   },
   ml8: {
     marginLeft: 4
+  },
+  searchSubmit: {
+    fontSize: 17,
+    color: '#273be2'
   }
 })
 

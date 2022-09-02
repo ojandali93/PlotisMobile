@@ -216,13 +216,12 @@ const FilterScreen = ({navigation, route}) => {
             </View>    
           </View>
         </View>
-        <View style={styles.separater}></View>
-        <TouchableOpacity onPress={() => {applyFilters()}}>
-          <View style={styles.buttonContainer}>
-            <Text style={styles.buttonText}>Apply Filters</Text>
-          </View>
-        </TouchableOpacity>
       </ScrollView>
+      <TouchableOpacity onPress={() => {applyFilters()}}>
+        <View style={styles.buttonContainer}>
+          <Text style={styles.buttonText}>Apply Filters</Text>
+        </View>
+      </TouchableOpacity>
     </View>
   )
 }
@@ -232,11 +231,13 @@ const styles = StyleSheet.create({
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
-    padding: 8
+    padding: 8,
+    marginTop: 44
   },
   scrollContainer: {
     overflow: 'hidden',
-    height: 748
+    height: 728,
+    paddingBottom: 8
   },
   header: {
     width: '100%',
@@ -245,7 +246,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   sectionContainer: {
     width: '100%',
@@ -269,7 +270,8 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginBottom: 8
   },
   label: { 
     fontSize: 17,

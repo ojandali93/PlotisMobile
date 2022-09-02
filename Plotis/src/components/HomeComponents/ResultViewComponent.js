@@ -6,13 +6,14 @@ import PropertyTile from '../GeneralComponents/PropertyTile'
 const ResultViewComponent = (props) => {
   const {
     results,
-    resultCount
+    resultCount,
+    activeSearch
   } = props
 
   return (
     <>
       <View style={styles.headerContainer}>
-        <Text style={styles.label}>Total Results: {resultCount}</Text>
+        <Text style={styles.label}>Total Results: {resultCount} {activeSearch == "" ? null : <Text> -  "{activeSearch}"</Text>}</Text>
         <View>
 
         </View>

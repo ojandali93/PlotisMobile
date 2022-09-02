@@ -3,25 +3,32 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import axios from 'axios'
 
 import SeachAndFilterComponent from '../components/HomeComponents/SeachAndFilterComponent'
-import SortComponent from '../components/HomeComponents/SortComponent'
 import LoadingComponent from '../components/HomeComponents/LoadingComponent'
 import ResultViewComponent from '../components/HomeComponents/ResultViewComponent'
 
 import { extendedPropertOptions } from '../../zillow'
+import { getAuth } from "firebase/auth"
+import { addDoc, serverTimestamp, collection } from 'firebase/firestore'
+import { db } from '../../firebase'
 
 const MainScreen = ({navigation, route}) => {
-  const [currentSearch, setCurrentSearch] = useState()
-  const [activeSearch, setActiveSearch] = useState()
-  const [searchHistory, setSearchHistory] = useState()
-  const [resultView, setResultView] = useState('list')
-  const [isFilter, setIsFilter] = useState(false)
-  const [isSort, setIsSort] = useState(false)
-  const [sort, setSort] = useState('')
-  const [appliedFilters, setAppliedFilters] = useState({})
-  const [loading, setLoading] = useState(false)
-  const [results, setResults] = useState([])
-  const [resultCount, setResultCount] = useState(0)
+  const auth = getAuth()
 
+  const [currentsearch, setCurrentSearch] = useState('')
+  const [activeSearch, setActiveSearch] = useState('')
+  const [activeFilters, setActiveFilters] = useState('')
+  const [activeSort, setActiveSort] = useState('')
+  const [activeFullSearch, setActiveFullSearch] = useState({})
+  const [loading, setLoading] = useState('')
+  const [results, setResults] = useState([])
+  const [resultCount, setResultCount] = useState('')
+  const [currentView, setCurrentView] = useState('list')
+  const [sort, setSort] = useState('Homes_for_You')
+  const [appliedFilters, setAppliedFilters] = useState({"home_type": 'Houses'})
+
+  const updateCurrentView = (value) => {
+    setCurrentView(value)
+  }
   useEffect(() => {
     setLoading(true)
     axios.request(extendedPropertOptions)
@@ -41,26 +48,6 @@ const MainScreen = ({navigation, route}) => {
     }
   }, [route.params])
 
-  const updateResultView = (view) => {
-    if(view == 'list'){
-      setResultView('list')
-    }
-    if(view == 'map'){
-      setResultView('map')
-    }
-  }
-
-  const updateIsSort = () => {
-    if(isSort == false){
-      setIsSort(true)
-    }
-  }
-
-  const updateSort = (sort) => {
-    setSort(sort)
-    setIsSort(false)
-  }
-
   const updateFilter = () => {
     if(Object.keys(appliedFilters).length === 0){
       navigation.navigate('FilterStack')
@@ -69,27 +56,76 @@ const MainScreen = ({navigation, route}) => {
     }
   }
 
+  const saveSearch = () => {
+    const collectionRef = collection(db, 'SavedSearches')
+    if(auth.currentUser.uid){
+      addDoc(collectionRef, {
+        "parameters": activeFullSearch,
+        "userId": auth.currentUser.uid,
+        "createdAt": serverTimestamp()
+      }).then((response) => {
+        console.log(response)
+      }).catch((error) => {
+        console.error(error)
+      })
+    }
+  }
+
+  const newSearch = () => {
+    console.log(appliedFilters)
+    const parameters = {}
+    appliedFilters['home_type'].length > 0 ? parameters['homeType'] = appliedFilters['home_type'].toString() : parameters['homeType'] = 'Houses'
+    currentsearch == '' ? 
+                          activeSearch == '' ? parameters['location'] = 'Los Angeles, CA' : parameters['location'] = activeSearch
+                        : 
+                          parameters['location'] = currentsearch 
+    parameters['sort'] = sort
+    parameters['bathsMin'] = appliedFilters['bathsMin']
+    parameters['badsMin'] = appliedFilters['bedsMin']
+    appliedFilters['maxPrice'] < 11000000 ? parameters['maxPrice'] = appliedFilters['maxPrice'] : null
+    appliedFilters['minPrice'] > 0 ? parameters['minPrice'] = appliedFilters['minPrice'] : null
+    appliedFilters['sqftMax'] < 7000 ? parameters['sqftMin'] = appliedFilters['sqftMax'] : null
+    appliedFilters['sqftMin'] > 0 ? parameters['sqftMax'] = appliedFilters['sqftMin'] : null
+    console.log(parameters)
+    setActiveSearch(currentsearch)
+    setActiveFilters(appliedFilters)
+    setActiveSort(sort)
+    setActiveFullSearch(parameters)
+    extendedPropertOptions.params = parameters
+    setLoading(true)
+    axios.request(extendedPropertOptions)
+      .then((response) => {
+        setResults(response.data.props)
+        setResultCount(response.data.totalResultCount)
+        setCurrentSearch('')
+        setLoading(false)
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+  }
+
   return (
     <View>
       <View style={styles.sortAndFilterContainer}> 
         <SeachAndFilterComponent 
-          currentSearch={currentSearch}
-          resultView={resultView}
-          isFilter={isFilter}
-          isSort={isSort}
+          currentsearch={currentsearch}
           setCurrentSearch={setCurrentSearch}
-          updateResultView={updateResultView}
-          setIsFilter={setIsFilter}
-          setIsSort={setIsSort}
-          updateIsSort={updateIsSort}
+          setActiveSearch={setActiveSearch}
+          updateCurrentView={updateCurrentView}
+          currentView={currentView}
+          sort={sort}
+          setSort={setSort}
           updateFilter={updateFilter}
+          newSearch={newSearch}
+          saveSearch={saveSearch}
         />
       </View>
       {
-        isSort == false ? null : <SortComponent updateSort={updateSort} sort={sort}/>
-      }
-      {
-        loading == true ? <LoadingComponent/> : <ResultViewComponent results={results} resultCount={resultCount}/>
+        loading == true ? <LoadingComponent/> : <ResultViewComponent 
+                                                  results={results} 
+                                                  resultCount={resultCount}
+                                                  activeSearch={activeSearch}/>
       }
     </View>
   )
