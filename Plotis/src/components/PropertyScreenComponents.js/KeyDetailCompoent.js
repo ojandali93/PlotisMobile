@@ -15,7 +15,7 @@ const KeyDetailCompoent = (props) => {
       <View style={styles.contentContainer}>
         <View style={[styles.col, styles.extraPadding]}>
           <View style={styles.row}>
-            <Text style={styles.text}>Days On Zillow:</Text>
+            <Text style={styles.text}>Days Listed:</Text>
             <Text style={styles.text}>{home.daysOnZillow}</Text>
           </View>
           <View style={styles.row}>

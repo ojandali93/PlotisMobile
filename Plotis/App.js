@@ -65,10 +65,10 @@ const FavoriteStack = () => {
 
 const ProfStackile = () => {
   return (
-    <StackNav.Navigator initialRouteName='Profile' screenOptions={{}}>
+    <StackNav.Navigator initialRouteName='Profile' screenOptions={{headerShown: false}}>
       <StackNav.Screen name="ProfileScreen" component={ProfileScreen}/>
       <StackNav.Screen name="LoginScreen" component={LoginScreen} />
-      <StackNav.Screen name="RegisterScreen" component={RegisterProfileScreen} />
+      <StackNav.Screen name="RegisterProfileScreen" component={RegisterProfileScreen} />
       <StackNav.Screen name="SellHomeScreen" component={SellHomeScreen} />
       <StackNav.Screen name="SignupScreen" component={SignupScreen} />
      </StackNav.Navigator>

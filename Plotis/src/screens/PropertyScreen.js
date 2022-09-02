@@ -110,7 +110,7 @@ const PropertyScreen = ({route}) => {
             currentHome={currentHome} 
             currentHomeAddress={currentHomeAddress}/>
           <View style={styles.separaterContainer}><View style={styles.separater}></View></View>
-          <QuickActions/>
+          <QuickActions currentHome={currentHome}/>
           <View style={styles.separaterContainer}><View style={styles.separater}></View></View>
           <KeyDetailCompoent currentHome={currentHome}/>
           <View style={styles.separaterContainer}><View style={styles.separater}></View></View>

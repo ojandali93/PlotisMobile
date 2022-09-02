@@ -8,7 +8,6 @@ import FavoriteUnselected from '../PropertyTileComponents/FavoriteUnselected'
 import { Feather, FontAwesome } from 'react-native-vector-icons'
 
 import { Dimensions } from 'react-native'
-import { BottomTabBarHeightCallbackContext } from '@react-navigation/bottom-tabs'
 
 let deviceWidth = Dimensions.get('window').width - 16
 var aspectHeight = (deviceWidth / 1.78) + 1
@@ -47,9 +46,6 @@ const PropertyTile = (props) => {
             <Image style={{height: aspectHeight, width: deviceWidth}} source={{uri: item.item.imgSrc}}/>
           </View>
           <View style={styles.hiBar}>
-            <View style={styles.transparentContainer}>
-              <Text style={styles.transparentLabel}>Days Listed: {item.item.daysOnZillow}</Text>
-            </View>
             <View style={styles.quickIcons}>
               <TouchableOpacity onPress={() => {updateShare()}}>
                 <View style={styles.iconContainer}>
@@ -106,7 +102,7 @@ const styles = StyleSheet.create({
     width: '100%',
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     alignItems: 'flex-start',
     position: 'absolute',
     marginTop: 8
