@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 
@@ -6,29 +6,24 @@ import FavoriteSelected from '../PropertyTileComponents/FavoriteSelected'
 import FavoriteUnselected from '../PropertyTileComponents/FavoriteUnselected'
 
 import { Feather, FontAwesome } from 'react-native-vector-icons'
-
 import { Dimensions } from 'react-native'
+
+import { getAuth } from "firebase/auth"
+import { addDoc, serverTimestamp, collection, deleteDoc, doc } from 'firebase/firestore'
+import { db } from '../../../firebase'
 
 let deviceWidth = Dimensions.get('window').width - 16
 var aspectHeight = (deviceWidth / 1.78) + 1
 
 const PropertyTile = (props) => {
   const {
-    item
+    item,
+    favoritesZpid,
+    favoritesList
   } = props
 
+  const auth = getAuth()
   const navigation = useNavigation();
-
-  const [isFavorite, setIsFavorite] = useState(false)
-
-  const updateFavorites = () => {
-    console.log('favorites')
-    if(isFavorite){
-      setIsFavorite(false)
-    } else {
-      setIsFavorite(true)
-    }
-  }
 
   const updateShare = () => {
     console.log('share')
@@ -36,6 +31,39 @@ const PropertyTile = (props) => {
 
   const goToDetailsPage =(zpid) => {
     navigation.navigate('PropertyScreen', {zpid: zpid})
+  }
+
+  const addToFavorites = () => {
+    const collectionRef = collection(db, 'Favorites')
+    if(auth.currentUser.uid){
+      addDoc(collectionRef, {
+        "item": item.item,
+        "userId": auth.currentUser.uid,
+        "createdAt": serverTimestamp()
+      }).then((response) => {
+        console.log('added to faorites')
+      }).catch((error) => {
+        console.error(error)
+      })
+    }
+  }
+
+  const removeFromFavorites = (zpid) => {
+    let selectedFavorite
+    favoritesList.forEach((fav) => {
+      if(fav.property.zpid == zpid){
+        selectedFavorite = fav
+      }
+    })
+    console.log(selectedFavorite)
+    const docRef = doc(db, 'Favorites', selectedFavorite.id)
+    deleteDoc(docRef)
+      .then((response) => {
+        console.log('delete favorite')
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
   return (
@@ -52,11 +80,9 @@ const PropertyTile = (props) => {
                   <Feather style={styles.icon} size={20} name='share'/> 
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => {updateFavorites()}}>
-                {
-                  isFavorite == true ? <FavoriteSelected /> : <FavoriteUnselected />
-                }
-              </TouchableOpacity>
+              {
+                favoritesZpid.includes(item.item.zpid) ? <FavoriteSelected item={item} removeFromFavorites={removeFromFavorites}/> : <FavoriteUnselected addToFavorites={addToFavorites}/>
+              }
             </View>
           </View>
           <View style={styles.lowBar}>

@@ -7,7 +7,9 @@ const ResultViewComponent = (props) => {
   const {
     results,
     resultCount,
-    activeSearch
+    activeSearch,
+    favoritesZpid,
+    favoritesList
   } = props
 
   return (
@@ -24,7 +26,7 @@ const ResultViewComponent = (props) => {
         keyExtractor={(item) => item.zpid}
         renderItem={(item) => {
           return(
-            <PropertyTile item={item}/>
+            <PropertyTile item={item} favoritesList={favoritesList} favoritesZpid={favoritesZpid}/>
           )
         }}
       />

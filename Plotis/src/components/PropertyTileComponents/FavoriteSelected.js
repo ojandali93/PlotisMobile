@@ -2,11 +2,20 @@ import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
 import { Feather, FontAwesome } from 'react-native-vector-icons'
 
-const FavoriteSelected = () => {
+const FavoriteSelected = (props) => {
+  const {
+    item,
+    removeFromFavorites
+  } = props
+
   return (
-    <View style={styles.iconContainer}>
-      <FontAwesome style={styles.icon} size={20} name='heart'/>
-    </View>
+    <>
+      <TouchableOpacity onPress={() => {removeFromFavorites(item.item.zpid)}}>
+        <View style={styles.iconContainer}>
+          <FontAwesome style={styles.icon} size={20} name='heart'/>
+        </View>
+      </TouchableOpacity>
+    </>
   )
 }
 

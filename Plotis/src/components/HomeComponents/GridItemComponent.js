@@ -8,29 +8,24 @@ const GridItemComponent = (props) => {
     selectedHomeTypes
   } = props
 
-  if(selectedHomeTypes.includes(item.item.value)){
-    return (
-      <>
-        <TouchableOpacity  style={styles.itemContainerBlue} onPress={() => {updateSelectedHomeTypes(item.item.value)}}>
-          <View style={styles.item}>
-            <Image style={styles.icon} source={item.item.image}/>
-            <Text style={styles.label}>{item.item.value}</Text>
-          </View>
-        </TouchableOpacity>
-      </>
-    )
-  } else {
-    return (
-      <>
-        <TouchableOpacity  style={styles.itemContainer} onPress={() => {updateSelectedHomeTypes(item.item.value)}}>
-          <View style={styles.item}>
-            <Image style={styles.icon} source={item.item.image}/>
-            <Text style={styles.label}>{item.item.value}</Text>
-          </View>
-        </TouchableOpacity>
-      </>
-    )
-  }
+  return(
+    <>
+      {
+        selectedHomeTypes.includes(item.item.value) ? <TouchableOpacity  style={styles.itemContainerBlue} onPress={() => {updateSelectedHomeTypes(item.item.value)}}>
+                                                        <View style={styles.item}>
+                                                          <Image style={styles.icon} source={item.item.image}/>
+                                                          <Text style={styles.label}>{item.item.value}</Text>
+                                                        </View>
+                                                      </TouchableOpacity>
+                                                    : <TouchableOpacity  style={styles.itemContainer} onPress={() => {updateSelectedHomeTypes(item.item.value)}}>
+                                                        <View style={styles.item}>
+                                                          <Image style={styles.icon} source={item.item.image}/>
+                                                          <Text style={styles.label}>{item.item.value}</Text>
+                                                        </View>
+                                                      </TouchableOpacity>
+          }
+    </>
+  )
 }
 
 const styles = StyleSheet.create({

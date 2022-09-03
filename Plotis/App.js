@@ -56,9 +56,9 @@ const FeedStack = () => {
 const FavoriteStack = () => {
   return (
     //headerShown: false
-    <StackNav.Navigator initialRouteName='Favorite' screenOptions={{}}>
+    <StackNav.Navigator initialRouteName='Favorite' screenOptions={{headerShown: false}}>
       <StackNav.Screen name="FavoriteScreen" component={FavoritesScreen}/>
-      <StackNav.Screen name="DetailScreen" component={DetailScreen} />
+      <StackNav.Screen name="PropertyFavoriteScreen" component={PropertyScreen} />
      </StackNav.Navigator>
   )
 }

@@ -12,7 +12,7 @@ import { covertToDollarByGrand, covertToDollarByHundered } from '../../utilities
 import { ScrollView } from 'react-native-gesture-handler'
 
 const FilterScreen = ({navigation, route}) => {
-  const [selectedHomeTypes, setSelectedHomeTypes] = useState([])
+  const [selectedHomeTypes, setSelectedHomeTypes] = useState(['Houses'])
 
   const [min, setMin] = useState(0)
   const [max, setMax] = useState(11000000)
@@ -24,6 +24,16 @@ const FilterScreen = ({navigation, route}) => {
 
   const [bedCount, setBedCount] = useState(0)
   const [bathCount, setBathCount] = useState(0)
+
+  const [currentFilters, setCurrentFilters] = useState({
+    home_type: selectedHomeTypes,
+    minPrice: min,
+    maxPrice: max,
+    bathsMin: bathCount,
+    bedsMin: bedCount,
+    sqftMin: sqftMin,
+    sqftMax: sqftMax,
+  })
 
   useEffect(() => {
     if (route.params?.appliedFilters) {
@@ -41,14 +51,27 @@ const FilterScreen = ({navigation, route}) => {
     }
   }, [route.params])
 
+  console.log(selectedHomeTypes)
+
   const updateSelectedHomeTypes = (selected) => {
-    let selectedHome = [...selectedHomeTypes]
+    let selectedHome = selectedHomeTypes
+    if(selectedHome.length == 0){
+      setSelectedHomeTypes(['Houses'])
+    }
     if(selectedHome.includes(selected)){
-      let targetIndex = selectedHome.indexOf(selected)
-      selectedHome.splice(targetIndex, 1)
-      setSelectedHomeTypes(selectedHome)
+      let target = selectedHome.indexOf(selected)
+      selectedHome.splice(target, 1)
+      if(selectedHome.length == 0){
+        setSelectedHomeTypes(['Houses'])
+        console.log(selectedHomeTypes)
+      } else {
+        setSelectedHomeTypes(selectedHome)
+        console.log(selectedHomeTypes)
+      }
     } else {
-      setSelectedHomeTypes([...selectedHomeTypes, selected])
+      selectedHome.push(selected)
+      setSelectedHomeTypes(selectedHome)
+      console.log(selectedHomeTypes)
     }
   }
 
@@ -81,12 +104,12 @@ const FilterScreen = ({navigation, route}) => {
     setSqfttMin(0)
     setSqftMax(7000)
     setSqftSliderValues([sqftMin,sqftMax])
-    setSelectedHomeTypes([])
+    setSelectedHomeTypes(['Houses'])
   }
 
   const applyFilters = () => {
     const newFilter = {
-      home_type:selectedHomeTypes,
+      home_type: selectedHomeTypes,
       minPrice: min,
       maxPrice: max,
       bathsMin: bathCount,
@@ -94,7 +117,8 @@ const FilterScreen = ({navigation, route}) => {
       sqftMin: sqftMin,
       sqftMax: sqftMax,
     }
-    navigation.navigate('HomeScreen', {newFilter: newFilter})
+    setCurrentFilters(newFilter)
+    navigation.navigate('HomeScreen', {currentFilters: currentFilters})
   }
 
   return (

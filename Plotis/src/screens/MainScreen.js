@@ -5,11 +5,11 @@ import axios from 'axios'
 import SeachAndFilterComponent from '../components/HomeComponents/SeachAndFilterComponent'
 import LoadingComponent from '../components/HomeComponents/LoadingComponent'
 import ResultViewComponent from '../components/HomeComponents/ResultViewComponent'
-
 import { extendedPropertOptions } from '../../zillow'
-import { getAuth } from "firebase/auth"
-import { addDoc, serverTimestamp, collection } from 'firebase/firestore'
+
 import { db } from '../../firebase'
+import { getAuth } from "firebase/auth"
+import { addDoc, serverTimestamp, collection, query, where, onSnapshot } from 'firebase/firestore'
 
 const MainScreen = ({navigation, route}) => {
   const auth = getAuth()
@@ -24,7 +24,19 @@ const MainScreen = ({navigation, route}) => {
   const [resultCount, setResultCount] = useState('')
   const [currentView, setCurrentView] = useState('list')
   const [sort, setSort] = useState('Homes_for_You')
-  const [appliedFilters, setAppliedFilters] = useState({"home_type": 'Houses'})
+  const [appliedFilters, setAppliedFilters] = useState({
+    home_type: ['Houses'],
+    minPrice: 0,
+    maxPrice: 11000000,
+    bathsMin: 0,
+    bedsMin: 0,
+    sqftMin: 0,
+    sqftMax: 7000,
+  })
+  const [favoritesList, setFavoritesList] = useState([])
+  const [favoritesZpid, setFavoritesZpid] = useState([])
+
+  const collectionRef = collection(db, 'Favorites')
 
   const updateCurrentView = (value) => {
     setCurrentView(value)
@@ -35,16 +47,52 @@ const MainScreen = ({navigation, route}) => {
       .then((response) => {
         setResults(response.data.props)
         setResultCount(response.data.totalResultCount)
-        setLoading(false)
+        if(auth.currentUser == null){
+          console.log('nothing')
+        } else {
+          grabUserFavorites()
+        }
       })
       .catch((error) => {
         console.error(error)
       })
+    setLoading(false)
   }, [])
 
   useEffect(() => {
-    if (route.params?.newFilter) {
-      setAppliedFilters(route.params.newFilter);
+    const unsubscribe = navigation.addListener('focus', () => {
+      if(auth.currentUser === null){
+        console.log('not logged in')
+      } else {
+        grabUserFavorites()
+      }
+    })
+    return unsubscribe
+  }, [navigation])
+
+  useEffect(() => {
+    const newFavorites = []
+    favoritesList.forEach((item) => {
+      newFavorites.push(item.item.zpid)
+    })
+    setFavoritesZpid(newFavorites)
+    // console.log(favoritesZpid)
+  }, [favoritesList])
+
+  const grabUserFavorites = () => {
+    const q = query(collectionRef, where('userId', '==', auth.currentUser.uid))
+    onSnapshot(q, (snapshot) => {
+      let favorites = []
+      snapshot.docs.forEach((doc) => {
+        favorites.push({ ...doc.data(), id: doc.id })
+      })
+      setFavoritesList(favorites)
+    })
+  }
+
+  useEffect(() => {
+    if (route.params?.currentFilters) {
+      setAppliedFilters(route.params.currentFilters);
     }
   }, [route.params])
 
@@ -72,13 +120,12 @@ const MainScreen = ({navigation, route}) => {
   }
 
   const newSearch = () => {
-    console.log(appliedFilters)
     const parameters = {}
-    appliedFilters['home_type'].length > 0 ? parameters['homeType'] = appliedFilters['home_type'].toString() : parameters['homeType'] = 'Houses'
     currentsearch == '' ? 
                           activeSearch == '' ? parameters['location'] = 'Los Angeles, CA' : parameters['location'] = activeSearch
                         : 
                           parameters['location'] = currentsearch 
+    parameters['home_type'] = appliedFilters['home_type'].toString()
     parameters['sort'] = sort
     parameters['bathsMin'] = appliedFilters['bathsMin']
     parameters['badsMin'] = appliedFilters['bedsMin']
@@ -125,7 +172,9 @@ const MainScreen = ({navigation, route}) => {
         loading == true ? <LoadingComponent/> : <ResultViewComponent 
                                                   results={results} 
                                                   resultCount={resultCount}
-                                                  activeSearch={activeSearch}/>
+                                                  activeSearch={activeSearch}
+                                                  favoritesZpid={favoritesZpid}
+                                                  favoritesList={favoritesList}/>
       }
     </View>
   )
