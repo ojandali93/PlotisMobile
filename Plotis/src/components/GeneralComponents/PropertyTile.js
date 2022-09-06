@@ -30,6 +30,18 @@ const PropertyTile = (props) => {
   }
 
   const goToDetailsPage =(zpid) => {
+    const collectionRef = collection(db, 'RecentViews')
+    if(auth.currentUser.uid){
+      addDoc(collectionRef, {
+        "item": item.item,
+        "userId": auth.currentUser.uid,
+        "createdAt": serverTimestamp()
+      }).then((response) => {
+        console.log('added to faorites')
+      }).catch((error) => {
+        console.error(error)
+      })
+    }
     navigation.navigate('PropertyScreen', {zpid: zpid})
   }
 
@@ -81,7 +93,7 @@ const PropertyTile = (props) => {
                 </View>
               </TouchableOpacity>
               {
-                favoritesZpid.includes(item.item.zpid) ? <FavoriteSelected item={item} removeFromFavorites={removeFromFavorites}/> : <FavoriteUnselected addToFavorites={addToFavorites}/>
+                favoritesList == null ? null : favoritesZpid.includes(item.item.zpid) ? <FavoriteSelected item={item} removeFromFavorites={removeFromFavorites}/> : <FavoriteUnselected addToFavorites={addToFavorites}/>
               }
             </View>
           </View>

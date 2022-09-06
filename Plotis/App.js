@@ -23,6 +23,7 @@ import SellHomeScreen from './src/screens/SellHomeScreen';
 import SignupScreen from './src/screens/SignupScreen';
 import StartOfferScreen from './src/screens/StartOfferScreen';
 import FilterScreen from './src/screens/FilterScreen'
+import RecentViewScreen from './src/screens/RecentViewScreen'
 
 // console.disableYellowBox = true;
 LogBox.ignoreAllLogs(true)
@@ -46,7 +47,7 @@ const HomeStack = () => {
 
 const FeedStack = () => {
   return (
-    <StackNav.Navigator initialRouteName='Feed' screenOptions={{}}>
+    <StackNav.Navigator initialRouteName='Feed' screenOptions={{headerShown: false}}>
       <StackNav.Screen name="FeedScreen" component={FeedScreen}/>
       <StackNav.Screen name="DetailScreen" component={DetailScreen} />
      </StackNav.Navigator>
@@ -67,6 +68,8 @@ const ProfStackile = () => {
   return (
     <StackNav.Navigator initialRouteName='Profile' screenOptions={{headerShown: false}}>
       <StackNav.Screen name="ProfileScreen" component={ProfileScreen}/>
+      <StackNav.Screen name="RecentViewScreen" component={RecentViewScreen}/>
+      <StackNav.Screen name="ContactAgentScreen" component={ContactAgentScreen}/>
       <StackNav.Screen name="LoginScreen" component={LoginScreen} />
       <StackNav.Screen name="RegisterProfileScreen" component={RegisterProfileScreen} />
       <StackNav.Screen name="SellHomeScreen" component={SellHomeScreen} />

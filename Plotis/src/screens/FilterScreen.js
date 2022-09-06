@@ -25,17 +25,10 @@ const FilterScreen = ({navigation, route}) => {
   const [bedCount, setBedCount] = useState(0)
   const [bathCount, setBathCount] = useState(0)
 
-  const [currentFilters, setCurrentFilters] = useState({
-    home_type: selectedHomeTypes,
-    minPrice: min,
-    maxPrice: max,
-    bathsMin: bathCount,
-    bedsMin: bedCount,
-    sqftMin: sqftMin,
-    sqftMax: sqftMax,
-  })
+  const [currentFilters, setCurrentFilters] = useState({})
 
   useEffect(() => {
+    // console.log(route)
     if (route.params?.appliedFilters) {
       console.log('found')
       let filter = route.params.appliedFilters
@@ -51,8 +44,6 @@ const FilterScreen = ({navigation, route}) => {
     }
   }, [route.params])
 
-  console.log(selectedHomeTypes)
-
   const updateSelectedHomeTypes = (selected) => {
     let selectedHome = selectedHomeTypes
     if(selectedHome.length == 0){
@@ -63,15 +54,12 @@ const FilterScreen = ({navigation, route}) => {
       selectedHome.splice(target, 1)
       if(selectedHome.length == 0){
         setSelectedHomeTypes(['Houses'])
-        console.log(selectedHomeTypes)
       } else {
         setSelectedHomeTypes(selectedHome)
-        console.log(selectedHomeTypes)
       }
     } else {
       selectedHome.push(selected)
       setSelectedHomeTypes(selectedHome)
-      console.log(selectedHomeTypes)
     }
   }
 
@@ -118,8 +106,16 @@ const FilterScreen = ({navigation, route}) => {
       sqftMax: sqftMax,
     }
     setCurrentFilters(newFilter)
-    navigation.navigate('HomeScreen', {currentFilters: currentFilters})
   }
+  
+  useEffect(() => {
+    if(Object.keys(currentFilters).length === 0){
+
+    } else {
+      console.log('passed parameters', currentFilters)
+      navigation.navigate('HomeScreen', {appliedFilters: currentFilters})
+    }
+  }, [currentFilters])
 
   return (
     <View style={styles.filterContainer}>

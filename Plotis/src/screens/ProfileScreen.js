@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import { useNavigation } from '@react-navigation/native';
 import { Feather,AntDesign, Ionicons, SimpleLineIcons} from 'react-native-vector-icons'
+import { useNavigation } from '@react-navigation/native';
 
 import { db } from '../../firebase'
 import { getAuth, signOut } from 'firebase/auth'
@@ -40,16 +40,24 @@ const ProfileScreen = () => {
       })
   }
 
+  const goToRecentViews = () => {
+    navigation.navigate('RecentViewScreen')
+  }
+
+  const goToContactAgent = () => {
+    navigation.navigate('ContactAgentScreen')
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>Omar jandali</Text>
         <Feather style={styles.chevronDown} size={20} name='settings'/>
       </View>
-      <View style={styles.row}>
+      <TouchableOpacity style={styles.row} onPress={() => {goToRecentViews()}}>
         <Feather style={styles.chevronDown} size={20} name='eye'/>
         <Text style={styles.text}>Recent Views</Text>
-      </View>
+      </TouchableOpacity>
       <View style={styles.row}>
         <Feather style={styles.chevronDown} size={20} name='search'/>
         <Text style={styles.text}>Saved Serach</Text>
@@ -62,10 +70,10 @@ const ProfileScreen = () => {
         <Ionicons style={styles.chevronDown} size={20} name='wallet-outline'/>
         <Text style={styles.text}>how much can i affort</Text>
       </View>
-      <View style={styles.row}>
+      <TouchableOpacity style={styles.row} onPress={() => {goToContactAgent()}}>
         <AntDesign style={styles.chevronDown} size={20} name='team'/>
         <Text style={styles.text}>Connect with agent</Text>
-      </View>
+      </TouchableOpacity>
       <View style={styles.row}>
         <Feather style={styles.chevronDown} size={20} name='calendar'/>
         <Text style={styles.text}>Current Offers</Text>
