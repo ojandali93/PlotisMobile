@@ -63,7 +63,8 @@ const PropertyTile = (props) => {
   const removeFromFavorites = (zpid) => {
     let selectedFavorite
     favoritesList.forEach((fav) => {
-      if(fav.property.zpid == zpid){
+      console.log(fav)
+      if(fav.item.zpid == zpid){
         selectedFavorite = fav
       }
     })
