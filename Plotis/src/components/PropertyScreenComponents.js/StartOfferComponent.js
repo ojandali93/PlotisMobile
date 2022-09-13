@@ -1,16 +1,23 @@
 import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
-import { Feather } from 'react-native-vector-icons'
+import { useNavigation } from '@react-navigation/native';
 
 const StartOfferComponent = (props) => {
   const {
-
+    currentHome
   } = props
+  const navigation = useNavigation()
+
+  const startOffer = (zpid) => {
+    navigation.navigate('OfferInformationScreen', {zpid: zpid})
+  }
   
   return (
-    <View style={[styles.preapprovedContainer, styles.shadowBox]}>
-      <Text style={styles.label}>Start An Offer</Text>
-    </View>
+    <>
+      <TouchableOpacity style={[styles.preapprovedContainer, styles.shadowBox]} onPress={() => {startOffer(currentHome.zpid)}}>
+        <Text style={styles.label}>Start An Offer</Text>
+      </TouchableOpacity>
+    </>
   )
 }
 

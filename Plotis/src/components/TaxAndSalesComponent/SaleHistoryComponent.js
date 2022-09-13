@@ -6,11 +6,20 @@ const SaleHistoryComponent = (props) => {
     saleHistory
   } = props
 
+  let newSaleHistory = []
+
+  if(saleHistory.length > 10){
+    console.log(saleHistory)
+    newSaleHistory = saleHistory.slice(0, 10)
+  } else {
+    newSaleHistory = saleHistory
+  }
+
   return (
     <View style={styles.contentContainer}>
       <View style={styles.separator}></View>
       <FlatList
-        data={saleHistory}
+        data={newSaleHistory}
         keyExtractor={item => item.time}
         style={styles.flatList}
         renderItem={({item}) => {

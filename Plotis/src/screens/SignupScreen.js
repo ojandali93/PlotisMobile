@@ -52,38 +52,39 @@ const SignupScreen = () => {
     }
   }
 
-  const createProfile = () => {
+  const createProfile = (user) => {
     const collectionRef = collection(db, 'Profiles')
-    if(password == verify){
-      addDoc(collectionRef, {
-        "firstName": firstName,
-        "lastName": lastName,
-        "email": email,
-        "phone": phone,
-        "location": location,
-        "invExp": investingExperience,
-        "numOfProp": numberOfProperties,
-        "createdAt": serverTimestamp(),
-      }).then((response) => {
-        createAccount()
-      }).catch((error) => {
-        console.error(error)
-      })
-    } else {
-      setValidForm(false)
-    }
+    addDoc(collectionRef, {
+      "firstName": firstName,
+      "lastName": lastName,
+      "email": email,
+      "phone": phone,
+      "location": location,
+      "invExp": investingExperience,
+      "numOfProp": numberOfProperties,
+      "createdAt": serverTimestamp(),
+      "userId": user.uid
+    }).then((response) => {
+      navigation.navigate('ProfileScreen')
+    }).catch((error) => {
+      console.error(error)
+    })
   }
 
   const createAccount = () => {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(userCredentials => {
-        const user = userCredentials.user 
-        console.log(user)
-        navigation.navigate('ProfileScreen')
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    if(password == verify){
+      createUserWithEmailAndPassword(auth, email, password)
+        .then(userCredentials => {
+          const user = userCredentials.user 
+          console.log(user)
+          createProfile(user)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    } else {
+      setValidForm(false)
+    }
   }
 
   return (
@@ -221,7 +222,7 @@ const SignupScreen = () => {
             }
           </View>
           <View style={styles.buttons}>
-            <TouchableOpacity style={styles.button} onPress={() => {createProfile()}}>
+            <TouchableOpacity style={styles.button} onPress={() => {createAccount()}}>
               <Text style={styles.buttonText}>Signup</Text>
             </TouchableOpacity>
           </View>

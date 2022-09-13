@@ -24,6 +24,7 @@ import SignupScreen from './src/screens/SignupScreen';
 import StartOfferScreen from './src/screens/StartOfferScreen';
 import FilterScreen from './src/screens/FilterScreen'
 import RecentViewScreen from './src/screens/RecentViewScreen'
+import OfferInformationScreen from './src/screens/OfferInformationScreen'
 
 // console.disableYellowBox = true;
 LogBox.ignoreAllLogs(true)
@@ -41,6 +42,7 @@ const HomeStack = () => {
       <StackNav.Screen name="StartOfferStack" component={StartOfferScreen} />
       <StackNav.Screen name="PreApprovedStack" component={PreApprovalScreen} />
       <StackNav.Screen name="FilterStack" component={FilterScreen} />
+      <StackNav.Screen name="OfferInformationScreen" component={OfferInformationScreen} />
      </StackNav.Navigator>
   )
 }

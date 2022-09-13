@@ -1,30 +1,36 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
+import { useNavigation } from '@react-navigation/native';
 
-import { Feather } from 'react-native-vector-icons'
+import { Feather, FontAwesome } from 'react-native-vector-icons'
 import { Dimensions } from 'react-native'
 
-let deviceWidth = Dimensions.get('window').width * .4
+let deviceWidth = 350
 var aspectHeight = (deviceWidth / 1.78) + 1
 
-const PropertyTile = (props) => {
+const FeedTileComponent = (props) => {
   const {
-    item,
+    item
   } = props
 
-  const propAddress1 = item.address.streetAddress + '. ' 
-  const propAddress2 = item.address.city + ', ' + item.address.state + ' ' + item.address.zipcode
+  console.log(item)
+  const navigation = useNavigation();
+
+  const goToDetailsPage =(zpid) => {
+    navigation.navigate('PropertyFavoriteScreen', {zpid: zpid})
+  }
+
+  let splitAddress = item.address.split(', ')
+  let address1 = splitAddress[0]
+  let address2 = splitAddress[1] + ', ' + splitAddress[2]
 
   return (
     <>
-      <View style={styles. titleContainer}>
-        <Text style={styles.title }>Selected Property</Text>
-      </View>
-      <View style={styles.tileContainer}>
-        <View>
-          <Image style={{height: aspectHeight, width: deviceWidth}} source={{uri: item.imgSrc}}/>
-        </View>
-        <View style={styles.infoContainer}>
+      <TouchableOpacity onPress={() => {goToDetailsPage(item.zpid)}}>
+        <View style={styles.tileContainer}>
+          <View>
+            <Image style={{height: aspectHeight, width: deviceWidth}} source={{uri: item.imgSrc}}/>
+          </View>
           <View style={styles.lowBar}>
             <View style={styles.transparentContainer}>
               <Text style={styles.transparentLabel}>{item.propertyType}</Text>
@@ -43,29 +49,25 @@ const PropertyTile = (props) => {
               </View>
             </View>
             <View style={styles.contentRow}>
-              <Text style={styles.label}>{propAddress1}</Text>
-            </View>
-            <View style={styles.contentRow}>
-              <Text style={styles.label}>{propAddress2}</Text>
+              <Text style={styles.label}>{item.address}</Text>
             </View>
           </View>
+          <View style={styles.bottomBar}></View>
         </View>
-      </View>
+      </TouchableOpacity>
     </>
   )
 }
 
 const styles = StyleSheet.create({
   tileContainer: {
-    width: '96%',
-    marginLeft: '2%',
+    width: 350,
     display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 16,
+    flexDirection: 'column',
     borderRadius: 5,
     overflow: 'hidden',
     backgroundColor: 'white',
+    marginRight: 8
   },
   hiBar: {
     paddingHorizontal: 8,
@@ -74,7 +76,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'flex-start',
-    position: 'absolute'
+    position: 'absolute',
+    marginTop: 8
   },
   lowBar: {
     paddingHorizontal: 8,
@@ -84,7 +87,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'flex-start',
     position: 'absolute',
-    marginTop: 195
+    marginTop: 160
   },
   transparentContainer: {
     padding: 4,
@@ -114,7 +117,8 @@ const styles = StyleSheet.create({
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
-    paddingVertical: 6
+    paddingVertical: 8,
+    paddingHorizontal: 4
   },
   contentRow: {
     display: 'flex',
@@ -123,8 +127,8 @@ const styles = StyleSheet.create({
     paddingBottom: 4
   },
   price: {
-    fontSize: 17,
-    fontWeight: '500'
+    fontSize: 27,
+    fontWeight: 'bold'
   },
   label: {
     fontSize: 17,
@@ -134,19 +138,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 4,
     backgroundColor: '#1c39bb'
-  },
-  infoContainer: {
-    marginLeft: 8
-  },
-  titleContainer: {
-    width: '96%',
-    marginLeft: '2%',
-    paddingVertical: 8
-  },
-  title: {
-    fontSize: 17,
-    fontWeight: '700'
   }
 })
 
-export default PropertyTile
+export default FeedTileComponent

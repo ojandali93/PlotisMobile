@@ -50,6 +50,7 @@ const PropertyScreen = ({route}) => {
     setIsLoading(true)
     axios.request(singlePropertyOptions)
       .then((response) => {
+        console.log(response.data.zpid)
         setCurrentHome(response.data)
         createHomeAddress(response.data.address)
         setSelectedImage(response.data.imgSrc)
@@ -128,7 +129,7 @@ const PropertyScreen = ({route}) => {
           <View style={styles.separaterContainer}><View style={styles.separater}></View></View>
           <MapComponent long={long} lat={lat} currentHomeAddress={currentHomeAddress}/>
           <View style={styles.separaterContainer}><View style={styles.separater}></View></View>
-          <StartOfferComponent />
+          <StartOfferComponent currentHome={currentHome}/>
           <View style={styles.separaterContainer}><View style={styles.separater}></View></View>
           <SchoolsComponent schools={schools}/>
           <View style={styles.separaterContainer}><View style={styles.separater}></View></View>

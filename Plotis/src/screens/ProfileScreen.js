@@ -59,10 +59,6 @@ const ProfileScreen = () => {
         <Text style={styles.text}>Recent Views</Text>
       </TouchableOpacity>
       <View style={styles.row}>
-        <Feather style={styles.chevronDown} size={20} name='search'/>
-        <Text style={styles.text}>Saved Serach</Text>
-      </View>
-      <View style={styles.row}>
         <SimpleLineIcons style={styles.chevronDown} size={20} name='calculator'/>
         <Text style={styles.text}>Payment Calculator</Text>
       </View>

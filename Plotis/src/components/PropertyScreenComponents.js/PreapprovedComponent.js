@@ -10,6 +10,9 @@ const PreapprovedComponent = (props) => {
   return (
     <View style={[styles.preapprovedContainer, styles.shadowBox]}>
       <Text style={styles.label}>Get Pre-approved</Text>
+      <View style={styles.cscontainer}>
+        <Text style={styles.cs}>Coming Soon</Text>
+      </View>
     </View>
   )
 }
@@ -36,6 +39,19 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 1, height: 2},
     shadowOpacity: 0.8,
     shadowRadius: 3,
+  },
+  cscontainer: {
+    position: 'absolute',
+    padding: 4,
+    borderRadius: 5,
+    backgroundColor: 'green',
+    marginTop: -8,
+    marginLeft: 50,
+    top: 0,
+    left: 260
+  },
+  cs: {
+    color: 'white'
   }
 })
 

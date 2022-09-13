@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 
 import FeedLabelComponents from '../components/FeedComponents/FeedLabelComponents';
 
 import { db } from '../../firebase'
 import { getAuth } from "firebase/auth"
-import { addDoc, serverTimestamp, collection, query, where, onSnapshot } from 'firebase/firestore'
+import { collection, query, where, onSnapshot } from 'firebase/firestore'
 import { FlatList } from 'react-native-gesture-handler';
+
+let deviceHeight = Dimensions.get('window').height - 120
 
 const FeedScreen = () => {
   const [savedSearchList, setSavedSeachList] = useState()
-  const [selectedSearch, setSelectedSearch] = useState()
 
   const auth = getAuth()
   const navigation = useNavigation()
 
   useEffect(() => {
     if(auth.currentUser){
-      console.log(auth.currentUser)
       grabSavedSearches()
     } else {
       navigation.navigate('LoginScreen')
@@ -35,9 +35,6 @@ const FeedScreen = () => {
     })
       return unsubscribe
   }, [navigation])
-
-  useEffect(() => {
-  }, [savedSearchList])
 
   const grabSavedSearches = () => {
     const collectionRef = collection(db, 'SavedSearches')
@@ -56,26 +53,29 @@ const FeedScreen = () => {
       <View style={styles.header}>
         <Text style={styles.headerText}>Your Feed:</Text>
       </View>
-      <FlatList
-        style={styles.flatlist}
-        data={savedSearchList}
-        keyExtractor={(item) => item.id}
-        renderItem={(item) => {
-          console.log(item.item.parameters.location)
-          return (
-            <> 
-              <FeedLabelComponents item={item}/>
-            </>
-          )
-        }}
-      />
+      <View>
+        <FlatList
+          style={styles.flatlist}
+          data={savedSearchList}
+          keyExtractor={(item) => item.id}
+          renderItem={(item) => {
+            return (
+              <> 
+                <FeedLabelComponents item={item}/>
+              </>
+            )
+          }}
+        />
+      </View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 44
+    marginTop: 44,
+    height: deviceHeight,
+    paddingBottom: 60
   },
   header: {
     display: 'flex',
@@ -91,6 +91,10 @@ const styles = StyleSheet.create({
     marginLeft: 16,
     fontWeight: '700'
   },
+  tileList: {
+    paddingHorizontal: 8,
+    width: '100%'
+  }
 })
 
 export default FeedScreen

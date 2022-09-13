@@ -55,11 +55,10 @@ const FilterScreen = ({navigation, route}) => {
       if(selectedHome.length == 0){
         setSelectedHomeTypes(['Houses'])
       } else {
-        setSelectedHomeTypes(selectedHome)
+        setSelectedHomeTypes([...selectedHome])
       }
     } else {
-      selectedHome.push(selected)
-      setSelectedHomeTypes(selectedHome)
+      setSelectedHomeTypes([...selectedHome, selected])
     }
   }
 
