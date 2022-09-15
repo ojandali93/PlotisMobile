@@ -7,7 +7,7 @@ import { Dimensions } from 'react-native'
 let deviceWidth = Dimensions.get('window').width * .4
 var aspectHeight = (deviceWidth / 1.78) + 1
 
-const PropertyTile = (props) => {
+const PropertySampleComponent = (props) => {
   const {
     item,
   } = props
@@ -17,9 +17,6 @@ const PropertyTile = (props) => {
 
   return (
     <>
-      <View style={styles. titleContainer}>
-        <Text style={styles.title }>Selected Property</Text>
-      </View>
       <View style={styles.tileContainer}>
         <View>
           <Image style={{height: aspectHeight, width: deviceWidth}} source={{uri: item.imgSrc}}/>
@@ -62,7 +59,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 16,
+    marginBottom: 8,
     borderRadius: 5,
     overflow: 'hidden',
     backgroundColor: 'white',
@@ -149,4 +146,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default PropertyTile
+export default PropertySampleComponent

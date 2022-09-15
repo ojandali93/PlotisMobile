@@ -48,32 +48,57 @@ const ProfileScreen = () => {
     navigation.navigate('ContactAgentScreen')
   }
 
+  const goToOfferScreen = () => {
+    navigation.navigate('OfferScreen')
+  }
+
+  const goToPaymentCalculator = () => {
+    navigation.navigate('PaymentCalculatorScreen')
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>Omar jandali</Text>
         <Feather style={styles.chevronDown} size={20} name='settings'/>
       </View>
+      <View style={styles.sectionHeader}>
+        <Text style={styles.label}>Searches</Text>
+      </View>
       <TouchableOpacity style={styles.row} onPress={() => {goToRecentViews()}}>
         <Feather style={styles.chevronDown} size={20} name='eye'/>
         <Text style={styles.text}>Recent Views</Text>
       </TouchableOpacity>
-      <View style={styles.row}>
+      <TouchableOpacity style={styles.row} onPress={() => {}}>
+        <Feather style={styles.chevronDown} size={20} name='search'/>
+        <Text style={styles.text}>Saved Searches</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.row} onPress={() => {goToOfferScreen()}}>
+        <Feather style={styles.chevronDown} size={20} name='calendar'/>
+        <Text style={styles.text}>Current Offers</Text>
+      </TouchableOpacity>
+      <View style={styles.sectionHeader}>
+        <Text style={styles.label}>Finances</Text>
+      </View>
+      <TouchableOpacity style={styles.row} onPress={() => {goToPaymentCalculator()}}>
         <SimpleLineIcons style={styles.chevronDown} size={20} name='calculator'/>
         <Text style={styles.text}>Payment Calculator</Text>
-      </View>
+      </TouchableOpacity>
       <View style={styles.row}>
         <Ionicons style={styles.chevronDown} size={20} name='wallet-outline'/>
         <Text style={styles.text}>how much can i affort</Text>
       </View>
+      <View style={styles.sectionHeader}>
+        <Text style={styles.label}>Houses</Text>
+      </View>
+      <TouchableOpacity style={styles.row} onPress={() => {}}>
+        <Feather style={styles.chevronDown} size={20} name='tag'/>
+        <Text style={styles.text}>Sell My Home</Text>
+      </TouchableOpacity>
       <TouchableOpacity style={styles.row} onPress={() => {goToContactAgent()}}>
         <AntDesign style={styles.chevronDown} size={20} name='team'/>
         <Text style={styles.text}>Connect with agent</Text>
       </TouchableOpacity>
-      <View style={styles.row}>
-        <Feather style={styles.chevronDown} size={20} name='calendar'/>
-        <Text style={styles.text}>Current Offers</Text>
-      </View>
       <View style={styles.row}>
         <Feather style={styles.chevronDown} size={20} name='briefcase'/>
         <Text style={styles.text}>Careers</Text>
@@ -104,10 +129,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 56,
     alignItems: 'center',
-    borderBottomColor: 'grey',
     borderBottomWidth: 2,
     justifyContent: 'space-between',
-    backgroundColor: 'lightgrey'
   },
   chevronDown: {
     color: '#1c39bb',
@@ -123,7 +146,20 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: 22,
+    fontWeight: '700',
     marginLeft: 16
+  },
+  sectionHeader: {
+    width: '100%',
+    paddingLeft: 8,
+    paddingVertical: 8,
+    borderBottomColor: 'black',
+    borderBottomWidth: 1,
+    backgroundColor: 'lightgrey'
+  },
+  label: {
+    fontSize: 17,
+    fontWeight: '500'
   }
 })
 

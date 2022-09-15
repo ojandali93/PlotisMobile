@@ -25,6 +25,8 @@ import StartOfferScreen from './src/screens/StartOfferScreen';
 import FilterScreen from './src/screens/FilterScreen'
 import RecentViewScreen from './src/screens/RecentViewScreen'
 import OfferInformationScreen from './src/screens/OfferInformationScreen'
+import OfferScreen from './src/screens/OfferScreen'
+import PaymentCalculationScreen from './src/screens/PaymentCalculationScreen'
 
 // console.disableYellowBox = true;
 LogBox.ignoreAllLogs(true)
@@ -76,6 +78,8 @@ const ProfStackile = () => {
       <StackNav.Screen name="RegisterProfileScreen" component={RegisterProfileScreen} />
       <StackNav.Screen name="SellHomeScreen" component={SellHomeScreen} />
       <StackNav.Screen name="SignupScreen" component={SignupScreen} />
+      <StackNav.Screen name="OfferScreen" component={OfferScreen} />
+      <StackNav.Screen name="PaymentCalculatorScreen" component={PaymentCalculationScreen} />
      </StackNav.Navigator>
   )
 }

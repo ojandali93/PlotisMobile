@@ -25,10 +25,18 @@ const calculateMortgagePayment = (loanAmount, ir) => {
   return Math.round(monthlyPayment)
 }
 
+const calculateDynamicMortgagePayment = (loanAmount, ir, years) => {
+  let interestRate = (ir / 100)/12
+  let powerRate = Math.pow(1 + interestRate, (years * 12))
+  let monthlyPayment = loanAmount * ((interestRate * powerRate) / (powerRate - 1))
+  return Math.round(monthlyPayment)
+}
+
 module.exports = {
   calculateLoanAmount,
   calculateDownPaymentPercent,
   calculateDownPaymentAmount,
   calculateClosingCost,
-  calculateMortgagePayment
+  calculateMortgagePayment,
+  calculateDynamicMortgagePayment
 } 

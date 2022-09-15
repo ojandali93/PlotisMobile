@@ -20,8 +20,8 @@ const OfferInformationScreen = ({route}) => {
   const collectionRefProfile = collection(db, 'Profiles')
 
   const [addressResult, setAddressResult] = useState({})
+  const [propertySummary, setPropertySummary] = useState({})
   const [user, setUser] = useState()
-  const [offerDetails, setOfferDetails] = useState()
   const [loading, setLoading] = useState(true)
 
   const [contactNumber, setContactNumber] = useState()
@@ -86,6 +86,7 @@ const OfferInformationScreen = ({route}) => {
       "viewedProperty": viewedProperty,
       "userId": user.userId,
       "createdAt": serverTimestamp(),
+      "property": addressResult
     })
     .then((response) => {
       navigation.navigate('PropertyScreen', {zpid: route.params.zpid})
