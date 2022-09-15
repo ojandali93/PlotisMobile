@@ -56,6 +56,10 @@ const ProfileScreen = () => {
     navigation.navigate('PaymentCalculatorScreen')
   }
 
+  const goToSellHome = () => {
+    navigation.navigate('SellHomeScreen')
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -84,14 +88,19 @@ const ProfileScreen = () => {
         <SimpleLineIcons style={styles.chevronDown} size={20} name='calculator'/>
         <Text style={styles.text}>Payment Calculator</Text>
       </TouchableOpacity>
-      <View style={styles.row}>
-        <Ionicons style={styles.chevronDown} size={20} name='wallet-outline'/>
-        <Text style={styles.text}>how much can i affort</Text>
+      <View style={styles.rowsb}>
+        <View style={styles.rowLabel}>
+          <Ionicons style={styles.chevronDown} size={20} name='wallet-outline'/>
+          <Text style={styles.text}>What I Can Affort</Text>
+        </View>
+        <View style={styles.cscontainer}>
+          <Text style={styles.cs}>Coming Soon</Text>
+        </View>
       </View>
       <View style={styles.sectionHeader}>
         <Text style={styles.label}>Houses</Text>
       </View>
-      <TouchableOpacity style={styles.row} onPress={() => {}}>
+      <TouchableOpacity style={styles.row} onPress={() => {goToSellHome()}}>
         <Feather style={styles.chevronDown} size={20} name='tag'/>
         <Text style={styles.text}>Sell My Home</Text>
       </TouchableOpacity>
@@ -117,6 +126,7 @@ const styles = StyleSheet.create({
     marginTop: 44
   },
   row: {
+    width: '100%',
     display: 'flex',
     flexDirection: 'row',
     height: 46,
@@ -160,7 +170,29 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 17,
     fontWeight: '500'
-  }
+  },
+  rowsb: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  rowLabel: {
+    display: 'flex',
+    flexDirection: 'row',
+    height: 46,
+    alignItems: 'center',
+  },
+  cs: {
+    paddingVertical: 6,
+    paddingHorizontal: 6,
+    marginRight: 8,
+    backgroundColor: 'green',
+    borderRadius: 5,
+    overflow: 'hidden',
+    color: 'white'
+  },
 })
 
 export default ProfileScreen
