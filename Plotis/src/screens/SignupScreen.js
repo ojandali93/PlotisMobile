@@ -76,7 +76,6 @@ const SignupScreen = () => {
       createUserWithEmailAndPassword(auth, email, password)
         .then(userCredentials => {
           const user = userCredentials.user 
-          console.log(user)
           createProfile(user)
         })
         .catch((error) => {

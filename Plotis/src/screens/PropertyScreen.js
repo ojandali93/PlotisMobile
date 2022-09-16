@@ -46,11 +46,69 @@ const PropertyScreen = ({route}) => {
   const [lat, setLat] = useState([])
   const [schools, setSchools] = useState([])
 
+  const [totalOverallRevenue, setTotalOverallRevenue] = useState(0)
+  const [totalExpWithoutMortgage, setTotalExpWithoutMortgage] = useState(0)
+  const [mortgatePandI, setMortgagePandI] = useState(0)
+  const [totalDownPayment, setTotalDownPayment] = useState((currentHome.price * .8).toFixed(2))
+  const [monthlyNOI, setMonthlyNOI] = useState(0)
+  const [yearlyNOI, setYearlyNOI] = useState(0)
+  const [capRate, setCapRate] = useState(0)
+  const [monthlyCashFlow, setMonthlyCashFlow] = useState(0)
+  const [yearlyCashFlow, setYearlyCashFlow] = useState(0)
+  const [cashOnCashReturn, setCashOnCashReturn] = useState(0)
+  const [totalMonthlyExpensesPercent, setTotalMonthlyExpensesPercent] = useState(0)
+  const [year1ROI, setYear1ROI] = useState(0)
+  const [monthlyRevenue, setMonthlyRevenue] = useState(0)
+  const [yearlyRevenue, setYearlyRevenue] = useState(0)
+  const [monthlyExpenses, setMonthlyExpenses] = useState(0)
+  const [yearlyExpenses, setYearlyExpenses] = useState(0)
+
+  
+
+  useEffect(() => {
+    setYearlyRevenue(monthlyRevenue * 12)
+    setMonthlyNOI(monthlyRevenue - totalExpWithoutMortgage)
+  }, [monthlyRevenue])
+
+  useEffect(() => {
+    setYearlyExpenses(monthlyExpenses * 12)
+  }, [monthlyExpenses])
+
+  useEffect(() => {
+    setMonthlyNOI(monthlyRevenue - totalExpWithoutMortgage)
+  }, [totalExpWithoutMortgage])
+
+  useEffect(() => {
+    setYearlyNOI(monthlyNOI * 12)
+    setMonthlyCashFlow(monthlyNOI - mortgatePandI)
+  }, [monthlyNOI])
+
+  useEffect(() => {
+    setCapRate(((yearlyNOI/currentHome.price) * 100).toFixed(2))
+    setYear1ROI(((yearlyNOI / totalDownPayment) * 100).toFixed(2))
+  }, [yearlyNOI])
+
+  useEffect(() => {
+    setMonthlyCashFlow(parseInt(monthlyNOI) - parseInt(mortgatePandI))
+  }, [mortgatePandI])
+
+  useEffect(() => {
+    setYearlyCashFlow(monthlyCashFlow * 12)
+  }, [monthlyCashFlow])
+
+  useEffect(() => {
+    setCashOnCashReturn(((yearlyCashFlow / totalDownPayment) * 100).toFixed(2))
+  }, [yearlyCashFlow])
+
+  useEffect(() => {
+    setCashOnCashReturn(((yearlyCashFlow / totalDownPayment) * 100).toFixed(2))
+    setYear1ROI(((yearlyNOI / totalDownPayment) * 100).toFixed(2))
+  }, [totalDownPayment])
+
   useEffect(() => {
     setIsLoading(true)
     axios.request(singlePropertyOptions)
       .then((response) => {
-        console.log(response.data.zpid)
         setCurrentHome(response.data)
         createHomeAddress(response.data.address)
         setSelectedImage(response.data.imgSrc)
@@ -117,13 +175,35 @@ const PropertyScreen = ({route}) => {
           <View style={styles.separaterContainer}><View style={styles.separater}></View></View>
           <DescriptionComponent description={currentHome.description}/>
           <View style={styles.separaterContainer}><View style={styles.separater}></View></View>
-          <ExpensesComponents currentHome={currentHome}/>
+          <ExpensesComponents 
+            currentHome={currentHome}
+            monthlyExpenses={monthlyExpenses}
+            setMonthlyExpenses={setMonthlyExpenses}
+            setTotalExpWithoutMortgage={setTotalExpWithoutMortgage}
+            setMortgagePandI={setMortgagePandI}
+            setTotalDownPayment={setTotalDownPayment}/>
           <View style={styles.separaterContainer}><View style={styles.separater}></View></View>
-          <RevenueComponent currentHome={currentHome}/>
+          <RevenueComponent 
+            currentHome={currentHome}
+            monthlyRevenue={monthlyRevenue}
+            setMonthlyRevenue={setMonthlyRevenue}/>
           <View style={styles.separaterContainer}><View style={styles.separater}></View></View>
           <PreapprovedComponent />
           <View style={styles.separaterContainer}><View style={styles.separater}></View></View>
-          <InvestmentMetricsComponent />
+          <InvestmentMetricsComponent 
+            currentHome={currentHome}
+            monthlyRevenue={monthlyRevenue}
+            yearlyRevenue={yearlyRevenue}
+            monthlyExpenses={monthlyExpenses}
+            yearlyExpenses={yearlyExpenses}
+            monthlyNOI={monthlyNOI}
+            yearlyNOI={yearlyNOI}
+            capRate={capRate}
+            monthlyCashFlow={monthlyCashFlow}
+            yearlyCashFlow={yearlyCashFlow}
+            cashOnCashReturn={cashOnCashReturn}
+            year1ROI={year1ROI}
+          />
           <View style={styles.separaterContainer}><View style={styles.separater}></View></View>
           <TaxAndPriceComponent saleHistory={saleHistory} taxHistory={taxHistory.splice(0, 10)}/>
           <View style={styles.separaterContainer}><View style={styles.separater}></View></View>

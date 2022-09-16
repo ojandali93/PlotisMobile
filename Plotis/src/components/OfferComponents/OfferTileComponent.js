@@ -9,8 +9,6 @@ const OfferTileComponent = (props) => {
     item
   } = props
 
-  console.log(item)
-
   return (
     <View style={styles.container}>
       <PropertySampleComponent item={item.item.property}/>

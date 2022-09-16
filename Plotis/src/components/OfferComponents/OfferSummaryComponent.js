@@ -6,8 +6,6 @@ const OfferSummaryComponent = (props) => {
     item
   } = props
 
-  console.log('item', item)
-
   return (
     <View style={styles.container}>
       <View style={styles.row}>

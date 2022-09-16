@@ -3,7 +3,18 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
 
 const InvestmentMetricsComponent = (props) => {
   const {
-    currentHome
+    currentHome,
+    monthlyRevenue,
+    yearlyRevenue,
+    monthlyExpenses,
+    yearlyExpenses,
+    monthlyNOI,
+    yearlyNOI,
+    capRate,
+    monthlyCashFlow,
+    yearlyCashFlow,
+    cashOnCashReturn,
+    year1ROI
   } = props
 
   return (
@@ -15,47 +26,47 @@ const InvestmentMetricsComponent = (props) => {
         <View style={[styles.col, styles.extraPadding]}>
           <View style={styles.row}>
             <Text style={styles.text}>Gross Monthly Revenue:</Text>
-            <Text style={styles.text}>0</Text>
+            <Text style={styles.text}>${monthlyRevenue}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.text}>Gross Yearly Revenue:</Text>
-            <Text style={styles.text}>0</Text>
+            <Text style={styles.text}>${yearlyRevenue}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.text}>Total Monthly Expenses: </Text>
-            <Text style={styles.text}>0</Text>
+            <Text style={styles.text}>${monthlyExpenses}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.text}>Total Yearly Expenses:</Text>
-            <Text style={styles.text}>0</Text>
+            <Text style={styles.text}>${yearlyExpenses}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.text}>Monthly NOI:</Text>
-            <Text style={styles.text}>0</Text>
+            <Text style={styles.text}>${monthlyNOI}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.text}>Yearly NOI:</Text>
-            <Text style={styles.text}>0</Text>
-          </View>
-          <View style={styles.row}>
-            <Text style={styles.text}>CAP Rate:</Text>
-            <Text style={styles.text}>0</Text>
+            <Text style={styles.text}>${yearlyNOI}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.text}>Monthly Cashflow:</Text>
-            <Text style={styles.text}>0</Text>
+            <Text style={styles.text}>${monthlyCashFlow}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.text}>Yearly Cashflow:</Text>
-            <Text style={styles.text}>0</Text>
+            <Text style={styles.text}>${yearlyCashFlow}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.text}>CAP Rate:</Text>
+            <Text style={styles.text}>{capRate}%</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.text}>Cash on Cash Return:</Text>
-            <Text style={styles.text}>0</Text>
+            <Text style={styles.text}>{cashOnCashReturn}%</Text>
           </View>
           <View style={styles.lastRow}>
             <Text style={styles.text}>Return on Investment:</Text>
-            <Text style={styles.text}>0</Text>
+            <Text style={styles.text}>{year1ROI}%</Text>
           </View>
         </View>
       </View>

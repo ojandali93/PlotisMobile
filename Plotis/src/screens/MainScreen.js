@@ -105,7 +105,6 @@ const MainScreen = ({navigation, route}) => {
   }, [route.params])
 
   const updateFilter = () => {
-    console.log(appliedFilters)
     if(Object.keys(appliedFilters).length === 0){
       console.log('redirect with no filter')
       navigation.navigate('FilterStack')
@@ -116,7 +115,6 @@ const MainScreen = ({navigation, route}) => {
   }
 
   const saveSearch = () => {
-    console.log(activeFullSearch)
     const collectionRef = collection(db, 'SavedSearches')
     if(auth.currentUser.uid){
       activeFullSearch['sort'] = "Newest"
@@ -151,7 +149,6 @@ const MainScreen = ({navigation, route}) => {
     setActiveFilters(appliedFilters)
     setActiveSort(sort)
     setActiveFullSearch(parameters)
-    console.log(parameters)
     extendedPropertOptions.params = parameters
     setLoading(true)
     axios.request(extendedPropertOptions)

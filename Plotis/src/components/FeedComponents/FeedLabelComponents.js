@@ -21,7 +21,6 @@ const FeedLabelComponents = (props) => {
 
   const grabShownResutls = (parameters) => {
     extendedPropertOptions.params = parameters
-    console.log(extendedPropertOptions)
     axios.request(extendedPropertOptions)
       .then((response) => {
         setResults(response.data.props)

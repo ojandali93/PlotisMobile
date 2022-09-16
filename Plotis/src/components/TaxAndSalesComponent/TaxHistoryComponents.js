@@ -6,7 +6,6 @@ const TaxHistoryComponents = (props) => {
     taxHistory
   } = props
 
-  console.log(taxHistory)
 
   const sampleTax = [
     {

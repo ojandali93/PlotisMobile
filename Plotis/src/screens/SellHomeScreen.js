@@ -36,7 +36,6 @@ const SellHomeScreen = () => {
 
   const newSearch = () => {
     extendedPropertOptions.params.location = addressLookup
-    console.log(extendedPropertOptions)
     axios.request(extendedPropertOptions)
       .then((response) => {
         console.log(response.data)
@@ -49,10 +48,8 @@ const SellHomeScreen = () => {
 
   const getPropertyDetails = (zpid) => {
     singlePropertyOptions.params.zpid = zpid
-    console.log(singlePropertyOptions)
     axios.request(singlePropertyOptions)
       .then((response) => {
-        console.log(response.data)
         setAddressResult(response.data)
         setMessage('')
       })

@@ -8,11 +8,13 @@ import StlMonthlyRevenueComponent from '../RevenueComponents/StlMonthlyRevenueCo
 
 const RevenueComponent = (props) => {
   const {
-    currentHome
+    currentHome,
+    monthlyRevenue,
+    setMonthlyRevenue
   } = props
 
   const [selected, setSelected] = useState('longTerm')
-  const [monthlyRevenue, setMonthlyRevenue] = useState('0')
+  // const [monthlyRevenue, setMonthlyRevenue] = useState('0')
   const [additionalRevenue, setAdditionalRevenue] = useState('0')
   const [ltlMonthlyRevenue, setLtlMonthlyRevenue] = useState(currentHome.rentZestimate == null ? '0' : currentHome.rentZestimate.toString())
   const [strMonthlyRevenue, setStrMonthlyRevenue] = useState('3800')

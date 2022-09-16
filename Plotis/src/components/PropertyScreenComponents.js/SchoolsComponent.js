@@ -7,8 +7,6 @@ const SchoolsComponent = (props) => {
     schools
   } = props
 
-  console.log(schools)
-
   return (
     <View style={styles.keyDetailsContainer}>
       <View style={styles.headerContainer}>

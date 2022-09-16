@@ -12,7 +12,12 @@ import OtherExpensesComponent from '../ExpensesComponents/OtherExpensesComponent
 
 const ExpensesComponents = (props) => {
   const {
-    currentHome
+    currentHome,
+    monthlyExpenses,
+    setMonthlyExpenses,
+    setTotalExpWithoutMortgage,
+    setMortgagePandI,
+    setTotalDownPayment
   } = props
 
   const [totalExpenses, setTotalExpenses] = useState()
@@ -35,80 +40,122 @@ const ExpensesComponents = (props) => {
   }, [totalDownPaymentPercent])
 
   useEffect(() => {
-    setTotalExpenses(parseInt(mortgage) +
+    setMonthlyExpenses(parseInt(mortgage) +
                      (parseInt(mortgageInsurance/12)) +
                      (Math.round(parseInt(homeInsurance)/12)) +
                      parseInt(propertyTax) +
                      parseInt(hoa) +
                      parseInt(utilities) +
                      parseInt(additionalExpenses))
+    setTotalExpWithoutMortgage((Math.round(parseInt(homeInsurance)/12)) +
+                                parseInt(propertyTax) +
+                                parseInt(hoa) +
+                                parseInt(utilities) +
+                                parseInt(additionalExpenses))
+    setMortgagePandI(parseInt(mortgage))
   }, [mortgage])
 
   useEffect(() => {
-    setTotalExpenses(parseInt(mortgage) +
+    setMonthlyExpenses(parseInt(mortgage) +
                      (parseInt(mortgageInsurance/12)) +
                      (Math.round(parseInt(homeInsurance)/12)) +
                      parseInt(propertyTax) +
                      parseInt(hoa) +
                      parseInt(utilities) +
                      parseInt(additionalExpenses))
+    setTotalExpWithoutMortgage((Math.round(parseInt(homeInsurance)/12)) +
+                     parseInt(propertyTax) +
+                     parseInt(hoa) +
+                     parseInt(utilities) +
+                     parseInt(additionalExpenses))
+    setMortgagePandI(parseInt(mortgage))
   }, [mortgageInsurance])
 
   useEffect(() => {
-    setTotalExpenses(parseInt(mortgage) +
+    setMonthlyExpenses(parseInt(mortgage) +
                      (parseInt(mortgageInsurance/12)) +
                      (Math.round(parseInt(homeInsurance)/12)) +
                      parseInt(propertyTax) +
                      parseInt(hoa) +
                      parseInt(utilities) +
                      parseInt(additionalExpenses))
+    setTotalExpWithoutMortgage((Math.round(parseInt(homeInsurance)/12)) +
+                      parseInt(propertyTax) +
+                      parseInt(hoa) +
+                      parseInt(utilities) +
+                      parseInt(additionalExpenses))
+    setMortgagePandI(parseInt(mortgage))
   }, [homeInsurance])
 
   useEffect(() => {
-    setTotalExpenses(parseInt(mortgage) +
+    setMonthlyExpenses(parseInt(mortgage) +
                      (parseInt(mortgageInsurance/12)) +
                      (Math.round(parseInt(homeInsurance)/12)) +
                      parseInt(propertyTax) +
                      parseInt(hoa) +
                      parseInt(utilities) +
                      parseInt(additionalExpenses))
+    setTotalExpWithoutMortgage((Math.round(parseInt(homeInsurance)/12)) +
+                     parseInt(propertyTax) +
+                     parseInt(hoa) +
+                     parseInt(utilities) +
+                     parseInt(additionalExpenses))
+    setMortgagePandI(parseInt(mortgage))
   }, [propertyTax])
 
   useEffect(() => {
-    setTotalExpenses(parseInt(mortgage) +
+    setMonthlyExpenses(parseInt(mortgage) +
                      (parseInt(mortgageInsurance/12)) +
                      (Math.round(parseInt(homeInsurance)/12)) +
                      parseInt(propertyTax) +
                      parseInt(hoa) +
                      parseInt(utilities) +
                      parseInt(additionalExpenses))
+    setTotalExpWithoutMortgage((Math.round(parseInt(homeInsurance)/12)) +
+                     parseInt(propertyTax) +
+                     parseInt(hoa) +
+                     parseInt(utilities) +
+                     parseInt(additionalExpenses))
+    setMortgagePandI(parseInt(mortgage))
   }, [hoa])
 
   useEffect(() => {
-    setTotalExpenses(parseInt(mortgage) +
+    setMonthlyExpenses(parseInt(mortgage) +
                      (parseInt(mortgageInsurance/12)) +
                      (Math.round(parseInt(homeInsurance)/12)) +
                      parseInt(propertyTax) +
                      parseInt(hoa) +
                      parseInt(utilities) +
                      parseInt(additionalExpenses))
+    setTotalExpWithoutMortgage((Math.round(parseInt(homeInsurance)/12)) +
+                     parseInt(propertyTax) +
+                     parseInt(hoa) +
+                     parseInt(utilities) +
+                     parseInt(additionalExpenses))
+    setMortgagePandI(parseInt(mortgage))
   }, [utilities])
 
   useEffect(() => {
-    setTotalExpenses(parseInt(mortgage) +
+    setMonthlyExpenses(parseInt(mortgage) +
                      (parseInt(mortgageInsurance/12)) +
                      (Math.round(parseInt(homeInsurance)/12)) +
                      parseInt(propertyTax) +
                      parseInt(hoa) +
                      parseInt(utilities) +
                      parseInt(additionalExpenses))
+    setTotalExpWithoutMortgage((Math.round(parseInt(homeInsurance)/12)) +
+                     parseInt(propertyTax) +
+                     parseInt(hoa) +
+                     parseInt(utilities) +
+                     parseInt(additionalExpenses))
+    setMortgagePandI(parseInt(mortgage))
   }, [additionalExpenses])
 
   return (
     <View style={styles.keyDetailsContainer}>
       <View style={styles.headerContainer}>
         <Text style={styles.label}>Expenses (Monthly)</Text>
-        <Text style={styles.label}>${totalExpenses}</Text>
+        <Text style={styles.label}>${monthlyExpenses}</Text>
       </View>
       <View style={styles.separateContainer}></View>
       <EditMortgages 
@@ -117,6 +164,7 @@ const ExpensesComponents = (props) => {
         setMortgage={setMortgage}
         setTotalLoanAmount={setTotalLoanAmount}
         setTotalDownPaymentPercent={setTotalDownPaymentPercent}
+        setTotalDownPayment={setTotalDownPayment}
       />
       <View style={styles.separateContainer}></View>
       <MortgageInsuranceComponent 

@@ -14,7 +14,8 @@ const EditMortgages = (props) => {
     mortgage, 
     setMortgage,
     setTotalDownPaymentPercent,
-    setTotalLoanAmount
+    setTotalLoanAmount,
+    setTotalDownPayment
   } = props
 
   const [openEdit, setOpenEdit] = useState(false)
@@ -29,6 +30,7 @@ const EditMortgages = (props) => {
 
   useEffect(() => {
     setDownPaymentAmount(calculateDownPaymentAmount(homePrice, downPaymentPercent))
+    setTotalDownPayment(calculateDownPaymentAmount(homePrice, downPaymentPercent))
     setLoanAmount(calculateLoanAmount(homePrice, downPaymentAmount))
   }, [homePrice])
 
@@ -39,6 +41,7 @@ const EditMortgages = (props) => {
 
   useEffect(() => {
     setDownPaymentAmount(calculateDownPaymentAmount(homePrice, downPaymentPercent))
+    setTotalDownPayment(calculateDownPaymentAmount(homePrice, downPaymentPercent))
     setLoanAmount(calculateLoanAmount(homePrice, downPaymentAmount))
     setTotalDownPaymentPercent(downPaymentPercent)
   }, [downPaymentPercent])
@@ -85,8 +88,10 @@ const EditMortgages = (props) => {
     let price = value
     if(value == ""){
       setDownPaymentAmount(0)
+      setTotalDownPayment(0)
     } else {
       setDownPaymentAmount(parseInt(price))
+      setTotalDownPayment(parseInt(price))
     }
   }
 

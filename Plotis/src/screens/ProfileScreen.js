@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Linking } from 'react-native'
 import { Feather,AntDesign, Ionicons, SimpleLineIcons} from 'react-native-vector-icons'
 import { useNavigation } from '@react-navigation/native';
 
@@ -12,7 +12,6 @@ const ProfileScreen = () => {
 
   useEffect(() => {
     if(auth.currentUser){
-      console.log(auth.currentUser)
     } else {
       navigation.navigate('LoginScreen')
     }
@@ -60,6 +59,12 @@ const ProfileScreen = () => {
     navigation.navigate('SellHomeScreen')
   }
 
+  const openJobs = () => {
+    Linking.canOpenURL('https://angel.co/company/rippe/jobs').then(() => {
+      Linking.openURL('https://angel.co/company/rippe/jobs');
+  });
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -73,10 +78,10 @@ const ProfileScreen = () => {
         <Feather style={styles.chevronDown} size={20} name='eye'/>
         <Text style={styles.text}>Recent Views</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.row} onPress={() => {}}>
+      {/* <TouchableOpacity style={styles.row} onPress={() => {}}>
         <Feather style={styles.chevronDown} size={20} name='search'/>
         <Text style={styles.text}>Saved Searches</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <TouchableOpacity style={styles.row} onPress={() => {goToOfferScreen()}}>
         <Feather style={styles.chevronDown} size={20} name='calendar'/>
         <Text style={styles.text}>Current Offers</Text>
@@ -108,10 +113,10 @@ const ProfileScreen = () => {
         <AntDesign style={styles.chevronDown} size={20} name='team'/>
         <Text style={styles.text}>Connect with agent</Text>
       </TouchableOpacity>
-      <View style={styles.row}>
+      <TouchableOpacity style={styles.row} onPress={() => {openJobs()}}>
         <Feather style={styles.chevronDown} size={20} name='briefcase'/>
         <Text style={styles.text}>Careers</Text>
-      </View>
+      </TouchableOpacity>
       <View style={styles.row}>
         <TouchableOpacity onPress={() => {signoutUser()}}>
           <Text style={styles.logout}>Logout</Text>

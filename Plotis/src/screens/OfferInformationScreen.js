@@ -52,7 +52,6 @@ const OfferInformationScreen = ({route}) => {
         snapshot.docs.forEach((doc) => {
           profiles.push({ ...doc.data(), id: doc.id })
         })
-        console.log(profiles)
         setUser(profiles[0])
       })
       .catch((error) => {
