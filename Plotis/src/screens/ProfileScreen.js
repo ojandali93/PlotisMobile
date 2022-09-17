@@ -62,14 +62,20 @@ const ProfileScreen = () => {
   const openJobs = () => {
     Linking.canOpenURL('https://angel.co/company/rippe/jobs').then(() => {
       Linking.openURL('https://angel.co/company/rippe/jobs');
-  });
+    });
+  }
+
+  const goToSettings = () => {
+    navigation.navigate('SettingsScreen')
   }
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>Omar jandali</Text>
-        <Feather style={styles.chevronDown} size={20} name='settings'/>
+        <TouchableOpacity onPress={() => {goToSettings()}}>
+          <Feather style={styles.chevronDown} size={20} name='settings'/>
+        </TouchableOpacity>
       </View>
       <View style={styles.sectionHeader}>
         <Text style={styles.label}>Searches</Text>
