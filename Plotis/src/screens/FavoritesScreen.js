@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native'
+import { Dimensions } from 'react-native'
 
 import LoadingComponent from '../components/HomeComponents/LoadingComponent'
-import PropertyTile from '../components/GeneralComponents/PropertyTile'
+import FavoritesPropertyTileComponent from '../components/GeneralComponents/FavoritesPropertyTileComponent'
+
+const loadingDeviceHeight = Dimensions.get('window').height-44
+const loadingDeviceWidth = Dimensions.get('window').width
 
 import { db } from '../../firebase'
 import { getAuth } from "firebase/auth"
@@ -13,7 +17,7 @@ const FavoritesScreen = ({navigation, route}) => {
 
   const [favoritesList, setFavoritesList] = useState([])
   const [favoritesZpid, setFavoritesZpid] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
 
   const collectionRef = collection(db, 'Favorites')
 
@@ -21,18 +25,10 @@ const FavoritesScreen = ({navigation, route}) => {
     if(auth.currentUser == null){
       navigation.navigate('LoginScreen')
     } else {
+      setLoading(true)
       grabUserFavorites()
     }
   }, [])
-
-  useEffect(() => {
-    const newFavorites = []
-    favoritesList.forEach((item) => {
-      newFavorites.push(item.item.zpid)
-    })
-    setFavoritesZpid(newFavorites)
-    // console.log(favoritesZpid)
-  }, [favoritesList])
 
   const grabUserFavorites = () => {
     const q = query(collectionRef, where('userId', '==', auth.currentUser.uid))
@@ -41,8 +37,13 @@ const FavoritesScreen = ({navigation, route}) => {
       snapshot.docs.forEach((doc) => {
         favorites.push({ ...doc.data(), id: doc.id })
       })
-      setFavoritesList(favorites)
-      setLoading(false)
+      if(favorites.length == 0){
+        setFavoritesList([])
+        setLoading(false)
+      } else {
+        setFavoritesList(favorites)
+        setLoading(false)
+      }
     })
   }
 
@@ -63,21 +64,26 @@ const FavoritesScreen = ({navigation, route}) => {
     <>
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.headerText}>Your Saved Properties: </Text>
+          <Text style={styles.headerText}>Your Favorited Properties: </Text>
         </View>
         {
-          loading == true ? <LoadingComponent/> : <FlatList
-                                                    style={styles.tileList}
-                                                    data={favoritesList}
-                                                    keyExtractor={(item) => item.zpid}
-                                                    renderItem={(item) => {
-                                                      return(
-                                                        <PropertyTile item={item.item} 
-                                                                      favoritesList={favoritesList} 
-                                                                      favoritesZpid={favoritesZpid}/>
-                                                      )
-                                                    }}
-                                                  />
+          loading == true ? <LoadingComponent/> : favoritesList.length == 0 ? <View style={[styles.screen, {height: loadingDeviceHeight, width: loadingDeviceWidth}]}>
+                                                                                <View style={styles.content}>
+                                                                                  <View style={styles.headerContainer}>
+                                                                                    <Text style={styles.tagline}>No Favorited Properties</Text>
+                                                                                  </View>
+                                                                                </View>
+                                                                              </View>
+                                                                            : <FlatList
+                                                                                style={styles.tileList}
+                                                                                data={favoritesList}
+                                                                                keyExtractor={(item) => item.zpid}
+                                                                                renderItem={(item) => {
+                                                                                  return(
+                                                                                    <FavoritesPropertyTileComponent item={item.item}/>
+                                                                                  )
+                                                                                }}
+                                                                              />
         }
       </View>
     </> 
@@ -104,8 +110,26 @@ const styles = StyleSheet.create({
     fontWeight: '700'
   },
   tileList: {
-  paddingHorizontal: 8,
-  width: '100%'}
+    paddingHorizontal: 8,
+    width: '100%'
+  },
+  content: {
+    height: Dimensions.get('window').height,
+    display: 'flex',
+    flexDirection: 'column',
+    marginTop: 225,
+    // justifyContent: 'center',
+    alignItems: 'center'
+  },
+  headerContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 16
+  },
+  tagline: {
+    fontSize: 22,
+    fontWeight: '800'
+  },
 })
 
 export default FavoritesScreen

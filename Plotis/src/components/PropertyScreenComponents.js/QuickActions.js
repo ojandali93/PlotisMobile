@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, Linking } from 'react-native'
 import { Feather, FontAwesome } from 'react-native-vector-icons'
+import { useNavigation } from '@react-navigation/native';
 
 import { db } from '../../../firebase'
 import { getAuth } from "firebase/auth"
@@ -9,42 +10,56 @@ import { collection, query, where, onSnapshot, doc, deleteDoc, addDoc, serverTim
 const QuickActions = (props) => {
   const {currentHome} = props
   const auth = getAuth()
+  const navigation = useNavigation()
 
   const [favoritesList, setFavoritesList] = useState([])
   const [favoritesZpid, setFavoritesZpid] = useState([])
   const [inFavorites, setInFavorites] = useState(false)
 
   const redirectToApp = () => {
-    const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' })
-    const latLng = `${currentHome.latitude},${currentHome.longitude}`
+    const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' });
+    const latLng = `${currentHome.longitude},${currentHome.latitude}`;
+    const label = 'redirect';
     const url = Platform.select({
       ios: `${scheme}${label}@${latLng}`,
       android: `${scheme}${latLng}(${label})`
     })
-    Linking.openURL(url)
+    Linking.openURL(url);
   }
 
   useEffect(() => {
     if(auth.currentUser){
-      grabFavorites()
+      grabUserFavorites()
     }
   }, [])  
 
   useEffect(() => {
     setInFavorites(favoritesZpid.includes(currentHome.zpid.toString()))
-  }, [favoritesZpid])
+  }, [favoritesZpid]) 
 
   useEffect(() => {
     const newFavorites = []
     favoritesList.forEach((item) => {
-      newFavorites.push(item.item.zpid)
+      newFavorites.push(item.zpid)
     })
     setFavoritesZpid(newFavorites)
   }, [favoritesList])
 
-  const grabFavorites = () => {
-    const collectionRef = collection(db, 'Favorites')
-    const q = query(collectionRef, where('userId', '==', auth.currentUser.uid))
+  useEffect(() => {
+    const newFavorites = []
+    favoritesList.forEach((item) => {
+      newFavorites.push(item.zpid)
+    })
+    setFavoritesZpid(newFavorites)
+  }, [favoritesList])
+
+  const grabUserFavorites = () => {
+    if(auth.currentUser == null){
+      console.log('not logged in')
+    } else {
+      console.log('logged in')
+      const collectionRef = collection(db, 'Favorites')
+      const q = query(collectionRef, where('userId', '==', auth.currentUser.uid))
       onSnapshot(q, (snapshot) => {
         let favorites = []
         snapshot.docs.forEach((doc) => {
@@ -52,14 +67,16 @@ const QuickActions = (props) => {
         })
         setFavoritesList(favorites)
       })
+    }
   }
 
-  const addFavorites = () => {
+  const addToFavorites = () => {
     const collectionRef = collection(db, 'Favorites')
-    if(auth.currentUser.uid){
+    if(auth.currentUser){
       addDoc(collectionRef, {
         "item": currentHome,
         "userId": auth.currentUser.uid,
+        "zpid": currentHome.zpid.toString(),
         "createdAt": serverTimestamp()
       }).then((response) => {
         console.log('added to faorites')
@@ -69,17 +86,18 @@ const QuickActions = (props) => {
     }
   }
 
-  const removeFavorites = () => {
+  const removeFromFavorites = (zpid) => {
     let selectedFavorite
     favoritesList.forEach((fav) => {
-      if(fav.item.zpid == currentHome.zpid){
+      if(fav.zpid == zpid){
         selectedFavorite = fav
       }
     })
-    console.log(selectedFavorite.id)
+    console.log(selectedFavorite)
     const docRef = doc(db, 'Favorites', selectedFavorite.id)
     deleteDoc(docRef)
       .then((response) => {
+        grabUserFavorites()
         console.log('delete favorite')
       })
       .catch((error) => {
@@ -87,27 +105,31 @@ const QuickActions = (props) => {
       })
   }
 
+  const goToContactAgent = () => {
+    navigation.navigate('ContactAgentWithStack', {zpid: currentHome.zpid})
+  }
+
   return (
     <View style={styles.quickActionContainer}>
       <View style={styles.quickActionContent}>
         {
-          inFavorites == false ?  <TouchableOpacity onPress={() => {addFavorites()}} style={styles.iconContainer}>
+          inFavorites == false ?  <TouchableOpacity onPress={() => {addToFavorites()}} style={styles.iconContainer}>
                                     <FontAwesome style={styles.icon} size={28} name='heart-o'/>
                                     <Text>Favorite</Text>
                                   </TouchableOpacity>
-                                : <TouchableOpacity onPress={() => {removeFavorites()}} style={styles.iconContainer}>
+                                : <TouchableOpacity onPress={() => {removeFromFavorites(currentHome.zpid)}} style={styles.iconContainer}>
                                     <FontAwesome style={styles.icon} size={28} name='heart'/>
                                     <Text>Favorite</Text>
                                   </TouchableOpacity>
         }
-        <View style={styles.iconContainer}>
+        <TouchableOpacity style={styles.iconContainer} onPress={() => {goToContactAgent()}}>
           <Feather style={styles.icon} size={28} name='message-square'/> 
           <Text>Connect</Text>
-        </View>
+        </TouchableOpacity>
         <TouchableOpacity onPress={() => {redirectToApp()}}>
           <View style={styles.iconContainer}>
             <Feather style={styles.icon} size={28} name='map'/> 
-            <Text>Location</Text>
+            <Text>Directions</Text>
           </View>
         </TouchableOpacity>
         <View style={styles.iconContainer}>

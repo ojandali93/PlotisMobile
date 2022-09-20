@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, Image } from 'react-native'
 import { Feather } from 'react-native-vector-icons'
+import { useNavigation } from '@react-navigation/native';
 import axios from 'axios'
 
 import PropertySampleComponent from '../components/GeneralComponents/PropertySampleComponent'
@@ -13,9 +14,18 @@ import { Dimensions } from 'react-native'
 let deviceWidth = Dimensions.get('window').width - 16
 var aspectHeight = (deviceWidth / 1.78) + 1
 
-const ContactAgentScreen = () => {
+const ContactAgentScreen = ({route}) => {
+
   const [addressLookup, setAddressLookup] = useState('')
-  const [addressResult, setAddressResult] = useState({})
+  const [currentHome, setCurrentHome] = useState({})
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    console.log(route.params)
+    if(route.params?.zpid){
+      getPropertyDetails(route.params.zpid)
+    }
+  }, [])
 
   const newSearch = () => {
     extendedPropertOptions.params.location = addressLookup
@@ -33,8 +43,8 @@ const ContactAgentScreen = () => {
     singlePropertyOptions.params.zpid = zpid
     axios.request(singlePropertyOptions)
       .then((response) => {
-        console.log(response.data)
-        setAddressResult(response.data)
+        setCurrentHome(response.data)
+        setIsLoading(true)
       })
       .catch((error) => {
         console.log(error)
@@ -59,9 +69,9 @@ const ContactAgentScreen = () => {
         </TouchableOpacity>
       </View>
       {
-        Object.keys(addressResult).length == 0 ? null : <View style={styles.property}><PropertySampleComponent item={addressResult}/></View>
+        Object.keys(currentHome).length == 0 ? null : <View style={styles.property}><PropertySampleComponent item={currentHome}/></View>
       }
-      <ContactAgentComponent />
+      <ContactAgentComponent currentHome={currentHome}/>
     </View>
   )
 }

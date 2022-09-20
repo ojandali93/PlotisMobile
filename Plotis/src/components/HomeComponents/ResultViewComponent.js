@@ -3,6 +3,8 @@ import { View, Text, TouchableOpacity, StyleSheet, FlatList, ScrollView } from '
 
 import PropertyTile from '../GeneralComponents/PropertyTile'
 
+import { convertToDollars } from '../../../utilities'
+
 const ResultViewComponent = (props) => {
   const {
     results,
@@ -15,7 +17,7 @@ const ResultViewComponent = (props) => {
   return (
     <>
       <View style={styles.headerContainer}>
-        <Text style={styles.label}>Total Results: {resultCount} {activeSearch == "" ? null : <Text> -  "{activeSearch}"</Text>}</Text>
+        <Text style={styles.label}>Total Results: {convertToDollars(resultCount)} {activeSearch == "" ? null : <Text> -  "{activeSearch}"</Text>}</Text>
         <View>
 
         </View>

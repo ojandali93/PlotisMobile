@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
 
+import { convertToDollars, convertFirstUpper } from '../../../utilities'
+
 const SummaryComponent = (props) => {
   const {
     currentHome,
@@ -10,14 +12,14 @@ const SummaryComponent = (props) => {
   return (
     <View style={styles.contentContainer}>
       <View style={styles.contentRow}>
-        <Text style={styles.price}>${currentHome.price}</Text>
+        <Text style={styles.price}>${convertToDollars(currentHome.price)}</Text>
       </View>
       <View style={styles.contentRow}>
         <View>
-          <Text style={styles.label}>{currentHome.bedrooms} Beds | {currentHome.bathrooms} Baths | {currentHome.livingArea} Sqft.</Text>
+          <Text style={styles.label}>{currentHome.bedrooms} Beds | {currentHome.bathrooms} Baths | {convertToDollars(currentHome.livingArea)} Sqft.</Text>
         </View>
         <View>
-          <Text style={styles.label}>{currentHome.homeType}</Text>
+          <Text style={styles.label}>{convertFirstUpper(currentHome.homeType)}</Text>
         </View>
       </View>
       <View style={styles.contentRow}>

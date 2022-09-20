@@ -2,16 +2,52 @@ import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, FlatList, Image } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 
+import { db } from '../../../firebase'
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
+
 const ContactAgentComponent = (props) => {
   const {
-
+    currentHome
   } = props
+
+  console.log(currentHome.zpid)
 
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
   const [message, setMessage] = useState('')
+  const [price, setPrice] = useState(Object.keys(currentHome).length > 0 ? currentHome.price : 0)
+  const [mlsId, setMlsId] = useState(Object.keys(currentHome).length > 0 ? currentHome.price : 0)
+  const [address, setAddress] = useState(Object.keys(currentHome).length > 0 ? currentHome.address.streetAddress 
+                                                                                + ', ' + currentHome.address.city
+                                                                                + ', ' + currentHome.address.state
+                                                                                + ' ' + currentHome.address.zipcode
+                                                                              : 0)
+  
+
+  const submitRequest = () => {
+    const collectionRef = collection(db, 'ContactAgent')
+    addDoc(collectionRef, {
+      "firstName": firstName,
+      "lastName": lastName,
+      "email":email,
+      "phone":phone,
+      "message":message,
+      "address":address,
+      "price":price, 
+      "mlsId":mlsId,
+      "createdAd":serverTimestamp()
+    }).then((response) => {
+      setFirstName('')
+      setLastName('')
+      setEmail('')
+      setPhone('')
+      setMessage('')
+    }).catch((error) => {
+      console.error(error)
+    })
+  }
 
   return (
     <View style={styles.keyDetailsContainer}>
@@ -84,7 +120,7 @@ const ContactAgentComponent = (props) => {
           multiline={true}
         />
       </View>
-      <TouchableOpacity style={styles.submitContainer}>
+      <TouchableOpacity style={styles.submitContainer} onPress={() => {submitRequest()}}>
         <View>
           <Text style={styles.submit}>Submit</Text>
         </View>

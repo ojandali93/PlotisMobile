@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
 
+import { convertToDollars } from '../../../utilities'
+
 import EditMortgages from '../ExpensesComponents/EditMortgages'
 import MortgageInsuranceComponent from '../ExpensesComponents/MortgageInsuranceComponent'
 import HomeInsuranceComponent from '../ExpensesComponents/HomeInsuranceComponent'
@@ -155,7 +157,7 @@ const ExpensesComponents = (props) => {
     <View style={styles.keyDetailsContainer}>
       <View style={styles.headerContainer}>
         <Text style={styles.label}>Expenses (Monthly)</Text>
-        <Text style={styles.label}>${monthlyExpenses}</Text>
+        <Text style={styles.label}>${convertToDollars(monthlyExpenses)}</Text>
       </View>
       <View style={styles.separateContainer}></View>
       <EditMortgages 

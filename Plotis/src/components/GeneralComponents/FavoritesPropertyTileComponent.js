@@ -17,11 +17,9 @@ import { convertToDollars, convertFirstUpper } from '../../../utilities'
 let deviceWidth = Dimensions.get('window').width - 16
 var aspectHeight = (deviceWidth / 1.78) + 1
 
-const PropertyTile = (props) => {
+const FavoritesPropertyTileComponent = (props) => {
   const {
-    item,
-    favoritesZpid,
-    favoritesList
+    item
   } = props
 
   const auth = getAuth()
@@ -47,41 +45,6 @@ const PropertyTile = (props) => {
     navigation.navigate('PropertyScreen', {zpid: zpid})
   }
 
-  const addToFavorites = () => {
-    const collectionRef = collection(db, 'Favorites')
-    if(auth.currentUser){
-      addDoc(collectionRef, {
-        "item": item.item,
-        "userId": auth.currentUser.uid,
-        "zpid": item.item.zpid,
-        "createdAt": serverTimestamp()
-      }).then((response) => {
-        console.log('added to faorites')
-      }).catch((error) => {
-        console.error(error)
-      })
-    }
-  }
-
-  const removeFromFavorites = (zpid) => {
-    let selectedFavorite
-    favoritesList.forEach((fav) => {
-      console.log(fav)
-      if(fav.zpid == zpid){
-        selectedFavorite = fav
-      }
-    })
-    console.log(selectedFavorite)
-    const docRef = doc(db, 'Favorites', selectedFavorite.id)
-    deleteDoc(docRef)
-      .then((response) => {
-        console.log('delete favorite')
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }
-
   return (
     <>
       <TouchableOpacity onPress={() => {goToDetailsPage(item.item.zpid)}}>
@@ -96,9 +59,6 @@ const PropertyTile = (props) => {
                   <Feather style={styles.icon} size={20} name='share'/> 
                 </View>
               </TouchableOpacity>
-              {
-                favoritesZpid == null ? null : favoritesZpid.includes(item.item.zpid) ? <FavoriteSelected item={item} removeFromFavorites={removeFromFavorites}/> : <FavoriteUnselected addToFavorites={addToFavorites}/>
-              }
             </View>
           </View>
           <View style={styles.lowBar}>
@@ -211,4 +171,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default PropertyTile
+export default FavoritesPropertyTileComponent

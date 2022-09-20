@@ -74,7 +74,7 @@ const SellHomeScreen = () => {
     if(Object.keys(addressResult).length == 0){
       setMessage('Must add a property to sell')
     } else {
-      if(auth.currentUser.uid){
+      if(auth.currentUser){
         addDoc(collectionRef, {
           "item": info,
           "userId": auth.currentUser.uid,

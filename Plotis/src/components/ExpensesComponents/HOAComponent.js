@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, TextInput } from 'react-native'
 import { Feather } from 'react-native-vector-icons'
 
+import { convertToDollars } from '../../../utilities'
+
 const HOAComponent = (props) => {
   const {
     currentHome,
@@ -33,7 +35,7 @@ const HOAComponent = (props) => {
         <View style={styles.hoaHeader}>
           <Text style={styles.label}>HOA Fee:</Text>
           <View style={styles.dropDown}>
-            <Text style={styles.label}>${parseInt(hoa)}</Text>
+            <Text style={styles.label}>${convertToDollars(parseInt(hoa))}</Text>
             <Feather style={styles.chevronDown} size={20} name='chevrons-down'/>
           </View>
         </View>

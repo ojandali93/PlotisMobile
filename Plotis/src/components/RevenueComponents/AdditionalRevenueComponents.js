@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, TextInput } from 'react-native'
 import { Feather } from 'react-native-vector-icons'
 
+import { convertToDollars } from '../../../utilities'
+
 const AdditionalRevenueComponents = (props) => {
   const {
     additionalRevenue,
@@ -24,7 +26,7 @@ const AdditionalRevenueComponents = (props) => {
         <View style={styles.additionalReveueHeader}>
           <Text style={styles.label}>Additional Expenses:</Text>
           <View style={styles.dropDown}>
-            <Text style={styles.label}>${parseInt(additionalRevenue)}</Text>
+            <Text style={styles.label}>${convertToDollars(parseInt(additionalRevenue))}</Text>
             <Feather style={styles.chevronDown} size={20} name='chevrons-down'/>
           </View>
         </View>

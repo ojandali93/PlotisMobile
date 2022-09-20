@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
 
+import { convertToDollars } from '../../../utilities'
+
 const InvestmentMetricsComponent = (props) => {
   const {
     currentHome,
@@ -26,35 +28,35 @@ const InvestmentMetricsComponent = (props) => {
         <View style={[styles.col, styles.extraPadding]}>
           <View style={styles.row}>
             <Text style={styles.text}>Gross Monthly Revenue:</Text>
-            <Text style={styles.text}>${monthlyRevenue}</Text>
+            <Text style={styles.text}>${convertToDollars(monthlyRevenue)}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.text}>Gross Yearly Revenue:</Text>
-            <Text style={styles.text}>${yearlyRevenue}</Text>
+            <Text style={styles.text}>${convertToDollars(yearlyRevenue)}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.text}>Total Monthly Expenses: </Text>
-            <Text style={styles.text}>${monthlyExpenses}</Text>
+            <Text style={styles.text}>${convertToDollars(monthlyExpenses)}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.text}>Total Yearly Expenses:</Text>
-            <Text style={styles.text}>${yearlyExpenses}</Text>
+            <Text style={styles.text}>${convertToDollars(yearlyExpenses)}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.text}>Monthly NOI:</Text>
-            <Text style={styles.text}>${monthlyNOI}</Text>
+            <Text style={styles.text}>${convertToDollars(monthlyNOI)}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.text}>Yearly NOI:</Text>
-            <Text style={styles.text}>${yearlyNOI}</Text>
+            <Text style={styles.text}>${convertToDollars(yearlyNOI)}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.text}>Monthly Cashflow:</Text>
-            <Text style={styles.text}>${monthlyCashFlow}</Text>
+            <Text style={styles.text}>${convertToDollars(monthlyCashFlow)}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.text}>Yearly Cashflow:</Text>
-            <Text style={styles.text}>${yearlyCashFlow}</Text>
+            <Text style={styles.text}>${convertToDollars(yearlyCashFlow)}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.text}>CAP Rate:</Text>

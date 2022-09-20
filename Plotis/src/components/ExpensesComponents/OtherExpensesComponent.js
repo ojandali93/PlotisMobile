@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, TextInput } from 'react-native'
 import { Feather } from 'react-native-vector-icons'
 
+import { convertToDollars } from '../../../utilities'
+
 const OtherExpensesComponent = (props) => {
   const {
     currentHome,
@@ -85,7 +87,7 @@ const OtherExpensesComponent = (props) => {
         <View style={styles.additionalExpensesHeader}>
           <Text style={styles.label}>Additional Expenses:</Text>
           <View style={styles.dropDown}>
-            <Text style={styles.label}>${additionalExpenses}</Text>
+            <Text style={styles.label}>${convertToDollars(additionalExpenses)}</Text>
             <Feather style={styles.chevronDown} size={20} name='chevrons-down'/>
           </View>
         </View>

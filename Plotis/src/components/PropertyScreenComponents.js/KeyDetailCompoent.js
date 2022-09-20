@@ -21,46 +21,20 @@ const KeyDetailCompoent = (props) => {
             }
           </View>
           <View style={styles.row}>
-            <Text style={styles.text}>Living Space:</Text>
-            <Text style={styles.text}>{home.livingArea}</Text>
-          </View>
-          <View style={styles.row}>
-            <Text style={styles.text}>Price / Sqft.: </Text>
-            <Text style={styles.text}>${home.pricePerSquareFoot}</Text>
-          </View>
-          <View style={styles.row}>
-            <Text style={styles.text}>Parking Spaces:</Text>
-            <Text style={styles.text}>{home.parking}</Text>
-          </View>
-          <View style={styles.row}>
-            <Text style={styles.text}>Heating</Text>
-            {
-              home.hasHeating == true ? <Text style={styles.text}>{home.heating[0]}</Text> : <Text style={styles.text}>N/A</Text>
-            }
-          </View>
-          <View style={styles.row}>
-            <Text style={styles.text}>Property Type:</Text>
-            <Text style={styles.text}>{home.homeType}</Text>
-          </View>
-          <View style={styles.row}>
-            <Text style={styles.text}>55+ Community:</Text>
-            {
-              home.isSeniorCommunity == true ? <Text style={styles.text}>Yes</Text> : <Text style={styles.text}>No</Text>
-            }
-          </View>
-          <View style={styles.row}>
-            <Text style={styles.text}>Parcel #:</Text>
-            <Text style={styles.text}>{home.parcelNumber}</Text>
-          </View>
-        </View>
-        <View style={[styles.col]}>
-          <View style={styles.row}>
             <Text style={styles.text}>Year Built: </Text>
             <Text style={styles.text}>{home.yearBuilt}</Text>
           </View>
           <View style={styles.row}>
+            <Text style={styles.text}>Living Space:</Text>
+            <Text style={styles.text}>{home.livingArea}</Text>
+          </View>
+          <View style={styles.row}>
             <Text style={styles.text}>Lot Size:</Text>
             <Text style={styles.text}>{home.lotSize}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.text}>Price / Sqft.: </Text>
+            <Text style={styles.text}>${home.pricePerSquareFoot}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.text}>HOA Fee: </Text>
@@ -69,8 +43,18 @@ const KeyDetailCompoent = (props) => {
             }
           </View>
           <View style={styles.row}>
+            <Text style={styles.text}>Parking Spaces:</Text>
+            <Text style={styles.text}>{home.parking}</Text>
+          </View>
+          <View style={styles.row}>
             <Text style={styles.text}>Levels: </Text>
             <Text style={styles.text}>{home.levels}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.text}>Heating</Text>
+            {
+              home.hasHeating == true ? <Text style={styles.text}>{home.heating[0]}</Text> : <Text style={styles.text}>N/A</Text>
+            }
           </View>
           <View style={styles.row}>
             <Text style={styles.text}>Cooling: </Text>
@@ -79,9 +63,19 @@ const KeyDetailCompoent = (props) => {
             }
           </View>
           <View style={styles.row}>
+            <Text style={styles.text}>Property Type:</Text>
+            <Text style={styles.text}>{home.homeType}</Text>
+          </View>
+          <View style={styles.row}>
             <Text style={styles.text}>Style: </Text>
             {
               home.architecturalStyle == null ? <Text style={styles.text}>Unknown</Text> : <Text style={styles.text}>{home.architecturalStyle}</Text>
+            }
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.text}>55+ Community:</Text>
+            {
+              home.isSeniorCommunity == true ? <Text style={styles.text}>Yes</Text> : <Text style={styles.text}>No</Text>
             }
           </View>
           <View style={styles.row}>
@@ -89,6 +83,10 @@ const KeyDetailCompoent = (props) => {
             {
               home.subdivisionName == null ? <Text style={styles.text}>N/A</Text> : <Text style={styles.text}>{home.subdivisionName}</Text>
             }
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.text}>Parcel #:</Text>
+            <Text style={styles.text}>{home.parcelNumber}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.text}>MLS #: </Text>
@@ -124,7 +122,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   col: {
-    width: '49%',
+    width: '100%',
     display: 'flex',
     flexDirection: 'column',
   },
@@ -134,7 +132,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingRight: 8,
-    marginBottom: 8
+    paddingVertical: 8,
+    borderBottomColor: 'lightgrey',
+    borderBottomWidth: 1
   },
   text: {
     fontSize: 17,

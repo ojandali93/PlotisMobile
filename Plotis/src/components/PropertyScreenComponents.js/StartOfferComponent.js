@@ -15,7 +15,7 @@ const StartOfferComponent = (props) => {
   return (
     <>
       <TouchableOpacity style={[styles.preapprovedContainer, styles.shadowBox]} onPress={() => {startOffer(currentHome.zpid)}}>
-        <Text style={styles.label}>Start An Offer</Text>
+        <Text style={styles.label}>Make An Offer</Text>
       </TouchableOpacity>
     </>
   )

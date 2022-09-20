@@ -1,14 +1,21 @@
 import React, { useState } from 'react'
 import MapView, { Marker } from 'react-native-maps';
-import { StyleSheet, TouchableOpacity, View, Dimensions, Linking } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, Dimensions, Linking, Text } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { FontAwesome } from 'react-native-vector-icons'
+
+import FullMapComponent from './FullMapComponent';
 
 const MapComponent = (props) => {
   const {
     long,
     lat,
-    currentHomeAddress
+    currentHomeAddress,
+    currentHome
   } = props
-3
+
+  const navigation = useNavigation()
+
   const [longitude, setLongitude] = useState(long)
   const [latitude, setLatitude] = useState(lat)
 
@@ -23,13 +30,20 @@ const MapComponent = (props) => {
     Linking.openURL(url)
   }
 
+  const openMap = () => {
+    navigation.navigate('FullMapScreen', {lat: lat, long: long})
+  }
+
   return (
-    <TouchableOpacity style={styles.mapContainer} onPress={() => {redirectToApp()}}>
+    <>
       <View style={styles.container}>
         <MapView 
           scrollEnabled={false}
           zoomEnabled={false}
           zoomTapEnabled={false}
+          rotateEnabled={false}
+          zoomControlEnabled={false}
+          onPress={() => {openMap()}}
           style={styles.map} 
           initialRegion={{
             latitude: lat,
@@ -44,7 +58,7 @@ const MapComponent = (props) => {
                         longitude: long,}}/>
         </MapView>
       </View>
-    </TouchableOpacity>
+    </>
   )
 }
 
@@ -60,6 +74,24 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width - 32,
     height: Dimensions.get('window').width,
   },
+  expandContainer: {
+    position: 'absolute',
+    top: 28,
+    left: 28,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    backgroundColor: 'lightgrey',
+    borderRadius: 8,
+    opacity: .7
+  },
+  label: {
+    fontSize: 20,
+    fontWeight: '500',
+    marginLeft: 8
+  }
 });
 
 export default MapComponent

@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, TextInput } from 'react-native'
 import { Feather } from 'react-native-vector-icons'
 
+import { convertToDollars } from '../../../utilities'
+
 const MortgageInsuranceComponent = (props) => {
   const {
     currentHome,
@@ -24,7 +26,7 @@ const MortgageInsuranceComponent = (props) => {
         <View style={styles.mortgageHeader}>
           <Text style={styles.label}>Mortgage Insurance:</Text>
           <View style={styles.dropDown}>
-            <Text style={styles.label}>${parseInt(mortgageInsurance)/12}</Text>
+            <Text style={styles.label}>${convertToDollars(parseInt(mortgageInsurance)/12)}</Text>
             <Feather style={styles.chevronDown} size={20} name='chevrons-down'/>
           </View>
         </View>

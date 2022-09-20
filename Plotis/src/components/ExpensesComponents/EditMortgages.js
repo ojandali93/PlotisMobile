@@ -6,7 +6,7 @@ import {Picker} from '@react-native-picker/picker';
 import { calculateLoanAmount, calculateDownPaymentPercent, calculateDownPaymentAmount } from './metrics'
 import { calculateClosingCost, calculateMortgagePayment } from './metrics'
 
-import { convertToDollars } from '../../utilities'
+import { convertToDollars } from '../../../utilities'
 
 const EditMortgages = (props) => {
   const {

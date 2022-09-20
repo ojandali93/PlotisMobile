@@ -32,6 +32,7 @@ import SettingsScreen from './src/screens/SettingsScreen'
 import AboutUsScreen from './src/screens/AboutUsScreen'
 import ResetPassword from './src/screens/ResetPassword'
 import PasswordResetConfirmationScreen from './src/screens/PasswordResetConfirmationScreen'
+import FullMapScreen from './src/screens/FullMapScreen'
 
 // console.disableYellowBox = true;
 LogBox.ignoreAllLogs(true)
@@ -44,12 +45,13 @@ const HomeStack = () => {
     <StackNav.Navigator initialRouteName='Home' screenOptions={{headerShown: false}}>
       <StackNav.Screen name="HomeScreen" component={MainScreen}/>
       <StackNav.Screen name="PropertyScreen" component={PropertyScreen} />
-      <StackNav.Screen name="ContactAgentStack" component={ContactAgentScreen} />
+      <StackNav.Screen name="ContactAgentWithStack" component={ContactAgentScreen} />
       <StackNav.Screen name="GallerStack" component={GalleryScreen} />
       <StackNav.Screen name="StartOfferStack" component={StartOfferScreen} />
       <StackNav.Screen name="PreApprovedStack" component={PreApprovalScreen} />
       <StackNav.Screen name="FilterStack" component={FilterScreen} />
       <StackNav.Screen name="OfferInformationScreen" component={OfferInformationScreen} />
+      <StackNav.Screen name="FullMapScreen" component={FullMapScreen} />
      </StackNav.Navigator>
   )
 }

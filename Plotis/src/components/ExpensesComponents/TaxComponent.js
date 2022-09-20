@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, TextInput } from 'react-native'
 import { Feather } from 'react-native-vector-icons'
 
+import { convertToDollars } from '../../../utilities'
+
 const TaxComponent = (props) => {
   const {
     currentHome,
@@ -33,7 +35,7 @@ const TaxComponent = (props) => {
         <View style={styles.taxHeader}>
           <Text style={styles.label}>Property Tax:</Text>
           <View style={styles.dropDown}>
-            <Text style={styles.label}>${propertyTax}</Text>
+            <Text style={styles.label}>${convertToDollars(propertyTax)}</Text>
             <Feather style={styles.chevronDown} size={20} name='chevrons-down'/>
           </View>
         </View>

@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, FlatList, ImageEditor } from 'react-native'
 
+import { convertToDollars } from '../../../utilities'
+
 const SaleHistoryComponent = (props) => {
   const {
     saleHistory
@@ -28,7 +30,7 @@ const SaleHistoryComponent = (props) => {
               <View style={styles.contentRow}>
                 <View style={styles.topRow}>
                   <View><Text style={styles.action}>{item.event}</Text></View>
-                  <View><Text style={styles.amount}>${item.price}</Text></View>
+                  <View><Text style={styles.amount}>${convertToDollars(item.price)}</Text></View>
                 </View>
                 <View style={styles.bottomRow}>
                   <View><Text style={styles.date}>{item.date}</Text></View>

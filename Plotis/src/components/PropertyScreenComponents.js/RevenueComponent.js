@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
 import { Feather } from 'react-native-vector-icons'
 
+import { convertToDollars } from '../../../utilities'
+
 import MonthlyRevenueComponent from '../RevenueComponents/MonthlyRevenueComponent'
 import AdditionalRevenueComponents from '../RevenueComponents/AdditionalRevenueComponents'
 import StlMonthlyRevenueComponent from '../RevenueComponents/StlMonthlyRevenueComponent'
@@ -17,7 +19,7 @@ const RevenueComponent = (props) => {
   // const [monthlyRevenue, setMonthlyRevenue] = useState('0')
   const [additionalRevenue, setAdditionalRevenue] = useState('0')
   const [ltlMonthlyRevenue, setLtlMonthlyRevenue] = useState(currentHome.rentZestimate == null ? '0' : currentHome.rentZestimate.toString())
-  const [strMonthlyRevenue, setStrMonthlyRevenue] = useState('3800')
+  const [strMonthlyRevenue, setStrMonthlyRevenue] = useState('1700')
 
   const updateSelected = (value) => {
     setSelected(value)
@@ -59,7 +61,7 @@ const RevenueComponent = (props) => {
     <View style={styles.keyDetailsContainer}>
       <View style={styles.headerContainer}>
         <Text style={styles.label}>Revenue</Text>
-        <Text style={styles.label}>${monthlyRevenue}</Text>
+        <Text style={styles.label}>${convertToDollars(monthlyRevenue)}</Text>
       </View>
       <View style={styles.rentalTypeContainer}>
       {

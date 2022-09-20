@@ -30,8 +30,6 @@ const MainScreen = ({navigation, route}) => {
   const [favoritesList, setFavoritesList] = useState([])
   const [favoritesZpid, setFavoritesZpid] = useState([])
 
-  const collectionRef = collection(db, 'Favorites')
-
   const updateCurrentView = (value) => {
     setCurrentView(value)
   }
@@ -72,9 +70,14 @@ const MainScreen = ({navigation, route}) => {
   }, [navigation])
 
   useEffect(() => {
+    console.log(favoritesZpid)
+  }, [favoritesZpid])
+
+  useEffect(() => {
+    console.log(favoritesList.length)
     const newFavorites = []
     favoritesList.forEach((item) => {
-      newFavorites.push(item.item.zpid)
+      newFavorites.push(item.zpid)
     })
     setFavoritesZpid(newFavorites)
     // console.log(favoritesZpid)
@@ -84,6 +87,7 @@ const MainScreen = ({navigation, route}) => {
     if(auth.currentUser == null){
 
     } else {
+      const collectionRef = collection(db, 'Favorites')
       const q = query(collectionRef, where('userId', '==', auth.currentUser.uid))
       onSnapshot(q, (snapshot) => {
         let favorites = []
@@ -116,7 +120,7 @@ const MainScreen = ({navigation, route}) => {
 
   const saveSearch = () => {
     const collectionRef = collection(db, 'SavedSearches')
-    if(auth.currentUser.uid){
+    if(auth.currentUser){
       activeFullSearch['sort'] = "Newest"
       addDoc(collectionRef, {
         "parameters": activeFullSearch,

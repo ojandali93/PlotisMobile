@@ -25,6 +25,9 @@ import axios from 'axios'
 let deviceWidth = Dimensions.get('window').width
 let aspectHeight = (deviceWidth / 1.78) + 1
 
+const loadingDeviceHeight = Dimensions.get('window').height-44
+const loadingDeviceWidth = Dimensions.get('window').width
+
 let carouselImageWidth = (deviceWidth / 4)
 let carouselImageHeight = (carouselImageWidth / 1.78) 
 
@@ -112,8 +115,16 @@ const PropertyScreen = ({route}) => {
         setCurrentHome(response.data)
         createHomeAddress(response.data.address)
         setSelectedImage(response.data.imgSrc)
-        setSaleHistory(response.data.priceHistory)
-        setTaxHistory(response.data.taxHistory)
+        if(Object.keys(response.data.priceHistory).length > 0){
+          setSaleHistory(response.data.priceHistory.splice(0, 10))
+        } else {
+          setSaleHistory([])
+        }
+        if(Object.keys(response.data.taxHistory).length > 0){
+          setTaxHistory(response.data.taxHistory.splice(0, 10))
+        } else {
+          setTaxHistory([])
+        }
         setLong(response.data.longitude)
         setLat(response.data.latitude)
         setSchools(response.data.schools)
@@ -150,8 +161,12 @@ const PropertyScreen = ({route}) => {
 
   const loadingData = () => {
     return(
-      <View>
-        <Text>Loading Data</Text>
+      <View style={[styles.screen, {height: loadingDeviceHeight, width: loadingDeviceWidth}]}>
+        <View style={styles.content}>
+          <View style={styles.headerContainer}>
+            <Text style={styles.tagline}>Loading Details...</Text>
+          </View>
+        </View>
       </View>
     )
   }
@@ -205,15 +220,15 @@ const PropertyScreen = ({route}) => {
             year1ROI={year1ROI}
           />
           <View style={styles.separaterContainer}><View style={styles.separater}></View></View>
-          <TaxAndPriceComponent saleHistory={saleHistory} taxHistory={taxHistory.splice(0, 10)}/>
+          <TaxAndPriceComponent saleHistory={saleHistory} taxHistory={taxHistory}/>
           <View style={styles.separaterContainer}><View style={styles.separater}></View></View>
-          <MapComponent long={long} lat={lat} currentHomeAddress={currentHomeAddress}/>
+          <MapComponent long={long} lat={lat} currentHomeAddress={currentHomeAddress} currentHome={currentHome}/>
           <View style={styles.separaterContainer}><View style={styles.separater}></View></View>
           <StartOfferComponent currentHome={currentHome}/>
           <View style={styles.separaterContainer}><View style={styles.separater}></View></View>
           <SchoolsComponent schools={schools}/>
           <View style={styles.separaterContainer}><View style={styles.separater}></View></View>
-          <ContactAgentComponent />
+          <ContactAgentComponent  currentHome={currentHome}/>
           <View style={styles.separaterContainer}><View style={styles.separater}></View></View>
         </ScrollView>
       </View>
@@ -247,7 +262,24 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 2,
     backgroundColor: 'lightgrey'
-  }
+  },
+  content: {
+    height: Dimensions.get('window').height,
+    display: 'flex',
+    flexDirection: 'column',
+    marginTop: 225,
+    // justifyContent: 'center',
+    alignItems: 'center'
+  },
+  headerContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 16
+  },
+  tagline: {
+    fontSize: 22,
+    fontWeight: '800'
+  },
 })
 
 export default PropertyScreen

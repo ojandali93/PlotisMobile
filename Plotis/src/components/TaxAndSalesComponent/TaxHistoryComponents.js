@@ -1,62 +1,12 @@
 import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, FlatList } from 'react-native'
 
+import { convertToDollars } from '../../../utilities'
+
 const TaxHistoryComponents = (props) => {
   const {
     taxHistory
   } = props
-
-
-  const sampleTax = [
-    {
-      'key': '0',
-      'year': '2011',
-      'Tax Amount': '1,234',
-      'Assessment': '12,458'
-    },
-    {
-      'key': '1',
-      'year': '2011',
-      'Tax Amount': '1,234',
-      'Assessment': '12,458'
-    },
-    {
-      'key': '2',
-      'year': '2011',
-      'Tax Amount': '1,234',
-      'Assessment': '12,458'
-    },
-    {
-      'key': '3',
-      'year': '2011',
-      'Tax Amount': '1,234',
-      'Assessment': '12,458'
-    },
-    {
-      'key': '4',
-      'year': '2011',
-      'Tax Amount': '1,234',
-      'Assessment': '12,458'
-    },
-    {
-      'key': '5',
-      'year': '2011',
-      'Tax Amount': '1,234',
-      'Assessment': '12,458'
-    },
-    {
-      'key': '6',
-      'year': '2011',
-      'Tax Amount': '1,234',
-      'Assessment': '12,458'
-    },
-    {
-      'key': '7',
-      'year': '2011',
-      'taxAmount': '1,234',
-      'assessment': '12,458'
-    }
-  ]
 
   return (
     <View style={styles.contentContainer}>
@@ -83,11 +33,11 @@ const TaxHistoryComponents = (props) => {
               </View>
               <View style={styles.amountContainer}>
                 {
-                  item.taxPaid == null ? <Text style={styles.subText}>---</Text> : <Text style={styles.subText}>${item.taxPaid}</Text>
+                  item.taxPaid == null ? <Text style={styles.subText}>---</Text> : <Text style={styles.subText}>${convertToDollars(item.taxPaid)}</Text>
                 }
               </View>
               <View style={styles.assessedContainer}>
-                <Text style={styles.subText}>${item.value}</Text>
+                <Text style={styles.subText}>${convertToDollars(item.value)}</Text>
               </View>
             </View>
           )
