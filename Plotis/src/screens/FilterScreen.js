@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, FlatList } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, FlatList, Switch } from 'react-native'
 
 import MultiSlider from '@ptomasroos/react-native-multi-slider'
 
@@ -8,11 +8,19 @@ import BedBathCounterComponent from '../components/HomeComponents/BedBathCounter
 
 import { sliderOptions, bedBathAmount, sqftSliderOptions } from '../../required'
 import { homeTypeOptions1, numberOfColumns } from '../../required'
-import { covertToDollarByGrand, covertToDollarByHundered } from '../../utilities'
+import { convertPriceOptions, convertSqftOptions } from '../../utilities'
 import { ScrollView } from 'react-native-gesture-handler'
 
 const FilterScreen = ({navigation, route}) => {
-  const [selectedHomeTypes, setSelectedHomeTypes] = useState(['Houses'])
+  const [selectedHomeTypes, setSelectedHomeTypes] = useState([])
+
+  const [houseFilter, setHouseFilter] = useState(false)
+  const [condosFilter, setCondosFilter] = useState(false)
+  const [landLotFilter, setlandLotFilter] = useState(false)
+  const [multifamilyFilter, setMultifamilyFilter] = useState(false)
+  const [manufacturedFilter, setManufacturedFilter] = useState(false)
+  const [townhouseFilter, setTownhouseFilter] = useState(false)
+  const [apartmentFilter, setApartmentFilter] = useState(false)
 
   const [min, setMin] = useState(0)
   const [max, setMax] = useState(11000000)
@@ -41,26 +49,36 @@ const FilterScreen = ({navigation, route}) => {
       setSqftMax(filter.sqftMax)
       setSqftSliderValues([filter.sqftMin, filter.sqftMax])
       setSelectedHomeTypes(filter.home_type)
+      updateSelectedHomeTypes()
     }
   }, [route.params])
 
-  const updateSelectedHomeTypes = (selected) => {
-    let selectedHome = selectedHomeTypes
-    if(selectedHome.length == 0){
-      setSelectedHomeTypes(['Houses'])
-    }
-    if(selectedHome.includes(selected)){
-      let target = selectedHome.indexOf(selected)
-      selectedHome.splice(target, 1)
-      if(selectedHome.length == 0){
-        setSelectedHomeTypes(['Houses'])
-      } else {
-        setSelectedHomeTypes([...selectedHome])
-      }
-    } else {
-      setSelectedHomeTypes([...selectedHome, selected])
-    }
-  }
+  useEffect(() => {
+    addHomeType('Houses')
+    setHouseFilter(true)
+  }, [])
+
+  // const updateSelectedHomeTypes = (selected) => {
+  //   let selectedHome = selectedHomeTypes
+  //   if(selectedHome.length == 0){
+  //     setSelectedHomeTypes(['Houses'])
+  //   }
+  //   if(selectedHome.includes(selected)){
+  //     let target = selectedHome.indexOf(selected)
+  //     selectedHome.splice(target, 1)
+  //     if(selectedHome.length == 0){
+  //       setSelectedHomeTypes(['Houses'])
+  //     } else {
+  //       setSelectedHomeTypes([...selectedHome])
+  //     }
+  //   } else {
+  //     setSelectedHomeTypes([...selectedHome, selected])
+  //   }
+  // }
+
+  useEffect(() => {
+    console.log(selectedHomeTypes)
+  }, [selectedHomeTypes])
 
   const updateSliderValues = (value) => {
     setMin(value[0])
@@ -92,6 +110,13 @@ const FilterScreen = ({navigation, route}) => {
     setSqftMax(7000)
     setSqftSliderValues([sqftMin,sqftMax])
     setSelectedHomeTypes(['Houses'])
+    setHouseFilter(true)
+    setCondosFilter(false)
+    setlandLotFilter(false)
+    setMultifamilyFilter(false)
+    setManufacturedFilter(false)
+    setTownhouseFilter(false)
+    setApartmentFilter(false)
   }
 
   const applyFilters = () => {
@@ -116,6 +141,88 @@ const FilterScreen = ({navigation, route}) => {
     }
   }, [currentFilters])
 
+  const addHomeType = (selected) => {
+    let selectedHome = selectedHomeTypes
+    setSelectedHomeTypes([...selectedHome, selected])
+  }
+
+  const removeHomeType = (selected) => {
+    let selectedHome = selectedHomeTypes
+    let target = selectedHome.indexOf(selected)
+    selectedHome.splice(target, 1)
+    setSelectedHomeTypes([...selectedHome])
+  }
+
+  const updateHouseFilter = () => {
+    if(houseFilter == true){
+      removeHomeType()
+      setHouseFilter(false)
+    } else {
+      addHomeType('Houses')
+      setHouseFilter(true)
+    }
+  }
+
+  const updateCondosFilter = () => {
+    if(condosFilter == true){
+      removeHomeType('Condos')
+      setCondosFilter(false)
+    } else {
+      addHomeType('Condos')
+      setCondosFilter(true)
+    }
+  }
+
+  const updateLandLotFilter = () => {
+    if(landLotFilter == true){
+      removeHomeType('LotsLand')
+      setlandLotFilter(false)
+    } else {
+      addHomeType('LotsLand')
+      setlandLotFilter(true)
+    }
+  }
+
+  const updateMultifamilyFilter = () => {
+    if(multifamilyFilter == true){
+      removeHomeType('Multi-family')
+      setMultifamilyFilter(false)
+    } else {
+      addHomeType('Multi-family')
+      setMultifamilyFilter(true)
+    }
+  }
+
+  const updateManufacturedFilter = () => {
+    if(manufacturedFilter == true){3
+      removeHomeType('Manufactured')
+      setManufacturedFilter(false)
+    } else {
+      addHomeType('Manufactured')
+      setManufacturedFilter(true)
+    }
+  }
+
+  const updateTownhouseFilter = () => {
+    if(townhouseFilter == true){
+      removeHomeType('Townhomes')
+      setTownhouseFilter(false)
+    } else {
+      addHomeType('Townhomes')
+      setTownhouseFilter(true)
+    }
+  }
+
+  const updateApartmentFilter = () => {
+    if(apartmentFilter == true){
+      removeHomeType('Apartments')
+      setApartmentFilter(false)
+    } else {
+      addHomeType('Apartments')
+      setApartmentFilter(true)
+    }
+  }
+
   return (
     <View style={styles.filterContainer}>
       <ScrollView style={styles.scrollContainer}>
@@ -130,20 +237,39 @@ const FilterScreen = ({navigation, route}) => {
           </TouchableOpacity>
         </View>
         <View style={styles.sectionContainer}>
-          <FlatList 
-            style={styles.homeTypeContainer}
-            data={homeTypeOptions1}
-            keyExtractor={(item) => item.key}
-            numColumns={numberOfColumns}
-            renderItem={(item) => {
-              return(               
-                <GridItemComponent 
-                  item={item} 
-                  updateSelectedHomeTypes={updateSelectedHomeTypes}
-                  selectedHomeTypes={selectedHomeTypes}
-                />
-              )}}
-          />
+          <View style={styles.sectionHeader}>
+            <Text style={styles.label}>
+              Property Types
+            </Text>
+          </View>
+          <View style={styles.rowSelecter}>
+            <Text style={styles.text}>House</Text>
+            <Switch value={houseFilter}  onChange={() => {updateHouseFilter()}}/>
+          </View>
+          <View style={styles.rowSelecter}>
+            <Text style={styles.text}>Condos</Text>
+            <Switch value={condosFilter}  onChange={() => {updateCondosFilter()}}/>
+          </View>
+          <View style={styles.rowSelecter}>
+            <Text style={styles.text}>Land / Lot</Text>
+            <Switch value={landLotFilter}  onChange={() => {updateLandLotFilter()}}/>
+          </View>
+          <View style={styles.rowSelecter}>
+            <Text style={styles.text}>Multi-family</Text>
+            <Switch value={multifamilyFilter}  onChange={() => {updateMultifamilyFilter()}}/>
+          </View>
+          <View style={styles.rowSelecter}>
+            <Text style={styles.text}>Manufactured</Text>
+            <Switch value={manufacturedFilter}  onChange={() => {updateManufacturedFilter()}}/>
+          </View>
+          <View style={styles.rowSelecter}>
+            <Text style={styles.text}>Townhomes</Text>
+            <Switch value={townhouseFilter}  onChange={() => {updateTownhouseFilter()}}/>
+          </View>
+          <View style={styles.rowSelecter}>
+            <Text style={styles.text}>Apartments</Text>
+            <Switch value={apartmentFilter}  onChange={() => {updateApartmentFilter()}}/>
+          </View>
         </View>
         <View style={styles.separater}></View>
         <View style={styles.sectionContainer}>
@@ -167,7 +293,7 @@ const FilterScreen = ({navigation, route}) => {
           </View>
           <View style={styles.container}>
             <View style={styles.priceDetails}>
-              <Text style={styles.text}>Price: {covertToDollarByGrand(min)} - {covertToDollarByGrand(max)}</Text>
+              <Text style={styles.text}>Price: {convertPriceOptions(min)} - {convertPriceOptions(max)}</Text>
             </View>    
           </View>
         </View>
@@ -231,7 +357,7 @@ const FilterScreen = ({navigation, route}) => {
           </View>
           <View style={styles.container}>
             <View style={styles.priceDetails}>
-              <Text style={styles.text}>Sqft: {covertToDollarByHundered(sqftMin)} - {covertToDollarByHundered(sqftMax)}</Text>
+              <Text style={styles.text}>Sqft: {convertSqftOptions(sqftMin)} - {convertSqftOptions(sqftMax)}</Text>
             </View>    
           </View>
         </View>
@@ -346,6 +472,13 @@ const styles = StyleSheet.create({
   },
   blueText: {
     color: '#273be2'
+  },
+  rowSelecter: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginVertical: 8
   }
 })
 

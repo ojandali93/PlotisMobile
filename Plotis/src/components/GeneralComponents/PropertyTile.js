@@ -92,9 +92,9 @@ const PropertyTile = (props) => {
           <View style={styles.hiBar}>
             <View style={styles.quickIcons}>
               <TouchableOpacity onPress={() => {updateShare()}}>
-                <View style={styles.iconContainer}>
+                {/* <View style={styles.iconContainer}>
                   <Feather style={styles.icon} size={20} name='share'/> 
-                </View>
+                </View> */}
               </TouchableOpacity>
               {
                 favoritesZpid == null ? null : favoritesZpid.includes(item.item.zpid) ? <FavoriteSelected item={item} removeFromFavorites={removeFromFavorites}/> : <FavoriteUnselected addToFavorites={addToFavorites}/>
@@ -115,7 +115,7 @@ const PropertyTile = (props) => {
                 <Text style={styles.label}>{item.item.bedrooms} Beds | {item.item.bathrooms} Baths | {convertToDollars(item.item.livingArea)} Sqft.</Text>
               </View>
               <View>
-                <Text style={styles.label}>{item.item.listingStatus}</Text>
+                <Text style={styles.label}>{convertFirstUpper(item.item.listingStatus)}</Text>
               </View>
             </View>
             <View style={styles.contentRow}>

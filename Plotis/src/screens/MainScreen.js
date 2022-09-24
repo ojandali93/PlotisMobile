@@ -26,6 +26,8 @@ const MainScreen = ({navigation, route}) => {
   const [currentView, setCurrentView] = useState('list')
   const [sort, setSort] = useState('Homes_for_You')
   const [appliedFilters, setAppliedFilters] = useState({})
+  const [pageNumber, setPageNumber] = useState(1)
+  const [totalPages, setTotalPages] = useState()
 
   const [favoritesList, setFavoritesList] = useState([])
   const [favoritesZpid, setFavoritesZpid] = useState([])
@@ -39,6 +41,7 @@ const MainScreen = ({navigation, route}) => {
       .then((response) => {
         setResults(response.data.props)
         setResultCount(response.data.totalResultCount)
+        setTotalPages(response.data.totalPages)
         grabUserFavorites()
       })
       .catch((error) => {
@@ -47,15 +50,17 @@ const MainScreen = ({navigation, route}) => {
     setLoading(false)
   }, [])
 
-  // useEffect(() => {
-  //   if (route.params?.currentFilters) {
-  //     console.log('updated current filter', route.params)
-  //     setActiveFilters(route.params.currentFilters)
-  //     console.log('active filters', activeFilters)
-  //   } else {
-  //     console.log('no change')
-  //   }
-  // }, [route.params])
+  useEffect(() => {
+    if(currentsearch == ''){
+      console.log(currentsearch)
+    } else {
+      setActiveSearch(currentsearch)
+    }
+  }, [currentsearch])
+
+  useEffect(() => {
+    console.log(activeSearch)
+  }, [activeSearch])
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
@@ -122,6 +127,9 @@ const MainScreen = ({navigation, route}) => {
     const collectionRef = collection(db, 'SavedSearches')
     if(auth.currentUser){
       activeFullSearch['sort'] = "Newest"
+      console.log(activeFullSearch)
+      activeFullSearch['bathsMin'] == undefined ? activeFullSearch['bathsMin'] == 0 : null
+      activeFullSearch['bedsMin'] == undefined ? activeFullSearch['bedsMin'] == 0 : null
       addDoc(collectionRef, {
         "parameters": activeFullSearch,
         "userId": auth.currentUser.uid,
@@ -133,14 +141,36 @@ const MainScreen = ({navigation, route}) => {
     }
   }
 
+  const increasePageNumber = () => {
+    if(pageNumber < totalPages){
+      setPageNumber(pageNumber + 1)
+    }
+  }
+
+  const decreasePageNumber = () => {
+    if(pageNumber > 1){
+      setPageNumber(pageNumber - 1)
+    }
+  }
+
+  useEffect(() => {
+    newSearch()
+  }, [pageNumber])
+
   const newSearch = () => {
+    console.log(appliedFilters)
+    if(Object.keys(appliedFilters).length == 0){
+      const appliedFilters = {
+        "home_type": 'Houses',
+      }
+    }
     const parameters = {}
-    // console.log('applied filters', appliedFilters)
-    currentsearch == '' ? 
-                          activeSearch == '' ? parameters['location'] = 'Los Angeles, CA' : parameters['location'] = activeSearch
-                        : 
-                          parameters['location'] = currentsearch 
-    parameters['home_type'] = appliedFilters['home_type'].toString()
+    console.log(currentsearch)
+    console.log(activeSearch)
+    currentsearch == '' ? activeSearch == '' ? parameters['location'] = 'Los Angeles, CA'
+                                             : parameters['location'] = activeSearch
+                        : parameters['location'] = currentsearch 
+    appliedFilters['home_type'] ? parameters['home_type'] = appliedFilters['home_type'].toString() : parameters['home_type'] = 'Houses'
     parameters['sort'] = sort
     parameters['bathsMin'] = appliedFilters['bathsMin']
     parameters['bedsMin'] = appliedFilters['bedsMin']
@@ -148,13 +178,13 @@ const MainScreen = ({navigation, route}) => {
     appliedFilters['minPrice'] > 0 ? parameters['minPrice'] = appliedFilters['minPrice'] : null
     appliedFilters['sqftMax'] < 7000 ? parameters['sqftMin'] = appliedFilters['sqftMax'] : null
     appliedFilters['sqftMin'] > 0 ? parameters['sqftMax'] = appliedFilters['sqftMin'] : null
-    // console.log('parameters', parameters)
-    setActiveSearch(currentsearch)
+    parameters['page'] = pageNumber
     setActiveFilters(appliedFilters)
     setActiveSort(sort)
     setActiveFullSearch(parameters)
     extendedPropertOptions.params = parameters
     setLoading(true)
+    console.log(extendedPropertOptions)
     axios.request(extendedPropertOptions)
       .then((response) => {
         setResults(response.data.props)
@@ -190,7 +220,10 @@ const MainScreen = ({navigation, route}) => {
                                                     resultCount={resultCount}
                                                     activeSearch={activeSearch}
                                                     favoritesZpid={favoritesZpid}
-                                                    favoritesList={favoritesList}/>
+                                                    favoritesList={favoritesList}
+                                                    pageNumber={pageNumber}
+                                                    increasePageNumber={increasePageNumber}
+                                                    decreasePageNumber={decreasePageNumber}/>
                                                 : <MapViewComponent results={results} activeSearch={activeSearch}/>
       }
     </View>

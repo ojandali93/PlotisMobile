@@ -4,7 +4,7 @@ import { TextInput } from 'react-native-gesture-handler'
 import { Dimensions } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import { Feather } from 'react-native-vector-icons'
-import {Picker} from '@react-native-picker/picker';
+import { Picker } from '@react-native-picker/picker';
 
 import { db } from '../../firebase'
 import { addDoc, serverTimestamp, collection } from 'firebase/firestore'
