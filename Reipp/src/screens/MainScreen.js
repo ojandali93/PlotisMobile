@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import axios from 'axios'
 
 import SeachAndFilterComponent from '../components/HomeComponents/SeachAndFilterComponent'
@@ -52,15 +52,10 @@ const MainScreen = ({navigation, route}) => {
 
   useEffect(() => {
     if(currentsearch == ''){
-      console.log(currentsearch)
     } else {
       setActiveSearch(currentsearch)
     }
   }, [currentsearch])
-
-  useEffect(() => {
-    console.log(activeSearch)
-  }, [activeSearch])
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
@@ -75,17 +70,12 @@ const MainScreen = ({navigation, route}) => {
   }, [navigation])
 
   useEffect(() => {
-    console.log(favoritesZpid)
-  }, [favoritesZpid])
-
-  useEffect(() => {
     console.log(favoritesList.length)
     const newFavorites = []
     favoritesList.forEach((item) => {
       newFavorites.push(item.zpid)
     })
     setFavoritesZpid(newFavorites)
-    // console.log(favoritesZpid)
   }, [favoritesList])
 
   const grabUserFavorites = () => {
@@ -106,7 +96,6 @@ const MainScreen = ({navigation, route}) => {
 
   useEffect(() => {
     if (route.params?.appliedFilters) {
-      console.log('recieved filter', route.params.appliedFilters)
       setAppliedFilters(route.params.appliedFilters)
     } else {
       console.log('no filters found')
@@ -115,10 +104,8 @@ const MainScreen = ({navigation, route}) => {
 
   const updateFilter = () => {
     if(Object.keys(appliedFilters).length === 0){
-      console.log('redirect with no filter')
       navigation.navigate('FilterStack')
     } else {
-      console.log('redirect with filter')
       navigation.navigate('FilterStack', {appliedFilters:appliedFilters})
     }
   }
@@ -127,7 +114,6 @@ const MainScreen = ({navigation, route}) => {
     const collectionRef = collection(db, 'SavedSearches')
     if(auth.currentUser){
       activeFullSearch['sort'] = "Newest"
-      console.log(activeFullSearch)
       activeFullSearch['bathsMin'] == undefined ? activeFullSearch['bathsMin'] == 0 : null
       activeFullSearch['bedsMin'] == undefined ? activeFullSearch['bedsMin'] == 0 : null
       addDoc(collectionRef, {
@@ -165,8 +151,6 @@ const MainScreen = ({navigation, route}) => {
       }
     }
     const parameters = {}
-    console.log(currentsearch)
-    console.log(activeSearch)
     currentsearch == '' ? activeSearch == '' ? parameters['location'] = 'Los Angeles, CA'
                                              : parameters['location'] = activeSearch
                         : parameters['location'] = currentsearch 
@@ -184,7 +168,6 @@ const MainScreen = ({navigation, route}) => {
     setActiveFullSearch(parameters)
     extendedPropertOptions.params = parameters
     setLoading(true)
-    console.log(extendedPropertOptions)
     axios.request(extendedPropertOptions)
       .then((response) => {
         setResults(response.data.props)

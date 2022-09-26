@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
+import React from 'react'
+import { View, Text, StyleSheet, Image } from 'react-native'
 
-import { Feather } from 'react-native-vector-icons'
 import { Dimensions } from 'react-native'
 
 let deviceWidth = Dimensions.get('window').width * .4

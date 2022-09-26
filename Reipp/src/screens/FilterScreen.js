@@ -3,11 +3,9 @@ import { View, Text, TouchableOpacity, StyleSheet, FlatList, Switch } from 'reac
 
 import MultiSlider from '@ptomasroos/react-native-multi-slider'
 
-import GridItemComponent from '../components/HomeComponents/GridItemComponent'
 import BedBathCounterComponent from '../components/HomeComponents/BedBathCounterComponent'
 
 import { sliderOptions, bedBathAmount, sqftSliderOptions } from '../../required'
-import { homeTypeOptions1, numberOfColumns } from '../../required'
 import { convertPriceOptions, convertSqftOptions } from '../../utilities'
 import { ScrollView } from 'react-native-gesture-handler'
 
@@ -36,9 +34,7 @@ const FilterScreen = ({navigation, route}) => {
   const [currentFilters, setCurrentFilters] = useState({})
 
   useEffect(() => {
-    // console.log(route)
     if (route.params?.appliedFilters) {
-      console.log('found')
       let filter = route.params.appliedFilters
       setBedCount(filter.bedsMin)
       setBathCount(filter.bathsMin)
@@ -57,28 +53,6 @@ const FilterScreen = ({navigation, route}) => {
     addHomeType('Houses')
     setHouseFilter(true)
   }, [])
-
-  // const updateSelectedHomeTypes = (selected) => {
-  //   let selectedHome = selectedHomeTypes
-  //   if(selectedHome.length == 0){
-  //     setSelectedHomeTypes(['Houses'])
-  //   }
-  //   if(selectedHome.includes(selected)){
-  //     let target = selectedHome.indexOf(selected)
-  //     selectedHome.splice(target, 1)
-  //     if(selectedHome.length == 0){
-  //       setSelectedHomeTypes(['Houses'])
-  //     } else {
-  //       setSelectedHomeTypes([...selectedHome])
-  //     }
-  //   } else {
-  //     setSelectedHomeTypes([...selectedHome, selected])
-  //   }
-  // }
-
-  useEffect(() => {
-    console.log(selectedHomeTypes)
-  }, [selectedHomeTypes])
 
   const updateSliderValues = (value) => {
     setMin(value[0])

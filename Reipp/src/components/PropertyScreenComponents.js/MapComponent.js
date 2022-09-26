@@ -1,34 +1,15 @@
-import React, { useState } from 'react'
+import React from 'react'
 import MapView, { Marker } from 'react-native-maps';
-import { StyleSheet, TouchableOpacity, View, Dimensions, Linking, Text } from 'react-native';
+import { StyleSheet, View, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { FontAwesome } from 'react-native-vector-icons'
-
-import FullMapComponent from './FullMapComponent';
 
 const MapComponent = (props) => {
   const {
     long,
     lat,
-    currentHomeAddress,
-    currentHome
   } = props
 
   const navigation = useNavigation()
-
-  const [longitude, setLongitude] = useState(long)
-  const [latitude, setLatitude] = useState(lat)
-
-  const redirectToApp = () => {
-    const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' })
-    const latLng = `${latitude},${longitude}`
-    const label = currentHomeAddress
-    const url = Platform.select({
-      ios: `${scheme}${label}@${latLng}`,
-      android: `${scheme}${latLng}(${label})`
-    })
-    Linking.openURL(url)
-  }
 
   const openMap = () => {
     navigation.navigate('FullMapScreen', {lat: lat, long: long})

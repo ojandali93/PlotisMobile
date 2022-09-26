@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import MapView, { Callout, Marker } from 'react-native-maps';
-import { StyleSheet, Image, View, Text, Dimensions, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react'
+import MapView, { Marker } from 'react-native-maps';
+import { StyleSheet, View, Dimensions, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Feather } from 'react-native-vector-icons'
 
 const FullMapScreen = ({route}) => {
-  console.log(route.params.lat)
-  console.log(route.params.long)
   const navigation = useNavigation()
   const [selectedHome, setSelectedHome] = useState({})
   const [initialRegionLat, setInitialRegionLat] = useState(route.params.lat)

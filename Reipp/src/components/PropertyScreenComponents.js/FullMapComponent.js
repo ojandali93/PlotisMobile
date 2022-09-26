@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import MapView, { Callout, Marker } from 'react-native-maps';
-import { StyleSheet, Image, View, Text } from 'react-native';
+import React from 'react'
+import MapView, { Marker } from 'react-native-maps';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Feather } from 'react-native-vector-icons'
 
@@ -35,17 +35,15 @@ const FullMapComponent = (props) => {
         <Marker
           pinColor='blue'
           key={index}
-          // title={marker.address}
-          // description={markerDescription}
           coordinate={{
             longitude: marker.longitude,
             latitude: marker.latitude
           }}
         />
       </MapView>
-      <View style={styles.xContainer}>
+      <TouchableOpacity style={styles.xContainer} onPress={() => {goBackToProperty()}}>
         <Feather style={styles.icon} size={28} name='x'/>
-      </View>
+      </TouchableOpacity>
     </View>
   )
 }

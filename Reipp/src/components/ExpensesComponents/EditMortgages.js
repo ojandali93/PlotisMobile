@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, Image, TextInput } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, TextInput } from 'react-native'
 import { Feather } from 'react-native-vector-icons'
 import {Picker} from '@react-native-picker/picker';
 
 import { calculateLoanAmount, calculateDownPaymentPercent, calculateDownPaymentAmount } from './metrics'
-import { calculateClosingCost, calculateMortgagePayment } from './metrics'
+import { calculateMortgagePayment } from './metrics'
 
 import { convertToDollars } from '../../../utilities'
 
@@ -106,7 +106,6 @@ const EditMortgages = (props) => {
 
   const updateInterestRate = (value) => {
     let price = value
-    console.log(price)
     if(value == ""){
       setInterestRate('0')
     } else {

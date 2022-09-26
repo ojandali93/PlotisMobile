@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 
 import FavoriteSelected from '../PropertyTileComponents/FavoriteSelected'
 import FavoriteUnselected from '../PropertyTileComponents/FavoriteUnselected'
 
-import { Feather, FontAwesome } from 'react-native-vector-icons'
 import { Dimensions } from 'react-native'
 
 import { getAuth } from "firebase/auth"

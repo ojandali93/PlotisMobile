@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import MapView, { Callout, Marker } from 'react-native-maps';
 import { StyleSheet, Image, View, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -12,8 +12,6 @@ const MapViewComponent = (props) => {
   const initialRegionLong = results[0]['longitude']
 
   const navigation = useNavigation();
-
-  const [selectedProperty, setSelectedProperty] = useState()
 
   const updatedSelectedProperty = (item) => {
     navigation.navigate('PropertyScreen', {zpid: item})

@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList } from 'react-native'
+import React from 'react'
+import { View, StyleSheet, TouchableOpacity, Image, FlatList } from 'react-native'
 import { Dimensions } from 'react-native'
 
 let deviceWidth = Dimensions.get('window').width
@@ -15,6 +15,7 @@ const CarouselComponent = (props) => {
     updateFeaturedImage,
     goToGallery
   } = props
+  
   return (
     <View style={styles.ImageContainer}>
       <TouchableOpacity onPress={() => {goToGallery()}}>

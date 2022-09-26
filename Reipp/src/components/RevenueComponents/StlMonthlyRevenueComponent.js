@@ -6,7 +6,6 @@ import { convertToDollars } from '../../../utilities'
 
 const StlMonthlyRevenueComponent = (props) => {
   const {
-    currentHome,
     strMonthlyRevenue,
     setStrMonthlyRevenue
   } = props

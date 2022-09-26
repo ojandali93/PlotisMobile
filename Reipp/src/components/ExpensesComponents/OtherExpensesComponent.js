@@ -6,7 +6,6 @@ import { convertToDollars } from '../../../utilities'
 
 const OtherExpensesComponent = (props) => {
   const {
-    currentHome,
     setAdditionalExpenses,
     additionalExpenses
   } = props

@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, TextInput, SafeAreaView } from 'react-native'
 import { FontAwesome, Feather } from 'react-native-vector-icons'
 
-import ResultViewComponent from './ResultViewComponent'
 import SortComponent from './SortComponent'
 
 

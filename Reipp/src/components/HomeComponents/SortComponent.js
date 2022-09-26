@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, } from 'react-native'
-import { FontAwesome, Feather } from 'react-native-vector-icons'
+import { Feather } from 'react-native-vector-icons'
 
 const SortComponent = (props) => {
   const {

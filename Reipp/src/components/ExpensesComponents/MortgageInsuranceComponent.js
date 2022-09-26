@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, TextInput } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { Feather } from 'react-native-vector-icons'
 
 import { convertToDollars } from '../../../utilities'
 
 const MortgageInsuranceComponent = (props) => {
   const {
-    currentHome,
     mortgageInsurance
   } = props
 

@@ -6,7 +6,6 @@ import { convertToDollars } from '../../../utilities'
 
 const UtilitiesComponent = (props) => {
   const {
-    currentHome,
     setUtilities,
     utilities
   } = props

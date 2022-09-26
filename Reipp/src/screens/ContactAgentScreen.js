@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, Image } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native'
 import { Feather } from 'react-native-vector-icons'
-import { useNavigation } from '@react-navigation/native';
 import axios from 'axios'
 
 import PropertySampleComponent from '../components/GeneralComponents/PropertySampleComponent'
@@ -9,19 +8,12 @@ import ContactAgentComponent from '../components/PropertyScreenComponents.js/Con
 
 import { extendedPropertOptions, singlePropertyOptions } from '../../zillow'
 
-import { Dimensions } from 'react-native'
-
-let deviceWidth = Dimensions.get('window').width - 16
-var aspectHeight = (deviceWidth / 1.78) + 1
-
 const ContactAgentScreen = ({route}) => {
 
   const [addressLookup, setAddressLookup] = useState('')
   const [currentHome, setCurrentHome] = useState({})
-  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    console.log(route.params)
     if(route.params?.zpid){
       getPropertyDetails(route.params.zpid)
     }
@@ -44,7 +36,6 @@ const ContactAgentScreen = ({route}) => {
     axios.request(singlePropertyOptions)
       .then((response) => {
         setCurrentHome(response.data)
-        setIsLoading(true)
       })
       .catch((error) => {
         console.log(error)

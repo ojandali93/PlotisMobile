@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native'
+import React from 'react'
+import { View, StyleSheet } from 'react-native'
 
 import PropertySampleComponent from '../GeneralComponents/PropertySampleComponent'
 import OfferSummaryComponent from './OfferSummaryComponent'

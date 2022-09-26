@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 
 import { convertToDollars } from '../../../utilities'
 
@@ -8,7 +8,6 @@ import MortgageInsuranceComponent from '../ExpensesComponents/MortgageInsuranceC
 import HomeInsuranceComponent from '../ExpensesComponents/HomeInsuranceComponent'
 import TaxComponent from '../ExpensesComponents/TaxComponent'
 import HOAComponent from '../ExpensesComponents/HOAComponent'
-import AdditionalExpensesComponent from '../ExpensesComponents/AdditionalExpensesComponent'
 import UtilitiesComponent from '../ExpensesComponents/UtilitiesComponent'
 import OtherExpensesComponent from '../ExpensesComponents/OtherExpensesComponent'
 
@@ -22,7 +21,6 @@ const ExpensesComponents = (props) => {
     setTotalDownPayment
   } = props
 
-  const [totalExpenses, setTotalExpenses] = useState()
   const [mortgage, setMortgage] = useState()
   const [totalLoanAmount, setTotalLoanAmount] = useState('0')
   const [totalDownPaymentPercent, setTotalDownPaymentPercent] = useState(20)

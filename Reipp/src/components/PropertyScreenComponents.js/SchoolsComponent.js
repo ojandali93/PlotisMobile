@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
+import React from 'react'
+import { View, Text, StyleSheet } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
 
 const SchoolsComponent = (props) => {

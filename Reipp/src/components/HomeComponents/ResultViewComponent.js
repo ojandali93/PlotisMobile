@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, FlatList, ScrollView } from 'react-native'
+import React from 'react'
+import { View, Text, TouchableOpacity, StyleSheet, FlatList } from 'react-native'
 
-import { Feather, FontAwesome } from 'react-native-vector-icons'
+import { Feather } from 'react-native-vector-icons'
 
 import PropertyTile from '../GeneralComponents/PropertyTile'
 

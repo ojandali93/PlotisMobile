@@ -1,17 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Image, TextInput } from 'react-native'
+import React from 'react'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { Dimensions } from 'react-native'
-import { getAuth, sendPasswordResetEmail } from 'firebase/auth'
 import { useNavigation } from '@react-navigation/native';
 
 const PasswordResetConfirmationScreen = () => {
-  const auth = getAuth()
   const navigation = useNavigation()
 
   const deviceHeight = Dimensions.get('window').height-44
   const deviceWidth = Dimensions.get('window').width
-
-  const [email, setEmail] = useState('')
 
   const submitPasswordReset = () => {
     navigation.navigate('LoginScreen')
@@ -85,7 +81,7 @@ const styles = StyleSheet.create({
     marginTop: 16
   },
   input: {
-    widht: '100%',
+    width: '100%',
     backgroundColor: 'white',
     fontSize: 17,
     padding: 4

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native'
+import { View, Text, FlatList } from 'react-native'
 
 import LoadingComponent from '../components/HomeComponents/LoadingComponent'
 import PropertyTile from '../components/GeneralComponents/PropertyTile'
@@ -30,7 +30,6 @@ const RecentViewsComponent = () => {
       newRecentViews.push(item.item.zpid)
     })
     setRecentViewsZpid(newRecentViews)
-    // console.log(favoritesZpid)
   }, [recentViewsList])
 
   const grabRecentViews = () => {

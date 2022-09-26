@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
-import { Feather } from 'react-native-vector-icons'
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 
 import { convertToDollars } from '../../../utilities'
 
@@ -16,7 +15,6 @@ const RevenueComponent = (props) => {
   } = props
 
   const [selected, setSelected] = useState('longTerm')
-  // const [monthlyRevenue, setMonthlyRevenue] = useState('0')
   const [additionalRevenue, setAdditionalRevenue] = useState('0')
   const [ltlMonthlyRevenue, setLtlMonthlyRevenue] = useState(currentHome.rentZestimate == null ? '0' : currentHome.rentZestimate.toString())
   const [strMonthlyRevenue, setStrMonthlyRevenue] = useState('1700')

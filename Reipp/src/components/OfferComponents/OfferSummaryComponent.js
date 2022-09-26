@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
+import React from 'react'
+import { View, Text, StyleSheet } from 'react-native'
 
 const OfferSummaryComponent = (props) => {
   const {

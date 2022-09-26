@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 import { Dimensions } from 'react-native'
@@ -293,7 +293,7 @@ const styles = StyleSheet.create({
     marginBottom: 4
   },
   input: {
-    widht: '100%',
+    width: '100%',
     backgroundColor: 'white',
     fontSize: 17,
     padding: 4

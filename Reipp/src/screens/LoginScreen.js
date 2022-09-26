@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Image, TextInput } from 'react-native'
 import { Dimensions } from 'react-native'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     marginTop: 16
   },
   input: {
-    widht: '100%',
+    width: '100%',
     backgroundColor: 'white',
     fontSize: 17,
     padding: 4

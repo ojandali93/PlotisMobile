@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
-import { Feather, FontAwesome } from 'react-native-vector-icons'
+import React from 'react'
+import { View, TouchableOpacity, StyleSheet } from 'react-native'
+import { FontAwesome } from 'react-native-vector-icons'
 
 const FavoriteUnselected = (props) => {
   const {

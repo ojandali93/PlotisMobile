@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Linking } from 'react-native'
 import { Feather,AntDesign, Ionicons, SimpleLineIcons} from 'react-native-vector-icons'
 import { useNavigation } from '@react-navigation/native';
 
-import { db } from '../../firebase'
 import { getAuth, signOut } from 'firebase/auth'
 
 const ProfileScreen = () => {
@@ -31,7 +30,6 @@ const ProfileScreen = () => {
   const signoutUser = () => {
     signOut(auth)
       .then(() => {
-        console.log('signed out')
         navigation.navigate('LoginScreen')
       })
       .catch((error) => {

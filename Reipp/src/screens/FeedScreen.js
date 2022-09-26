@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native'
+import { View, Text, StyleSheet, Dimensions } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 
 import FeedLabelComponents from '../components/FeedComponents/FeedLabelComponents';

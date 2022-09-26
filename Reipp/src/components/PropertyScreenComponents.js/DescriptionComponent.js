@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 
 import BlurbComponent from './BlurbComponent'
 import FullDescription from './FullDescription'

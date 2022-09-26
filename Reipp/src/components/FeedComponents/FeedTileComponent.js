@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
-
-import { Feather, FontAwesome } from 'react-native-vector-icons'
-import { Dimensions } from 'react-native'
 
 let deviceWidth = 350
 var aspectHeight = (deviceWidth / 1.78) + 1
@@ -13,16 +10,11 @@ const FeedTileComponent = (props) => {
     item
   } = props
 
-  console.log(item)
   const navigation = useNavigation();
 
   const goToDetailsPage =(zpid) => {
     navigation.navigate('PropertyFavoriteScreen', {zpid: zpid})
   }
-
-  let splitAddress = item.address.split(', ')
-  let address1 = splitAddress[0]
-  let address2 = splitAddress[1] + ', ' + splitAddress[2]
 
   return (
     <>

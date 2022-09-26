@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native'
+import { View, Text, StyleSheet, FlatList } from 'react-native'
 
 import { db } from '../../firebase'
 import { getAuth } from "firebase/auth"
-import { query, collection, where, onSnapshot, orderBy } from 'firebase/firestore'
+import { query, collection, where, onSnapshot } from 'firebase/firestore'
 
 import OfferTileComponent from '../components/OfferComponents/OfferTileComponent'
 
@@ -11,7 +11,6 @@ const OfferScreen = () => {
   const auth = getAuth()
 
   const [offerList, setOfferList] = useState()
-  const [loading, setLoading] = useState(true)
 
   const collectionRef = collection(db, 'Offers')
 
@@ -29,7 +28,6 @@ const OfferScreen = () => {
         currentOffers.push({ ...doc.data(), id: doc.id })
       })
       setOfferList(currentOffers)
-      setLoading(false)
     })
   }
 

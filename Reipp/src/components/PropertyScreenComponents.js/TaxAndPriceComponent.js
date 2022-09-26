@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 
 import TaxHistoryComponents from '../TaxAndSalesComponent/TaxHistoryComponents'
 import SaleHistoryComponent from '../TaxAndSalesComponent/SaleHistoryComponent'

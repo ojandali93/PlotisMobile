@@ -5,7 +5,6 @@ import { convertToDollars } from '../../../utilities'
 
 const InvestmentMetricsComponent = (props) => {
   const {
-    currentHome,
     monthlyRevenue,
     yearlyRevenue,
     monthlyExpenses,

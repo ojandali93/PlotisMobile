@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList, ScrollView } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 
 import { singlePropertyOptions, singlePropertyImages } from '../../zillow'
@@ -22,14 +22,8 @@ import SchoolsComponent from '../components/PropertyScreenComponents.js/SchoolsC
 import { Dimensions } from 'react-native'
 import axios from 'axios'
 
-let deviceWidth = Dimensions.get('window').width
-let aspectHeight = (deviceWidth / 1.78) + 1
-
 const loadingDeviceHeight = Dimensions.get('window').height-44
 const loadingDeviceWidth = Dimensions.get('window').width
-
-let carouselImageWidth = (deviceWidth / 4)
-let carouselImageHeight = (carouselImageWidth / 1.78) 
 
 const PropertyScreen = ({route}) => {
   const navigation = useNavigation();
@@ -49,7 +43,6 @@ const PropertyScreen = ({route}) => {
   const [lat, setLat] = useState([])
   const [schools, setSchools] = useState([])
 
-  const [totalOverallRevenue, setTotalOverallRevenue] = useState(0)
   const [totalExpWithoutMortgage, setTotalExpWithoutMortgage] = useState(0)
   const [mortgatePandI, setMortgagePandI] = useState(0)
   const [totalDownPayment, setTotalDownPayment] = useState((currentHome.price * .8).toFixed(2))
@@ -59,7 +52,6 @@ const PropertyScreen = ({route}) => {
   const [monthlyCashFlow, setMonthlyCashFlow] = useState(0)
   const [yearlyCashFlow, setYearlyCashFlow] = useState(0)
   const [cashOnCashReturn, setCashOnCashReturn] = useState(0)
-  const [totalMonthlyExpensesPercent, setTotalMonthlyExpensesPercent] = useState(0)
   const [year1ROI, setYear1ROI] = useState(0)
   const [monthlyRevenue, setMonthlyRevenue] = useState(0)
   const [yearlyRevenue, setYearlyRevenue] = useState(0)
@@ -268,7 +260,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     marginTop: 225,
-    // justifyContent: 'center',
     alignItems: 'center'
   },
   headerContainer: {

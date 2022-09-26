@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, FlatList, Image } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 
 import { db } from '../../../firebase'
@@ -9,8 +9,6 @@ const ContactAgentComponent = (props) => {
   const {
     currentHome
   } = props
-
-  console.log(currentHome.zpid)
 
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -219,7 +217,7 @@ const styles = StyleSheet.create({
   input: {
     width: '100%',
     backgroundColor: 'lightgrey',
-    borderBottomColor: 'blac',
+    borderBottomColor: 'black',
     borderBottomWidth: 1,
     marginTop: 8
   },

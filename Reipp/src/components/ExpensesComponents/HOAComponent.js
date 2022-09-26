@@ -6,7 +6,6 @@ import { convertToDollars } from '../../../utilities'
 
 const HOAComponent = (props) => {
   const {
-    currentHome,
     setHoa,
     hoa
   } = props

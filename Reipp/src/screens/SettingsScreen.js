@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView, Switch, Linking } from 'react-native'
-import { Feather,AntDesign, Ionicons, SimpleLineIcons} from 'react-native-vector-icons'
+import { Feather } from 'react-native-vector-icons'
 import { useNavigation } from '@react-navigation/native';
 import { Dimensions } from 'react-native'
 
@@ -33,8 +33,6 @@ const SettingsScreen = () => {
   const [enableSaveSearch, setEnableSaveSearch] = useState(true)
   const [enableFavoritedHomes, setEnableFavoritedHomes] = useState(true)
   const [enableRecommendedHomes, setEnableRecommendedHomes] = useState(true)
-
-  const [messages, setMessages] = useState([])
 
   useEffect(() => {
     if(auth.currentUser){
@@ -80,7 +78,6 @@ const SettingsScreen = () => {
   const signoutUser = () => {
     signOut(auth)
       .then(() => {
-        console.log('signed out')
         navigation.navigate('LoginScreen')
       })
       .catch((error) => {

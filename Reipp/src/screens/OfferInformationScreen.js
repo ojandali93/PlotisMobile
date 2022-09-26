@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, ScrollView, Dimensions } from 'react-native'
+import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import { singlePropertyOptions } from '../../zillow';
 import axios from 'axios';
@@ -20,7 +20,6 @@ const OfferInformationScreen = ({route}) => {
   const collectionRefProfile = collection(db, 'Profiles')
 
   const [addressResult, setAddressResult] = useState({})
-  const [propertySummary, setPropertySummary] = useState({})
   const [user, setUser] = useState()
   const [loading, setLoading] = useState(true)
 
@@ -39,10 +38,6 @@ const OfferInformationScreen = ({route}) => {
       navigation.navigate('LoginScreen')
     }
   }, [])
-  
-  useEffect(() => {
-    console.log('user', user)
-  }, [user])
 
   const grabUser = () => {
     const q = query(collectionRefProfile, where('userId', '==', auth.currentUser.uid))

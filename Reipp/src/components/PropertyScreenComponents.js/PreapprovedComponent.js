@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
-import { Feather } from 'react-native-vector-icons'
+import React from 'react'
+import { View, Text, StyleSheet } from 'react-native'
 
 const PreapprovedComponent = (props) => {
   const {

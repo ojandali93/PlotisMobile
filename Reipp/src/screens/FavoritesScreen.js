@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native'
+import { View, Text, StyleSheet, FlatList } from 'react-native'
 import { Dimensions } from 'react-native'
 
 import LoadingComponent from '../components/HomeComponents/LoadingComponent'
@@ -10,13 +10,12 @@ const loadingDeviceWidth = Dimensions.get('window').width
 
 import { db } from '../../firebase'
 import { getAuth } from "firebase/auth"
-import { addDoc, serverTimestamp, collection, query, where, onSnapshot } from 'firebase/firestore'
+import { collection, query, where, onSnapshot } from 'firebase/firestore'
 
-const FavoritesScreen = ({navigation, route}) => {
+const FavoritesScreen = ({navigation}) => {
   const auth = getAuth()
 
   const [favoritesList, setFavoritesList] = useState([])
-  const [favoritesZpid, setFavoritesZpid] = useState([])
   const [loading, setLoading] = useState(false)
 
   const collectionRef = collection(db, 'Favorites')

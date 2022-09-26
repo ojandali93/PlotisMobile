@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, FlatList, ImageEditor } from 'react-native'
+import React from 'react'
+import { View, Text, StyleSheet, FlatList } from 'react-native'
 
 import { convertToDollars } from '../../../utilities'
 
@@ -11,7 +11,6 @@ const SaleHistoryComponent = (props) => {
   let newSaleHistory = []
 
   if(saleHistory.length > 10){
-    console.log(saleHistory)
     newSaleHistory = saleHistory.slice(0, 10)
   } else {
     newSaleHistory = saleHistory

@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { LogBox } from 'react-native';
 
 import { Feather } from 'react-native-vector-icons'
@@ -9,19 +9,15 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 import ContactAgentScreen from './src/screens/ContactAgentScreen';
-import DetailScreen from './src/screens/DetailScreen';
 import FavoritesScreen from './src/screens/FavoritesScreen';
 import FeedScreen from './src/screens/FeedScreen';
 import GalleryScreen from './src/screens/GalleryScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import MainScreen from './src/screens/MainScreen';
-import PreApprovalScreen from './src/screens/PreApprovalScreen';
 import ProfileScreen from './src/screens/ProfileScreen';
 import PropertyScreen from './src/screens/PropertyScreen';
-import RegisterProfileScreen from './src/screens/RegisterProfileScreen';
 import SellHomeScreen from './src/screens/SellHomeScreen';
 import SignupScreen from './src/screens/SignupScreen';
-import StartOfferScreen from './src/screens/StartOfferScreen';
 import FilterScreen from './src/screens/FilterScreen'
 import RecentViewScreen from './src/screens/RecentViewScreen'
 import OfferInformationScreen from './src/screens/OfferInformationScreen'
@@ -47,11 +43,10 @@ const HomeStack = () => {
       <StackNav.Screen name="PropertyScreen" component={PropertyScreen} />
       <StackNav.Screen name="ContactAgentWithStack" component={ContactAgentScreen} />
       <StackNav.Screen name="GallerStack" component={GalleryScreen} />
-      <StackNav.Screen name="StartOfferStack" component={StartOfferScreen} />
-      <StackNav.Screen name="PreApprovedStack" component={PreApprovalScreen} />
       <StackNav.Screen name="FilterStack" component={FilterScreen} />
       <StackNav.Screen name="OfferInformationScreen" component={OfferInformationScreen} />
       <StackNav.Screen name="FullMapScreen" component={FullMapScreen} />
+      <StackNav.Screen name="LoginScreen" component={LoginScreen} />
      </StackNav.Navigator>
   )
 }
@@ -60,7 +55,7 @@ const FeedStack = () => {
   return (
     <StackNav.Navigator initialRouteName='Feed' screenOptions={{headerShown: false}}>
       <StackNav.Screen name="FeedScreen" component={FeedScreen}/>
-      <StackNav.Screen name="DetailScreen" component={DetailScreen} />
+      <StackNav.Screen name="PropertyFeedScreen" component={PropertyScreen} />
      </StackNav.Navigator>
   )
 }
@@ -82,7 +77,6 @@ const ProfStackile = () => {
       <StackNav.Screen name="RecentViewScreen" component={RecentViewScreen}/>
       <StackNav.Screen name="ContactAgentScreen" component={ContactAgentScreen}/>
       <StackNav.Screen name="LoginScreen" component={LoginScreen} />
-      <StackNav.Screen name="RegisterProfileScreen" component={RegisterProfileScreen} />
       <StackNav.Screen name="SellHomeScreen" component={SellHomeScreen} />
       <StackNav.Screen name="SignupScreen" component={SignupScreen} />
       <StackNav.Screen name="OfferScreen" component={OfferScreen} />

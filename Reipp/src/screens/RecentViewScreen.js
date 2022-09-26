@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native'
+import { View, Text, StyleSheet, FlatList } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 
 
