@@ -3,12 +3,16 @@ import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-nativ
 import { Feather } from 'react-native-vector-icons'
 import axios from 'axios'
 
+import { extendedPropertOptions, singlePropertyOptions } from '../../zillow'
+
 import PropertySampleComponent from '../components/GeneralComponents/PropertySampleComponent'
 import ContactAgentComponent from '../components/PropertyScreenComponents.js/ContactAgentComponent'
 
-import { extendedPropertOptions, singlePropertyOptions } from '../../zillow'
 
 const ContactAgentScreen = ({route}) => {
+
+  console.log(extendedPropertOptions)
+  console.log(singlePropertyOptions)
 
   const [addressLookup, setAddressLookup] = useState('')
   const [currentHome, setCurrentHome] = useState({})
@@ -23,7 +27,6 @@ const ContactAgentScreen = ({route}) => {
     extendedPropertOptions.params.location = addressLookup
     axios.request(extendedPropertOptions)
       .then((response) => {
-        console.log(response.data)
         Object.keys(response.data).length == 1 ? getPropertyDetails(response.data.zpid) : console.log('no detail found')
       })
       .catch((error) => {
