@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, Image } from 'react-native'
 
 import { Dimensions } from 'react-native'
 
+import { convertToDollars } from '../../../utilities'
+
 let deviceWidth = Dimensions.get('window').width * .4
 var aspectHeight = (deviceWidth / 1.78) + 1
 
@@ -28,7 +30,7 @@ const PropertySampleComponent = (props) => {
           </View>
           <View style={styles.contentContainer}>
             <View style={styles.contentRow}>
-              <Text style={styles.price}>${item.price}</Text>
+              <Text style={styles.price}>${convertToDollars(item.price)}</Text>
             </View>
             <View style={styles.contentRow}>
               <View>

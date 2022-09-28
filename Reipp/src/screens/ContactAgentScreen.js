@@ -3,19 +3,35 @@ import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-nativ
 import { Feather } from 'react-native-vector-icons'
 import axios from 'axios'
 
-import { extendedPropertOptions, singlePropertyOptions } from '../../zillow'
-
 import PropertySampleComponent from '../components/GeneralComponents/PropertySampleComponent'
 import ContactAgentComponent from '../components/PropertyScreenComponents.js/ContactAgentComponent'
 
 
 const ContactAgentScreen = ({route}) => {
 
-  console.log(extendedPropertOptions)
-  console.log(singlePropertyOptions)
+  const extendedPropertOptions = {
+    method: 'GET',
+    url: 'https://zillow-com1.p.rapidapi.com/propertyExtendedSearch',
+    params: {location: 'Los Angeles, CA', home_type: 'Houses'},
+    headers: {
+      'X-RapidAPI-Key': '75939b7206msh9deac4f592e07fcp1c9832jsna42a1321f2df',
+      'X-RapidAPI-Host': 'zillow-com1.p.rapidapi.com'
+    }
+  }
+
+  const singlePropertyOptions = {
+    method: 'GET',
+    url: 'https://zillow-com1.p.rapidapi.com/property',
+    params: {zpid: '2080998890'},
+    headers: {
+      'X-RapidAPI-Key': '75939b7206msh9deac4f592e07fcp1c9832jsna42a1321f2df',
+      'X-RapidAPI-Host': 'zillow-com1.p.rapidapi.com'
+    }
+  }
 
   const [addressLookup, setAddressLookup] = useState('')
   const [currentHome, setCurrentHome] = useState({})
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     if(route.params?.zpid){
@@ -24,6 +40,7 @@ const ContactAgentScreen = ({route}) => {
   }, [])
 
   const newSearch = () => {
+    setIsLoading(true)
     extendedPropertOptions.params.location = addressLookup
     axios.request(extendedPropertOptions)
       .then((response) => {
@@ -39,6 +56,7 @@ const ContactAgentScreen = ({route}) => {
     axios.request(singlePropertyOptions)
       .then((response) => {
         setCurrentHome(response.data)
+        setIsLoading(false)
       })
       .catch((error) => {
         console.log(error)
@@ -63,7 +81,8 @@ const ContactAgentScreen = ({route}) => {
         </TouchableOpacity>
       </View>
       {
-        Object.keys(currentHome).length == 0 ? null : <View style={styles.property}><PropertySampleComponent item={currentHome}/></View>
+        Object.keys(currentHome).length == 0 ? isLoading == true ? <Text>Loading Property</Text> : null 
+                                             : <View style={styles.property}><PropertySampleComponent item={currentHome}/></View>
       }
       <ContactAgentComponent currentHome={currentHome}/>
     </View>
