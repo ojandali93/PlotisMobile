@@ -12,7 +12,7 @@ const ProfileScreen = () => {
   const navigation = useNavigation()
   const collectionRef = collection(db, 'Profiles')
 
-  const [profile, setProfile] = useState()
+  const [profile, setProfile] = useState({})
 
   useEffect(() => {
     if(auth.currentUser){
@@ -87,7 +87,9 @@ const ProfileScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerText}>{profile.firstName}</Text>
+        {
+          Object.keys(profile) == 0 ? null : <Text style={styles.headerText}>{profile.firstName}</Text>
+        }
         <TouchableOpacity onPress={() => {goToSettings()}}>
           <Feather style={styles.chevronDown} size={20} name='settings'/>
         </TouchableOpacity>

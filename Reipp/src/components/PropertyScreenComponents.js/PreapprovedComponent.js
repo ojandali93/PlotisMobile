@@ -22,9 +22,12 @@ const PreapprovedComponent = (props) => {
                                                               : loadingDeviceWidth == 1024 ?  <View style={styles.cscontainer1024}>
                                                                                                 <Text style={styles.cs}>Coming Soon</Text>
                                                                                               </View>
-                                                                                           :  <View style={styles.cscontainer}>
-                                                                                                <Text style={styles.cs}>Coming Soon</Text>
-                                                                                              </View>
+                                                                                           :  loadingDeviceWidth == 428 ?  <View style={styles.cscontainer428}>
+                                                                                                                              <Text style={styles.cs}>Coming Soon</Text>
+                                                                                                                            </View>
+                                                                                                                          :  <View style={styles.cscontainer}>
+                                                                                                                              <Text style={styles.cs}>Coming Soon</Text>
+                                                                                                                            </View>
       }
     </View>
   )
@@ -92,6 +95,16 @@ const styles = StyleSheet.create({
     marginLeft: 50,
     top: 0,
     left: 810
+  },
+  cscontainer428: {
+    position: 'absolute',
+    padding: 4,
+    borderRadius: 5,
+    backgroundColor: 'green',
+    marginTop: -8,
+    marginLeft: 50,
+    top: 0,
+    left: 270
   },
   cs: {
     color: 'white'
