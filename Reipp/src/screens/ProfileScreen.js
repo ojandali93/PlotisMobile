@@ -1,20 +1,37 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Linking } from 'react-native'
 import { Feather,AntDesign, Ionicons, SimpleLineIcons} from 'react-native-vector-icons'
 import { useNavigation } from '@react-navigation/native';
 
-import { getAuth, signOut } from 'firebase/auth'
+import { db } from '../../firebase'
+import { getAuth, signOut } from "firebase/auth"
+import { collection, query, where, onSnapshot } from 'firebase/firestore'
 
 const ProfileScreen = () => {
   const auth = getAuth()
   const navigation = useNavigation()
+  const collectionRef = collection(db, 'Profiles')
+
+  const [profile, setProfile] = useState()
 
   useEffect(() => {
     if(auth.currentUser){
+      grabUserProfile()
     } else {
       navigation.navigate('LoginScreen')
     }
   }, [])
+
+  const grabUserProfile = () => {
+    const q = query(collectionRef, where('userId', '==', auth.currentUser.uid))
+    onSnapshot(q, (snapshot) => {
+      let users = []
+      snapshot.docs.forEach((doc) => {
+        users.push({ ...doc.data(), id: doc.id })
+      })
+        setProfile(users[0])
+    })
+  }
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
@@ -70,7 +87,7 @@ const ProfileScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerText}>Omar jandali</Text>
+        <Text style={styles.headerText}>{profile.firstName}</Text>
         <TouchableOpacity onPress={() => {goToSettings()}}>
           <Feather style={styles.chevronDown} size={20} name='settings'/>
         </TouchableOpacity>
