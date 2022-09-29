@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, FlatList } from 'react-native'
 import { Dimensions } from 'react-native'
 
-import LoadingComponent from '../components/HomeComponents/LoadingComponent'
-import FavoritesPropertyTileComponent from '../components/GeneralComponents/FavoritesPropertyTileComponent'
+import InvestmentPropertyTileComponent from '../components/GeneralComponents/InvestmentPropertyTileComponent'
 
 const loadingDeviceHeight = Dimensions.get('window').height-44
 const loadingDeviceWidth = Dimensions.get('window').width
@@ -12,75 +11,68 @@ import { db } from '../../firebase'
 import { getAuth } from "firebase/auth"
 import { collection, query, where, onSnapshot } from 'firebase/firestore'
 
-const FavoritesScreen = ({navigation}) => {
+const InvestmentScreen = ({navigation}) => {
   const auth = getAuth()
 
   const [investmentList, setInvestmentList] = useState([])
   const [loading, setLoading] = useState(false)
 
-  const collectionRef = collection(db, 'Favorites')
+  const collectionRef = collection(db, 'InvestmentProperties')
 
   useEffect(() => {
     if(auth.currentUser == null){
       navigation.navigate('LoginScreen')
     } else {
       setLoading(true)
-      grabUserFavorites()
+      grabInvestmentProperties()
     }
   }, [])
 
-  const grabUserFavorites = () => {
-    const q = query(collectionRef, where('userId', '==', auth.currentUser.uid))
+  const grabInvestmentProperties = () => {
+    const q = query(collectionRef)
     onSnapshot(q, (snapshot) => {
-      let favorites = []
+      let investments = []
       snapshot.docs.forEach((doc) => {
-        favorites.push({ ...doc.data(), id: doc.id })
+        investments.push({ ...doc.data(), id: doc.id })
       })
-      if(favorites.length == 0){
-        setFavoritesList([])
-        setLoading(false)
-      } else {
-        setFavoritesList(favorites)
-        setLoading(false)
-      }
+      setInvestmentList(investments)
+      setLoading(false)
     })
   }
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
-      if(auth.currentUser === null){
-        console.log('not logged in')
-        navigation.navigate('LoginScreen')
-      } else {
         setLoading(true)
-        grabUserFavorites()
-      }
+        grabInvestmentProperties()
     })
     return unsubscribe
   }, [navigation])
 
+  // useEffect(() => {
+  //   console.log(investmentList)
+  // }, [investmentList])
 
   return (
     <>
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.headerText}>Your Favorited Properties: </Text>
+          <Text style={styles.headerText}>Investment Properties: </Text>
         </View>
         {
-          loading == true ? <LoadingComponent/> : favoritesList.length == 0 ? <View style={[styles.screen, {height: loadingDeviceHeight, width: loadingDeviceWidth}]}>
+          loading == true ? <Text>Loading</Text> : investmentList.length == 0 ? <View style={[styles.screen, {height: loadingDeviceHeight, width: loadingDeviceWidth}]}>
                                                                                 <View style={styles.content}>
                                                                                   <View style={styles.headerContainer}>
-                                                                                    <Text style={styles.tagline}>No Favorited Properties</Text>
+                                                                                    <Text style={styles.tagline}>No Investment Properties</Text>
                                                                                   </View>
                                                                                 </View>
                                                                               </View>
                                                                             : <FlatList
                                                                                 style={styles.tileList}
-                                                                                data={favoritesList}
+                                                                                data={investmentList}
                                                                                 keyExtractor={(item) => item.zpid}
                                                                                 renderItem={(item) => {
                                                                                   return(
-                                                                                    <FavoritesPropertyTileComponent item={item.item}/>
+                                                                                    <InvestmentPropertyTileComponent item={item.item}/>
                                                                                   )
                                                                                 }}
                                                                               />
@@ -132,4 +124,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default FavoritesScreen
+export default InvestmentScreen

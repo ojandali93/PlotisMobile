@@ -19,7 +19,7 @@ const ProfileScreen = () => {
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       if(auth.currentUser === null){
-        navigation.navigate('LoginStack')
+        navigation.navigate('LoginScreen')
       } else {
         console.log('logged in')
       }
@@ -132,7 +132,7 @@ const ProfileScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 44
+    marginTop: 54
   },
   row: {
     width: '100%',

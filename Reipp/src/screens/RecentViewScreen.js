@@ -87,7 +87,7 @@ const RecentViewScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 44
+    marginTop: 54
   },
   header: {
     display: 'flex',

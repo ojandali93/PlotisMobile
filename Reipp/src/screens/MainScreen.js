@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
     padding: 8,
     borderBottomColor: 'grey',
     borderBottomWidth: 2,
-    marginTop: 44
+    marginTop: 54
   }
 })
 

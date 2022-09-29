@@ -351,7 +351,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     padding: 8,
-    marginTop: 44
+    marginTop: 54
   },
   scrollContainer: {
     overflow: 'hidden',

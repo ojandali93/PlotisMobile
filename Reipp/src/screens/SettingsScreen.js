@@ -347,7 +347,7 @@ const SettingsScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 44
+    marginTop: 54
   },
   row: {
     width: '100%',

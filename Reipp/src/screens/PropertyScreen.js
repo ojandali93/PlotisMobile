@@ -22,6 +22,9 @@ import SchoolsComponent from '../components/PropertyScreenComponents.js/SchoolsC
 import { Dimensions } from 'react-native'
 import axios from 'axios'
 
+import { db } from '../../firebase'
+import { addDoc, serverTimestamp, collection, query, where, onSnapshot } from 'firebase/firestore'
+
 const loadingDeviceHeight = Dimensions.get('window').height-44
 const loadingDeviceWidth = Dimensions.get('window').width
 
@@ -101,6 +104,10 @@ const PropertyScreen = ({route}) => {
   }, [totalDownPayment])
 
   useEffect(() => {
+    checkInvestmentStatus()
+  }, [monthlyCashFlow, capRate, cashOnCashReturn, year1ROI])
+
+  useEffect(() => {
     setIsLoading(true)
     axios.request(singlePropertyOptions)
       .then((response) => {
@@ -150,6 +157,46 @@ const PropertyScreen = ({route}) => {
   const goToGallery = () => {
     navigation.navigate('GallerStack', {homeImages:homeImages})
   }
+
+  const checkInvestmentStatus = () => {
+    monthlyCashFlow > 0 ? yearlyCashFlow > 0 ? capRate > 0 ? cashOnCashReturn > 0 ? year1ROI > 0 ? storeInvestment()
+                                                                                                 : null 
+                                                                                  : null
+                                                           : null
+                                             : null
+                        : null
+  }
+
+  const storeInvestment = () => {
+    const collectionRef = collection(db, 'InvestmentProperties')
+    const q = query(collectionRef, where('zpid', '==', currentHome.zpid))
+    onSnapshot(q, (snapshot) => {
+      let investments = []
+      snapshot.docs.forEach((doc) => {
+        investments.push({ ...doc.data(), id: doc.id })
+      })
+      investments.length > 0 ? null : addPropertyToList()
+    })
+  }
+
+  const addPropertyToList = () => {
+    const collectionRef = collection(db, 'InvestmentProperties')
+    addDoc(collectionRef, {
+      "property": currentHome,
+      "createdAt": serverTimestamp(),
+      "expenses": monthlyExpenses,
+      "revenue": monthlyRevenue,
+      "cashflow": monthlyCashFlow,
+      "capRate": capRate,
+      "cashOnCashReturn": cashOnCashReturn,
+      "returnOnInvestment": year1ROI,
+      "zpid": currentHome.zpid
+    }).then((response) => {
+    }).catch((error) => {
+      console.error(error)
+    })
+  }
+  
 
   const loadingData = () => {
     return(
@@ -242,7 +289,7 @@ const styles = StyleSheet.create({
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
-    marginTop: 44
+    marginTop: 54
   },
   separaterContainer: {
     display: 'flex',

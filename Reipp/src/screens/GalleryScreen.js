@@ -28,7 +28,7 @@ const GalleryScreen = ({route}) => {
 const styles = StyleSheet.create({
   carouselContainer: {
     width: '100%',
-    marginTop: 44
+    marginTop: 54
   },
   image: {
     marginBottom: 8

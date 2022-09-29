@@ -35,7 +35,7 @@ const OfferInformationScreen = ({route}) => {
       grabUser()
       getPropertyDetails(route.params.zpid)
     } else {
-      navigation.navigate('LoginScreen')
+      navigation.navigate('LoginStackScreen')
     }
   }, [])
 
@@ -129,7 +129,7 @@ const OfferInformationScreen = ({route}) => {
 
 const styles= StyleSheet.create({
   container: {
-    marginTop: 44
+    marginTop: 54
   },
   row: {
     display: 'flex',

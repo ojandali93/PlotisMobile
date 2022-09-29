@@ -28,7 +28,7 @@ const ThankYouScreen = () => {
 
 const styles = StyleSheet.create({
   content: {
-    marginTop: 44,
+    marginTop: 54,
     width: '90%',
     marginLeft: '5%',
     height: deviceHeight,

@@ -29,6 +29,7 @@ import AboutUsScreen from './src/screens/AboutUsScreen'
 import ResetPassword from './src/screens/ResetPassword'
 import PasswordResetConfirmationScreen from './src/screens/PasswordResetConfirmationScreen'
 import FullMapScreen from './src/screens/FullMapScreen'
+import InvestmentScreen from './src/screens/InvestmentScreen'
 
 // console.disableYellowBox = true;
 LogBox.ignoreAllLogs(true)
@@ -46,7 +47,7 @@ const HomeStack = () => {
       <StackNav.Screen name="FilterStack" component={FilterScreen} />
       <StackNav.Screen name="OfferInformationScreen" component={OfferInformationScreen} />
       <StackNav.Screen name="FullMapScreen" component={FullMapScreen} />
-      <StackNav.Screen name="LoginScreen" component={LoginScreen} />
+      <StackNav.Screen name="LoginStackScreen" component={LoginScreen} />
      </StackNav.Navigator>
   )
 }
@@ -66,6 +67,15 @@ const FavoriteStack = () => {
     <StackNav.Navigator initialRouteName='Favorite' screenOptions={{headerShown: false}}>
       <StackNav.Screen name="FavoriteScreen" component={FavoritesScreen}/>
       <StackNav.Screen name="PropertyFavoriteScreen" component={PropertyScreen} />
+     </StackNav.Navigator>
+  )
+}
+
+const InvestmentStack = () => {
+  return (
+    <StackNav.Navigator initialRouteName='Profile' screenOptions={{headerShown: false}}>
+      <StackNav.Screen name="InvestmentScreen" component={InvestmentScreen}/>
+      <StackNav.Screen name="PropertyInvestmentScreen" component={PropertyScreen} />
      </StackNav.Navigator>
   )
 }
@@ -103,7 +113,8 @@ const MainTabkNavigation = () => {
           name="Home" 
           component={HomeStack} 
           options={{
-            tabBarIcon: ({size, color}) => (<Feather name={"home"} color={color} size={size} />)
+            tabBarIcon: ({size, color}) => (<Feather name={"home"} color={color} size={size} />),
+            tabBarShowLabel: false
           }}/> 
         {/* <TabNav.Screen key='Recommended' name="Recommended" component={RecommendedStack} /> */}
         <TabNav.Screen 
@@ -111,6 +122,7 @@ const MainTabkNavigation = () => {
           name="Favorites" 
           component={FavoriteStack} 
           options={{
+            tabBarShowLabel: false,
             tabBarIcon: ({size, color}) => (<Feather name={"heart"} color={color} size={size} />)
           }}/>
         <TabNav.Screen 
@@ -118,7 +130,16 @@ const MainTabkNavigation = () => {
           name="Feed" 
           component={FeedStack} 
           options={{
+            tabBarShowLabel: false,
             tabBarIcon: ({size, color}) => (<Feather name={"menu"} color={color} size={size} />)
+          }}/>
+        <TabNav.Screen 
+          key='Propertyies' 
+          name="Properties" 
+          component={InvestmentStack} 
+          options={{
+            tabBarShowLabel: false,
+            tabBarIcon: ({size, color}) => (<Feather name={"trending-up"} color={color} size={size} />)
           }}/>
         {/* <TabNav.Screen key='Messages' name="Messages" component={MessagesStack} />  */}
         <TabNav.Screen 
@@ -126,6 +147,7 @@ const MainTabkNavigation = () => {
           name="Profile" 
           component={ProfStackile} 
           options={{
+            tabBarShowLabel: false,
             tabBarIcon: ({size, color}) => (<Feather name={"user"} color={color} size={size} />)
           }}/>
       </TabNav.Navigator>

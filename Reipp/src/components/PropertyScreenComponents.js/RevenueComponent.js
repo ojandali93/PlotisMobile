@@ -69,11 +69,13 @@ const RevenueComponent = (props) => {
                                         onPress={() => {updateSelected('longTerm')}}>
                                       <Text style={[styles.text, styles.selectedText]}>Long Term Lease</Text>
                                     </TouchableOpacity>
-                                    <TouchableOpacity 
+                                    {/* <TouchableOpacity 
                                         style={[styles.button, styles.unselected]} 
-                                          onPress={() => {updateSelected('shortTerm')}}>
+                                          onPress={() => {updateSelected('shortTerm')}}> */}
+                                    <View style={[styles.button, styles.unselected]}>
                                       <Text style={styles.text}>Short Term Rental</Text>
-                                    </TouchableOpacity>
+                                    </View>
+                                    {/* </TouchableOpacity> */}
                                   </>
                                 : <>
                                     <TouchableOpacity  
@@ -81,11 +83,13 @@ const RevenueComponent = (props) => {
                                         onPress={() => {updateSelected('longTerm')}}>
                                       <Text>Long Term Lease</Text>
                                     </TouchableOpacity>
-                                    <TouchableOpacity 
-                                        style={[styles.button, styles.selected]} 
-                                          onPress={() => {updateSelected('shortTerm')}}>
-                                      <Text style={[styles.text, styles.selectedText]}>Short Term Rental</Text>
-                                    </TouchableOpacity>
+                                    {/* <TouchableOpacity 
+                                        style={[styles.button, styles.unselected]} 
+                                          onPress={() => {updateSelected('shortTerm')}}> */}
+                                    <View>
+                                      <Text style={styles.text}>Short Term Rental</Text>
+                                    </View>
+                                    {/* </TouchableOpacity> */}
                                   </>
                                 
       }
@@ -105,6 +109,9 @@ const RevenueComponent = (props) => {
                                     <AdditionalRevenueComponents additionalRevenue={additionalRevenue} setAdditionalRevenue={setAdditionalRevenue}/>
                                   </>
       }
+    <View style={styles.cscontainer}>
+      <Text style={styles.cs}>Coming Soon</Text>
+    </View>
     </View>
   )
 }
@@ -176,6 +183,19 @@ const styles = StyleSheet.create({
     marginVertical: 8
   },
   selectedText: {
+    color: 'white'
+  },
+  cscontainer: {
+    position: 'absolute',
+    padding: 4,
+    borderRadius: 5,
+    backgroundColor: 'green',
+    marginTop: -8,
+    marginLeft: 50,
+    top: 60,
+    left: 276
+  },
+  cs: {
     color: 'white'
   }
 })
