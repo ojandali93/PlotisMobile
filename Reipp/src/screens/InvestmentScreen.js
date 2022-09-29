@@ -84,7 +84,8 @@ const InvestmentScreen = ({navigation}) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 54
+    marginTop: 54,
+    marginBottom: 60
   },
   header: {
     display: 'flex',
