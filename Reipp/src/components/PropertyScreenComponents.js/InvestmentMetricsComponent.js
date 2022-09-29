@@ -5,6 +5,8 @@ import { Feather } from 'react-native-vector-icons'
 
 import { convertToDollars } from '../../../utilities'
 
+import InvestmentModalComponent from '../InvestmentComponents/InvestmentModalComponent'
+
 const InvestmentMetricsComponent = (props) => {
   const {
     monthlyRevenue,
@@ -57,10 +59,7 @@ const InvestmentMetricsComponent = (props) => {
               setOpenGMI(!openGMR);
             }}
           >
-            <View style={styles.modal}>
-              <Text>Gross Monhtly Income</Text>
-              <TouchableOpacity onPress={() => {setOpenGMI(false)}}><Text>X</Text></TouchableOpacity>
-            </View>
+            <InvestmentModalComponent toggle={setOpenGMI} item={"grossMonthlyRevenue"}/>
           </Modal>
           <View style={styles.row}>
             <View style={styles.invMetricInfo}>
@@ -71,6 +70,16 @@ const InvestmentMetricsComponent = (props) => {
             </View>
             <Text style={styles.text}>${convertToDollars(yearlyRevenue)}</Text>
           </View>
+          <Modal
+            animationType="fade"
+            transparent={false}
+            visible={openGYR}
+            onRequestClose={() => {
+              setOpenGYR(!openGYR);
+            }}
+          >
+            <InvestmentModalComponent toggle={setOpenGYR} item={"grossYearlyRevenue"}/>
+          </Modal>
           <View style={styles.row}>
             <View style={styles.invMetricInfo}>
               <Text style={styles.text}>Total Monthly Expenses:</Text>
@@ -80,6 +89,16 @@ const InvestmentMetricsComponent = (props) => {
             </View>
             <Text style={styles.text}>${convertToDollars(monthlyExpenses)}</Text>
           </View>
+          <Modal
+            animationType="fade"
+            transparent={false}
+            visible={openTME}
+            onRequestClose={() => {
+              setOpenTME(!openTME);
+            }}
+          >
+            <InvestmentModalComponent toggle={setOpenTME} item={"totalMonthlyExpenses"}/>
+          </Modal>
           <View style={styles.row}>
             <View style={styles.invMetricInfo}>
               <Text style={styles.text}>Total Yearly Expenses:</Text>
@@ -89,6 +108,16 @@ const InvestmentMetricsComponent = (props) => {
             </View>
             <Text style={styles.text}>${convertToDollars(yearlyExpenses)}</Text>
           </View>
+          <Modal
+            animationType="fade"
+            transparent={false}
+            visible={openTYE}
+            onRequestClose={() => {
+              setOpenTYE(!openTYE);
+            }}
+          >
+            <InvestmentModalComponent toggle={setOpenTYE} item={"totalYearlyExpenses"}/>
+          </Modal>
           <View style={styles.row}>
             <View style={styles.invMetricInfo}>
               <Text style={styles.text}>Monthly NOI:</Text>
@@ -98,6 +127,16 @@ const InvestmentMetricsComponent = (props) => {
             </View>
             <Text style={styles.text}>${convertToDollars(monthlyNOI)}</Text>
           </View>
+          <Modal
+            animationType="fade"
+            transparent={false}
+            visible={openNMOI}
+            onRequestClose={() => {
+              setOpenMNOI(!openNMOI);
+            }}
+          >
+            <InvestmentModalComponent toggle={setOpenMNOI} item={"monthlyNOI"}/>
+          </Modal>
           <View style={styles.row}>
             <View style={styles.invMetricInfo}>
               <Text style={styles.text}>Yearly NOI:</Text>
@@ -107,6 +146,16 @@ const InvestmentMetricsComponent = (props) => {
             </View>
             <Text style={styles.text}>${convertToDollars(yearlyNOI)}</Text>
           </View>
+          <Modal
+            animationType="fade"
+            transparent={false}
+            visible={openYNOI}
+            onRequestClose={() => {
+              setOpenYNOI(!openYNOI);
+            }}
+          >
+            <InvestmentModalComponent toggle={setOpenYNOI} item={"yearlyNOI"}/>
+          </Modal>
           <View style={styles.row}>
             <View style={styles.invMetricInfo}>
               <Text style={styles.text}>Monthly Cashflow:</Text>
@@ -116,6 +165,16 @@ const InvestmentMetricsComponent = (props) => {
             </View>
             <Text style={styles.text}>${convertToDollars(monthlyCashFlow)}</Text>
           </View>
+          <Modal
+            animationType="fade"
+            transparent={false}
+            visible={openMCF}
+            onRequestClose={() => {
+              setOpenMCF(!openMCF);
+            }}
+          >
+            <InvestmentModalComponent toggle={setOpenMCF} item={"monthlyCashFlow"}/>
+          </Modal>
           <View style={styles.row}>
             <View style={styles.invMetricInfo}>
               <Text style={styles.text}>Yearly Cashflow:</Text>
@@ -125,6 +184,16 @@ const InvestmentMetricsComponent = (props) => {
             </View>
             <Text style={styles.text}>${convertToDollars(yearlyCashFlow)}</Text>
           </View>
+          <Modal
+            animationType="fade"
+            transparent={false}
+            visible={openYCF}
+            onRequestClose={() => {
+              setOpenYCF(!openYCF);
+            }}
+          >
+            <InvestmentModalComponent toggle={setOpenYCF} item={"yearlyCashFlow"}/>
+          </Modal>
           <View style={styles.row}>
             <View style={styles.invMetricInfo}>
               <Text style={styles.text}>CAP Rate:</Text>
@@ -134,6 +203,16 @@ const InvestmentMetricsComponent = (props) => {
             </View>
             <Text style={styles.text}>{capRate}%</Text>
           </View>
+          <Modal
+            animationType="fade"
+            transparent={false}
+            visible={openCAPR}
+            onRequestClose={() => {
+              setOpenCAPR(!openCAPR);
+            }}
+          >
+            <InvestmentModalComponent toggle={setOpenCAPR} item={"capRate"}/>
+          </Modal>
           <View style={styles.row}>
             <View style={styles.invMetricInfo}>
               <Text style={styles.text}>Cash On Cash Return:</Text>
@@ -143,6 +222,16 @@ const InvestmentMetricsComponent = (props) => {
             </View>
             <Text style={styles.text}>{cashOnCashReturn}%</Text>
           </View>
+          <Modal
+            animationType="fade"
+            transparent={false}
+            visible={openCCR}
+            onRequestClose={() => {
+              setOpenCCR(!openCCR);
+            }}
+          >
+            <InvestmentModalComponent toggle={setOpenCCR} item={"cashOnCashReturn"}/>
+          </Modal>
           <View style={styles.lastRow}>
             <View style={styles.invMetricInfo}>
               <Text style={styles.text}>Return On Investment (1 year):</Text>
@@ -152,6 +241,16 @@ const InvestmentMetricsComponent = (props) => {
             </View>
             <Text style={styles.text}>{year1ROI}%</Text>
           </View>
+          <Modal
+            animationType="fade"
+            transparent={false}
+            visible={openROI}
+            onRequestClose={() => {
+              setOpenROI(!openROI);
+            }}
+          >
+            <InvestmentModalComponent toggle={setOpenROI} item={"rOI"}/>
+          </Modal>
         </View>
       </View>
     </View>
