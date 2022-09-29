@@ -3,6 +3,10 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 
 import { convertToDollars } from '../../../utilities'
 
+import { Dimensions } from 'react-native'
+const loadingDeviceHeight = Dimensions.get('window').height-44
+const loadingDeviceWidth = Dimensions.get('window').width
+
 import MonthlyRevenueComponent from '../RevenueComponents/MonthlyRevenueComponent'
 import AdditionalRevenueComponents from '../RevenueComponents/AdditionalRevenueComponents'
 import StlMonthlyRevenueComponent from '../RevenueComponents/StlMonthlyRevenueComponent'
@@ -109,9 +113,20 @@ const RevenueComponent = (props) => {
                                     <AdditionalRevenueComponents additionalRevenue={additionalRevenue} setAdditionalRevenue={setAdditionalRevenue}/>
                                   </>
       }
-    <View style={styles.cscontainer}>
-      <Text style={styles.cs}>Coming Soon</Text>
-    </View>
+      {
+        loadingDeviceWidth == 390 ? <View style={styles.cscontainer65}>
+                                      <Text style={styles.cs}>Coming Soon</Text>
+                                    </View>
+                                  : loadingDeviceWidth == 414 ? <View style={styles.cscontainer414}>
+                                                                  <Text style={styles.cs}>Coming Soon</Text>
+                                                                </View>
+                                                              : loadingDeviceWidth == 1024 ?  <View style={styles.cscontainer1024}>
+                                                                                                <Text style={styles.cs}>Coming Soon</Text>
+                                                                                              </View>
+                                                                                           :  <View style={styles.cscontainer}>
+                                                                                                <Text style={styles.cs}>Coming Soon</Text>
+                                                                                              </View>
+      }
     </View>
   )
 }
@@ -194,6 +209,36 @@ const styles = StyleSheet.create({
     marginLeft: 50,
     top: 60,
     left: 276
+  },
+  cscontainer65: {
+    position: 'absolute',
+    padding: 4,
+    borderRadius: 5,
+    backgroundColor: 'green',
+    marginTop: -8,
+    marginLeft: 50,
+    top: 60,
+    left: 240
+  },
+  cscontainer414: {
+    position: 'absolute',
+    padding: 4,
+    borderRadius: 5,
+    backgroundColor: 'green',
+    marginTop: -8,
+    marginLeft: 50,
+    top: 60,
+    left: 264
+  },
+  cscontainer1024: {
+    position: 'absolute',
+    padding: 4,
+    borderRadius: 5,
+    backgroundColor: 'green',
+    marginTop: -8,
+    marginLeft: 50,
+    top: 60,
+    left: 850
   },
   cs: {
     color: 'white'

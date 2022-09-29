@@ -4,6 +4,8 @@ import { FontAwesome, Feather } from 'react-native-vector-icons'
 
 import SortComponent from './SortComponent'
 
+import { Dimensions } from 'react-native'
+const loadingDeviceWidth = Dimensions.get('window').width
 
 const SeachAndFilterComponent = (props) => {
   const {
@@ -29,6 +31,8 @@ const SeachAndFilterComponent = (props) => {
     setOpenSort(false)
   }
 
+  console.log(loadingDeviceWidth)
+
   return (
     <>
       <View>
@@ -38,12 +42,20 @@ const SeachAndFilterComponent = (props) => {
               <Feather size={20} name='search'/>
             </View>
             <SafeAreaView> 
-              <TextInput 
-                style={styles.input}
-                value={currentsearch}
-                onChangeText={setCurrentSearch}
-                placeholder='Search city or address...'
-              />
+              {
+                loadingDeviceWidth == 390 ? <TextInput 
+                                              style={styles.input65}
+                                              value={currentsearch}
+                                              onChangeText={setCurrentSearch}
+                                              placeholder='Search city or address...'
+                                            />
+                                          : <TextInput 
+                                              style={styles.input}
+                                              value={currentsearch}
+                                              onChangeText={setCurrentSearch}
+                                              placeholder='Search city or address...'
+                                            />
+              }
             </SafeAreaView>
             <TouchableOpacity style={styles.searcingContainer} onPress={() => {newSearch()}}>
               <Text style={styles.searchSubmit}>Search</Text>
@@ -159,6 +171,14 @@ const styles = StyleSheet.create({
   input: {
     fontSize: 17,
     width: 240,
+    paddingHorizontal: 8,
+    borderBottomColor: 'black',
+    borderBottomWidth: 2,
+    marginLeft: 4
+  },
+  input65: {
+    fontSize: 17,
+    width: 214,
     paddingHorizontal: 8,
     borderBottomColor: 'black',
     borderBottomWidth: 2,

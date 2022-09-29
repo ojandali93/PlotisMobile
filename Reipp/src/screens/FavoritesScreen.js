@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, FlatList } from 'react-native'
-import { Dimensions } from 'react-native'
 
 import LoadingComponent from '../components/HomeComponents/LoadingComponent'
 import FavoritesPropertyTileComponent from '../components/GeneralComponents/FavoritesPropertyTileComponent'
 
+import { Dimensions } from 'react-native'
 const loadingDeviceHeight = Dimensions.get('window').height-44
 const loadingDeviceWidth = Dimensions.get('window').width
 
@@ -15,7 +15,7 @@ import { collection, query, where, onSnapshot } from 'firebase/firestore'
 const FavoritesScreen = ({navigation}) => {
   const auth = getAuth()
 
-  const [investmentList, setInvestmentList] = useState([])
+  const [favoritesList, setFavoritesList] = useState([])
   const [loading, setLoading] = useState(false)
 
   const collectionRef = collection(db, 'Favorites')
@@ -50,7 +50,6 @@ const FavoritesScreen = ({navigation}) => {
     const unsubscribe = navigation.addListener('focus', () => {
       if(auth.currentUser === null){
         console.log('not logged in')
-        navigation.navigate('LoginScreen')
       } else {
         setLoading(true)
         grabUserFavorites()
@@ -92,7 +91,7 @@ const FavoritesScreen = ({navigation}) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 54
+    marginTop: 44
   },
   header: {
     display: 'flex',

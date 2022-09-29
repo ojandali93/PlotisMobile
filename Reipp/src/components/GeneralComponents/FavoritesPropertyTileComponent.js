@@ -11,8 +11,10 @@ import { db } from '../../../firebase'
 
 import { convertToDollars } from '../../../utilities'
 
-let deviceWidth = Dimensions.get('window').width - 16
-var aspectHeight = (deviceWidth / 1.78) + 1
+const deviceWidth = Dimensions.get('window').width - 16
+const aspectHeight = (deviceWidth / 1.78) + 1
+
+const loadingDeviceWidth = Dimensions.get('window').width
 
 const FavoritesPropertyTileComponent = (props) => {
   const {
@@ -58,11 +60,28 @@ const FavoritesPropertyTileComponent = (props) => {
               </TouchableOpacity>
             </View>
           </View>
-          <View style={styles.lowBar}>
-            <View style={styles.transparentContainer}>
-              <Text style={styles.transparentLabel}>{item.item.propertyType}</Text>
-            </View>
-          </View>
+          {
+            loadingDeviceWidth == 390 ? <View style={styles.lowBar65}>
+                                          <View style={styles.transparentContainer}>
+                                            <Text style={styles.transparentLabel}>{item.item.propertyType}</Text>
+                                          </View>
+                                        </View>
+                                      : loadingDeviceWidth == 414 ? <View style={styles.lowBar414}>
+                                                                      <View style={styles.transparentContainer}>
+                                                                        <Text style={styles.transparentLabel}>{item.item.propertyType}</Text>
+                                                                      </View>
+                                                                    </View>
+                                                                  : loadingDeviceWidth == 1024 ? <View style={styles.lowBar1024}>
+                                                                                                  <View style={styles.transparentContainer}>
+                                                                                                    <Text style={styles.transparentLabel}>{item.item.propertyType}</Text>
+                                                                                                  </View>
+                                                                                                </View>
+                                                                                              : <View style={styles.lowBar}>
+                                                                                                  <View style={styles.transparentContainer}>
+                                                                                                    <Text style={styles.transparentLabel}>{item.item.propertyType}</Text>
+                                                                                                  </View>
+                                                                                                </View>
+          }
           <View style={styles.contentContainer}>
             <View style={styles.contentRow}>
               <Text style={styles.price}>${convertToDollars(item.item.price)}</Text>
@@ -115,6 +134,36 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     position: 'absolute',
     marginTop: 195
+  },
+  lowBar65: {
+    paddingHorizontal: 8,
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    position: 'absolute',
+    marginTop: 170
+  },
+  lowBar414: {
+    paddingHorizontal: 8,
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    position: 'absolute',
+    marginTop: 185
+  },
+  lowBar1024: {
+    paddingHorizontal: 8,
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    position: 'absolute',
+    marginTop: 525
   },
   transparentContainer: {
     padding: 4,

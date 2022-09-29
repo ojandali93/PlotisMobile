@@ -9,6 +9,10 @@ import { sliderOptions, bedBathAmount, sqftSliderOptions } from '../../required'
 import { convertPriceOptions, convertSqftOptions } from '../../utilities'
 import { ScrollView } from 'react-native-gesture-handler'
 
+import { Dimensions } from 'react-native'
+const loadingDeviceHeight = Dimensions.get('window').height - 200
+const loadingDeviceWidth = Dimensions.get('window').width
+
 const FilterScreen = ({navigation, route}) => {
   const [selectedHomeTypes, setSelectedHomeTypes] = useState([])
 
@@ -199,7 +203,7 @@ const FilterScreen = ({navigation, route}) => {
 
   return (
     <View style={styles.filterContainer}>
-      <ScrollView style={styles.scrollContainer}>
+      <ScrollView style={[styles.scrollContainer, {height: loadingDeviceHeight}]}>
         <View style={styles.header}>
           <Text style={styles.label}>
             Filter
@@ -351,12 +355,11 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     padding: 8,
-    marginTop: 54
+    marginTop: 54,
   },
   scrollContainer: {
     overflow: 'hidden',
-    height: 728,
-    paddingBottom: 8
+    paddingBottom: 8,
   },
   header: {
     width: '100%',

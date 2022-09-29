@@ -1,6 +1,9 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 
+import { Dimensions } from 'react-native'
+const loadingDeviceWidth = Dimensions.get('window').width
+
 const PreapprovedComponent = (props) => {
   const {
 
@@ -9,9 +12,20 @@ const PreapprovedComponent = (props) => {
   return (
     <View style={[styles.preapprovedContainer, styles.shadowBox]}>
       <Text style={styles.label}>Get Pre-approved</Text>
-      <View style={styles.cscontainer}>
-        <Text style={styles.cs}>Coming Soon</Text>
-      </View>
+      {
+        loadingDeviceWidth == 390 ? <View style={styles.cscontainer65}>
+                                      <Text style={styles.cs}>Coming Soon</Text>
+                                    </View>
+                                  : loadingDeviceWidth == 414 ? <View style={styles.cscontainer414}>
+                                                                  <Text style={styles.cs}>Coming Soon</Text>
+                                                                </View>
+                                                              : loadingDeviceWidth == 1024 ?  <View style={styles.cscontainer1024}>
+                                                                                                <Text style={styles.cs}>Coming Soon</Text>
+                                                                                              </View>
+                                                                                           :  <View style={styles.cscontainer}>
+                                                                                                <Text style={styles.cs}>Coming Soon</Text>
+                                                                                              </View>
+      }
     </View>
   )
 }
@@ -48,6 +62,36 @@ const styles = StyleSheet.create({
     marginLeft: 50,
     top: 0,
     left: 260
+  },
+  cscontainer65: {
+    position: 'absolute',
+    padding: 4,
+    borderRadius: 5,
+    backgroundColor: 'green',
+    marginTop: -8,
+    marginLeft: 50,
+    top: 0,
+    left: 224
+  },
+  cscontainer414: {
+    position: 'absolute',
+    padding: 4,
+    borderRadius: 5,
+    backgroundColor: 'green',
+    marginTop: -8,
+    marginLeft: 50,
+    top: 0,
+    left: 244
+  },
+  cscontainer1024: {
+    position: 'absolute',
+    padding: 4,
+    borderRadius: 5,
+    backgroundColor: 'green',
+    marginTop: -8,
+    marginLeft: 50,
+    top: 0,
+    left: 810
   },
   cs: {
     color: 'white'
