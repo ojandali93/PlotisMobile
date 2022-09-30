@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 
-import { convertToDollars } from '../../../utilities'
+import { convertToDollars, convertHOAString } from '../../../utilities'
 
 import EditMortgages from '../ExpensesComponents/EditMortgages'
 import MortgageInsuranceComponent from '../ExpensesComponents/MortgageInsuranceComponent'
@@ -21,13 +21,15 @@ const ExpensesComponents = (props) => {
     setTotalDownPayment
   } = props
 
+  console.log(currentHome.resoFacts.hoaFee)
+
   const [mortgage, setMortgage] = useState()
   const [totalLoanAmount, setTotalLoanAmount] = useState('0')
   const [totalDownPaymentPercent, setTotalDownPaymentPercent] = useState(20)
   const [mortgageInsurance, setMortgageInsurance] = useState(totalDownPaymentPercent >= 20 ? 0 : Math.round(totalLoanAmount * 0.005))
   const [homeInsurance, setHomeInsurance] = useState('1475')
   const [propertyTax, setPropertyTax] = useState(Math.round((currentHome.price * 0.0101)/12))
-  const [hoa, setHoa] = useState(currentHome.hoaFee == null ? '0' : currentHome.hoaFee)
+  const [hoa, setHoa] = useState(currentHome.resoFacts.hoaFee == null ? '0' : convertHOAString(currentHome.resoFacts.hoaFee))
   const [utilities, setUtilities] = useState()
   const [additionalExpenses, setAdditionalExpenses] = useState()
 

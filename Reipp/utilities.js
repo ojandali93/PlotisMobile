@@ -17,6 +17,12 @@ const convertFirstUpper = (text) => {
   return formattedText
 }
 
+const convertHOAString = (text) => {
+  let split = text.split(' ')
+  let dollarSplit = split[0].split('$')
+  return dollarSplit[1]
+}
+
 const convertPriceOptions = (value) => {
   const options = {
     0:'0',
@@ -80,5 +86,6 @@ module.exports = {
   convertToDollars,
   convertFirstUpper,
   convertPriceOptions,
-  convertSqftOptions
+  convertSqftOptions,
+  convertHOAString
 }
