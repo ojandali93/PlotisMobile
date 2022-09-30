@@ -57,6 +57,7 @@ const FeedStack = () => {
     <StackNav.Navigator initialRouteName='Feed' screenOptions={{headerShown: false}}>
       <StackNav.Screen name="FeedScreen" component={FeedScreen}/>
       <StackNav.Screen name="PropertyFeedScreen" component={PropertyScreen} />
+      <StackNav.Screen name="LoginFeedScreen" component={LoginScreen} />
      </StackNav.Navigator>
   )
 }
@@ -67,6 +68,7 @@ const FavoriteStack = () => {
     <StackNav.Navigator initialRouteName='Favorite' screenOptions={{headerShown: false}}>
       <StackNav.Screen name="FavoriteScreen" component={FavoritesScreen}/>
       <StackNav.Screen name="PropertyFavoriteScreen" component={PropertyScreen} />
+      <StackNav.Screen name="LoginFavoriteScreen" component={LoginScreen} />
      </StackNav.Navigator>
   )
 }

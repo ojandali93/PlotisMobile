@@ -24,7 +24,7 @@ const FeedScreen = () => {
     if(auth.currentUser){
       grabSavedSearches()
     } else {
-      navigation.navigate('LoginScreen')
+      navigation.navigate('LoginFeedScreen')
     }
   }, [])
 
@@ -33,7 +33,7 @@ const FeedScreen = () => {
       if(auth.currentUser){
         grabSavedSearches()
       } else {
-        navigation.navigate('LoginScreen')
+        navigation.navigate('LoginFeedScreen')
       }
     })
       return unsubscribe
