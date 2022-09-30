@@ -4,26 +4,26 @@ import { View, Text, StyleSheet, TouchableOpacity, Linking, Image } from 'react-
 const AboutUsScreen = () => {
 
   const goToWebsite = () => {
-    Linking.canOpenURL('https://rippeapp.com').then(() => {
-      Linking.openURL('https://rippeapp.com');
+    Linking.canOpenURL('https://ryppe.io').then(() => {
+      Linking.openURL('https://ryppe.io');
     });
   }
 
   const goToTwitter = () => {
-    Linking.canOpenURL('twitter://user?screen_name=rippe_io').then(() => {
-      Linking.openURL('twitter://user?screen_name=rippe_io');
+    Linking.canOpenURL('twitter://user?screen_name=ryppe_io').then(() => {
+      Linking.openURL('twitter://user?screen_name=ryppe_io');
     });
-    Linking.canOpenURL('https://twitter.com/plotis_io').then(() => {
-      Linking.openURL('https://twitter.com/plotis_io');
+    Linking.canOpenURL('https://twitter.com/ryppe_io').then(() => {
+      Linking.openURL('https://twitter.com/ryppe_io');
     });
   }
 
   const goToInstagram = () => {
-    Linking.canOpenURL('instagram://user?username=rippe.io').then(() => {
-      Linking.openURL('instagram://user?username=rippe.io');
+    Linking.canOpenURL('instagram://user?username=ryppe.io').then(() => {
+      Linking.openURL('instagram://user?username=ryppe.io');
     });
-    Linking.canOpenURL('https://www.instagram.com/rippe.io/').then(() => {
-      Linking.openURL('https://www.instagram.com/rippe.io/');
+    Linking.canOpenURL('https://www.instagram.com/ryppe.io/').then(() => {
+      Linking.openURL('https://www.instagram.com/ryppe.io/');
     });
   }
 
@@ -37,13 +37,13 @@ const AboutUsScreen = () => {
           <Image style={{height: 80, width: 80}} source={require('../assets/rippe-icon-blue.png')}/>
         </View>
         <View>
-          <Text style={styles.name}>Rippe Group Inc.</Text>
+          <Text style={styles.name}>Ryppe Group Inc.</Text>
           <Text style={styles.label}>Find your next</Text>
           <Text style={styles.label}>investment property</Text>
         </View>
       </View>
       <View style={styles.row}>
-        <Text style={styles.label}>Rippe is a new real estate platform that was build form the ground up 
+        <Text style={styles.label}>Ryppe is a new real estate platform that was build form the ground up 
           with 1 goal in mind. Change the way that people look for, find, and purchase 
           investment properties. It is as simple as searching for a city you want to 
           invest in, look through the variety of properties, look at the investment 
@@ -52,7 +52,7 @@ const AboutUsScreen = () => {
       </View>
       <View style={styles.rowSB}>
         <Text style={styles.label}>Name:</Text>
-        <Text style={styles.label}>Rippe Group Inc.</Text>
+        <Text style={styles.label}>Ryppe Group Inc.</Text>
       </View>
       <View style={styles.rowSB}>
         <Text style={styles.label}>Established:</Text>
@@ -65,7 +65,7 @@ const AboutUsScreen = () => {
       <View style={styles.rowSB}>
         <Text style={styles.label}>Website</Text>
         <TouchableOpacity onPress={() => {goToWebsite()}}>
-          <Text style={styles.labelBlue}>rippeapp.com</Text>
+          <Text style={styles.labelBlue}>ryppe.io</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.rowC}>
