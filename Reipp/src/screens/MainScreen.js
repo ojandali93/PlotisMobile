@@ -62,7 +62,6 @@ const MainScreen = ({navigation, route}) => {
       if (route.params?.currentFilters) {
         setActiveFilters(route.params.currentFilters)
       } else {
-        console.log('no change')
       }
       grabUserFavorites()
     })
@@ -70,7 +69,6 @@ const MainScreen = ({navigation, route}) => {
   }, [navigation])
 
   useEffect(() => {
-    console.log(favoritesList.length)
     const newFavorites = []
     favoritesList.forEach((item) => {
       newFavorites.push(item.zpid)
@@ -98,7 +96,6 @@ const MainScreen = ({navigation, route}) => {
     if (route.params?.appliedFilters) {
       setAppliedFilters(route.params.appliedFilters)
     } else {
-      console.log('no filters found')
     }
   }, [route.params])
 
@@ -144,7 +141,6 @@ const MainScreen = ({navigation, route}) => {
   }, [pageNumber])
 
   const newSearch = () => {
-    console.log(appliedFilters)
     if(Object.keys(appliedFilters).length == 0){
       const appliedFilters = {
         "home_type": 'Houses',

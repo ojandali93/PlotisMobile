@@ -54,7 +54,6 @@ const SettingsScreen = () => {
       if(auth.currentUser === null){
         navigation.navigate('LoginStack')
       } else {
-        console.log('logged in')
       }
     })
     return unsubscribe
@@ -158,7 +157,6 @@ const SettingsScreen = () => {
       .then(() => {
         updateEmail(auth.currentUser, newEmail.toString())
           .then(() => {
-            console.log('updated email')
             setUser(auth.currentUser)
             updateProfile()
           })
@@ -178,7 +176,6 @@ const SettingsScreen = () => {
       lastName: newLastName,
       email: user.email
     }).then(() => {
-      console.log('updatedUser')
       grabUserProfile()
       setEditProfile(false)
     }).catch((error) => {

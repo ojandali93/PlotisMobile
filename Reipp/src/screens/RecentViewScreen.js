@@ -35,7 +35,6 @@ const RecentViewScreen = () => {
       newRecentViews.push(item.item.zpid)
     })
     setRecentViewsZpid(newRecentViews)
-    // console.log(favoritesZpid)
   }, [recentViewsList])
 
   const grabRecentViews = () => {

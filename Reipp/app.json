@@ -2,12 +2,12 @@
   "expo": {
     "name": "Ryppe",
     "slug": "Ryppe",
-    "version": "1.0.1",
+    "version": "1.1.1",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/rgi-logo-app.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/rgi-splash-screen.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -23,7 +23,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/rgi-logo-app.png",
         "backgroundColor": "#FFFFFF"
       }
     },

@@ -49,7 +49,6 @@ const FavoritesScreen = ({navigation}) => {
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       if(auth.currentUser === null){
-        console.log('not logged in')
         navigation.navigate('LoginFavoriteScreen')
       } else {
         setLoading(true)

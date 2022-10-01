@@ -13,6 +13,12 @@
     "production": {}
   },
   "submit": {
-    "production": {}
+    "production": {
+      "ios": {
+        "appleId": "omarjandali@omnacore.com",
+        "ascAppId": "6443611796",
+        "appleTeamId": "6248MU8UP2"
+      }
+    }
   }
 }

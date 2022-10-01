@@ -17,7 +17,6 @@ const LoginScreen = () => {
   const submitLogin = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then(userCredentials => {
-        console.log(userCredentials)
         const user = userCredentials.user 
         navigation.navigate('ProfileScreen')
       })

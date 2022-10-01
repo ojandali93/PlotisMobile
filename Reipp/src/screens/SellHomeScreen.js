@@ -80,7 +80,6 @@ const SellHomeScreen = () => {
           "userId": auth.currentUser.uid,
           "createdAt": serverTimestamp()
         }).then((response) => {
-          console.log('added to SellHome')
           navigation.navigate('ThankYouScreen')
         }).catch((error) => {
           console.error(error)

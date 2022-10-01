@@ -28,10 +28,6 @@ const PropertyTile = (props) => {
   const auth = getAuth()
   const navigation = useNavigation();
 
-  const updateShare = () => {
-    console.log('share')
-  }
-
   const goToDetailsPage =(zpid) => {
     const collectionRef = collection(db, 'RecentViews')
     if(auth.currentUser){
@@ -40,7 +36,6 @@ const PropertyTile = (props) => {
         "userId": auth.currentUser.uid,
         "createdAt": serverTimestamp()
       }).then((response) => {
-        console.log('added to faorites')
       }).catch((error) => {
         console.error(error)
       })
@@ -57,7 +52,6 @@ const PropertyTile = (props) => {
         "zpid": item.item.zpid,
         "createdAt": serverTimestamp()
       }).then((response) => {
-        console.log('added to faorites')
       }).catch((error) => {
         console.error(error)
       })
@@ -67,16 +61,13 @@ const PropertyTile = (props) => {
   const removeFromFavorites = (zpid) => {
     let selectedFavorite
     favoritesList.forEach((fav) => {
-      console.log(fav)
       if(fav.zpid == zpid){
         selectedFavorite = fav
       }
     })
-    console.log(selectedFavorite)
     const docRef = doc(db, 'Favorites', selectedFavorite.id)
     deleteDoc(docRef)
       .then((response) => {
-        console.log('delete favorite')
       })
       .catch((error) => {
         console.log(error)

@@ -31,8 +31,6 @@ const SeachAndFilterComponent = (props) => {
     setOpenSort(false)
   }
 
-  console.log(loadingDeviceWidth)
-
   return (
     <>
       <View>

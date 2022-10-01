@@ -114,7 +114,6 @@ const FilterScreen = ({navigation, route}) => {
     if(Object.keys(currentFilters).length === 0){
 
     } else {
-      console.log('passed parameters', currentFilters)
       navigation.navigate('HomeScreen', {appliedFilters: currentFilters})
     }
   }, [currentFilters])

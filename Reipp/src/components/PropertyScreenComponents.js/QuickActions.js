@@ -55,9 +55,7 @@ const QuickActions = (props) => {
 
   const grabUserFavorites = () => {
     if(auth.currentUser == null){
-      console.log('not logged in')
     } else {
-      console.log('logged in')
       const collectionRef = collection(db, 'Favorites')
       const q = query(collectionRef, where('userId', '==', auth.currentUser.uid))
       onSnapshot(q, (snapshot) => {
@@ -79,7 +77,6 @@ const QuickActions = (props) => {
         "zpid": currentHome.zpid.toString(),
         "createdAt": serverTimestamp()
       }).then((response) => {
-        console.log('added to faorites')
       }).catch((error) => {
         console.error(error)
       })
@@ -93,12 +90,10 @@ const QuickActions = (props) => {
         selectedFavorite = fav
       }
     })
-    console.log(selectedFavorite)
     const docRef = doc(db, 'Favorites', selectedFavorite.id)
     deleteDoc(docRef)
       .then((response) => {
         grabUserFavorites()
-        console.log('delete favorite')
       })
       .catch((error) => {
         console.log(error)

@@ -48,10 +48,6 @@ const InvestmentScreen = ({navigation}) => {
     return unsubscribe
   }, [navigation])
 
-  // useEffect(() => {
-  //   console.log(investmentList)
-  // }, [investmentList])
-
   return (
     <>
       <View style={styles.container}>

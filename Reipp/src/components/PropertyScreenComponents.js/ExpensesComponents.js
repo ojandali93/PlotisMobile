@@ -21,8 +21,6 @@ const ExpensesComponents = (props) => {
     setTotalDownPayment
   } = props
 
-  console.log(currentHome.resoFacts.hoaFee)
-
   const [mortgage, setMortgage] = useState()
   const [totalLoanAmount, setTotalLoanAmount] = useState('0')
   const [totalDownPaymentPercent, setTotalDownPaymentPercent] = useState(20)
