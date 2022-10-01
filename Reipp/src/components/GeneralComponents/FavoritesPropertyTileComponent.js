@@ -24,10 +24,6 @@ const FavoritesPropertyTileComponent = (props) => {
   const auth = getAuth()
   const navigation = useNavigation();
 
-  const updateShare = () => {
-    console.log('share')
-  }
-
   const goToDetailsPage =(zpid) => {
     const collectionRef = collection(db, 'RecentViews')
     if(auth.currentUser){
@@ -36,7 +32,6 @@ const FavoritesPropertyTileComponent = (props) => {
         "userId": auth.currentUser.uid,
         "createdAt": serverTimestamp()
       }).then((response) => {
-        console.log('added to faorites')
       }).catch((error) => {
         console.error(error)
       })

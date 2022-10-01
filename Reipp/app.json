@@ -19,7 +19,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.reipp.app"
+      "bundleIdentifier": "com.ryppe.app"
     },
     "android": {
       "adaptiveIcon": {

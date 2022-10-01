@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet } from 'react-native';
-import { LogBox } from 'react-native';
+// import AsyncStorage from '@react-native-community/async-storage'
+// import { LogBox } from 'react-native';
 
 import { Feather } from 'react-native-vector-icons'
 
@@ -32,7 +33,7 @@ import FullMapScreen from './src/screens/FullMapScreen'
 import InvestmentScreen from './src/screens/InvestmentScreen'
 
 // console.disableYellowBox = true;
-LogBox.ignoreAllLogs(true)
+// LogBox.ignoreAllLogs(true)
 
 const TabNav = createBottomTabNavigator();
 const StackNav = createStackNavigator();
